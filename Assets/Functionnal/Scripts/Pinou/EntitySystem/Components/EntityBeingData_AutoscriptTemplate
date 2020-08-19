@@ -1,0 +1,117 @@
+﻿using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Pinou.EntitySystem	
+{
+	public partial class EntityBeingData : EntityComponentData
+	{
+		[FoldoutGroup("Being Resources")]
+|RESOURCESFIELDSDATA|
+
+		public float GetMaxResource(EntityBeingResourcesType resourceType)
+		{
+			switch(resourceType)
+			{
+|SWITCHMAXDATA|
+			}
+			
+			throw new System.Exception("No " + resourceType + " resource found.");
+		}
+		public float GetResourceRegen(EntityBeingResourcesType resourceType)
+		{
+			switch(resourceType)
+			{
+|SWITCHREGENDATA|
+			}
+			
+			throw new System.Exception("No " + resourceType + " resource found.");
+		}
+		public float GetResourceReceivedFactor(EntityBeingResourcesType resourceType)
+		{
+			switch(resourceType)
+			{
+|SWITCHRECEIVEDDATA|
+			}
+			
+			throw new System.Exception("No " + resourceType + " resource found.");
+		}
+		
+		public bool GetResourceStartNotAtMax(EntityBeingResourcesType resourceType)
+		{
+			switch(resourceType)
+			{
+|SWITCHSTARTNOTATMAXDATA|
+			}
+			
+			throw new System.Exception("No " + resourceType + " resource found.");
+		}
+		
+		public float GetResourceStartAmount(EntityBeingResourcesType resourceType)
+		{
+			switch(resourceType)
+			{
+|SWITCHSTARTAMOUNTDATA|
+			}
+			
+			throw new System.Exception("No " + resourceType + " resource found.");
+		}
+
+        public partial class EntityBeing : EntityComponent
+        {
+|RESOURCESINSTANCE|
+			
+			//Generics
+			public float GetCurrentResource(EntityBeingResourcesType resourceType)
+			{
+				switch(resourceType)
+				{
+|SWITCHGETCURRENTINSTANCE|
+				}
+				
+				throw new System.Exception("No " + resourceType + " resource found.");
+			}
+			public void SetCurrentResource(EntityBeingResourcesType resourceType, float value)
+			{
+				switch(resourceType)
+				{
+|SWITCHSETCURRENTINSTANCE|
+				}
+			}
+			public void ModifyCurrentResource(EntityBeingResourcesType resourceType, float amount)
+			{
+				switch(resourceType)
+				{
+|SWITCHMODIFYCURRENTINSTANCE|
+				}
+			}
+			public float GetMaxResource(EntityBeingResourcesType resourceType)
+			{
+				switch(resourceType)
+				{
+|SWITCHMAXINSTANCE|
+				}
+				
+				throw new System.Exception("No " + resourceType + " resource found.");
+			}
+			public float GetResourceRegen(EntityBeingResourcesType resourceType)
+			{
+				switch(resourceType)
+				{
+|SWITCHREGENINSTANCE|
+				}
+			
+				throw new System.Exception("No " + resourceType + " resource found.");
+			}
+			public float GetResourceReceivedFactor(EntityBeingResourcesType resourceType)
+			{
+				switch(resourceType)
+				{
+|SWITCHRECEIVEDINSTANCE|
+				}
+			
+				throw new System.Exception("No " + resourceType + " resource found.");
+			}
+        }
+    }
+}

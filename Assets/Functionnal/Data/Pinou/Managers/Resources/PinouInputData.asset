@@ -1,0 +1,612 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62205c3d2426a34499acb4367cb7d2cd, type: 3}
+  m_Name: PinouInputData
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _autoScriptPath: Assets\Functionnal\Scripts\Pinou\InputSystem\
+  _gameInputs:
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Game_ShowPauseMenu
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 27
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 11
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Game_Shoot
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 0
+        Key: 0
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs: []
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Editor_CameraLook
+    _computerInputs:
+    - InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 0
+        Key: 27
+        MouseButtonId: 1
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 3
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 0
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Editor_CameraSprint
+    _computerInputs:
+    - InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 304
+        MouseButtonId: 1
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 10
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Editor_CameraUp
+    _computerInputs:
+    - InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 101
+        MouseButtonId: 1
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 9
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Editor_CameraDown
+    _computerInputs:
+    - InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 97
+        MouseButtonId: 1
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 16
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_GoRight
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 275
+        MouseButtonId: 0
+        WheelDirection: 0
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 100
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 1
+        Button: 0
+        Axis: 0
+        InputDirection: 1
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 1
+        Button: 0
+        Axis: 6
+        InputDirection: 1
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_GoLeft
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 276
+        MouseButtonId: 0
+        WheelDirection: 0
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 113
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 1
+        Button: 0
+        Axis: 0
+        InputDirection: 2
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 1
+        Button: 0
+        Axis: 6
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_GoUp
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 273
+        MouseButtonId: 0
+        WheelDirection: 0
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 122
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 1
+        Button: 0
+        Axis: 1
+        InputDirection: 1
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 1
+        Button: 0
+        Axis: 7
+        InputDirection: 1
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_GoDown
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 274
+        MouseButtonId: 0
+        WheelDirection: 0
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 115
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 1
+        Button: 0
+        Axis: 1
+        InputDirection: 2
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 1
+        Button: 0
+        Axis: 7
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_Accept
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 13
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 1
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_Return
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 8
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 2
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_PlayerJoin
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 13
+        MouseButtonId: 0
+        WheelDirection: 0
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 0
+        Key: 13
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 1
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_PlayerLeave
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 8
+        MouseButtonId: 0
+        WheelDirection: 0
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 0
+        Key: 13
+        MouseButtonId: 1
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 2
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_PlayerReadyStart
+    _computerInputs:
+    - InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 13
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 1
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Menu_PlayerNotReadyReturn
+    _computerInputs:
+    - InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 8
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 2
+        Axis: 1
+        InputDirection: 2
+  _gameAxes:
+  - E_OpenList: 01
+    E_ToggleList: 
+    AxisName: Game_Move
+    Is2D: 1
+    Revert: 0
+    Revert2D: 0
+    ClampToOne: 1
+    StickSide: 1
+    ComputerAxisType: 0
+    PositiveKey: 100
+    NegativeKey: 113
+    ComputerAxis: 0
+    ComputerAxisType2D: 0
+    Positive2DKey: 122
+    Negative2DKey: 115
+    ComputerAxis2D: 1
+    Axis: 0
+    Axis2D: 1
+  - E_OpenList: 01
+    E_ToggleList: 
+    AxisName: Game_Zoom
+    Is2D: 0
+    Revert: 1
+    Revert2D: 0
+    ClampToOne: 0
+    StickSide: 2
+    ComputerAxisType: 1
+    PositiveKey: 0
+    NegativeKey: 0
+    ComputerAxis: 2
+    ComputerAxisType2D: 0
+    Positive2DKey: 0
+    Negative2DKey: 0
+    ComputerAxis2D: 0
+    Axis: 7
+    Axis2D: 0
+  - E_OpenList: 00
+    E_ToggleList: 
+    AxisName: Editor_CameraMove
+    Is2D: 1
+    Revert: 0
+    Revert2D: 0
+    ClampToOne: 0
+    StickSide: 1
+    ComputerAxisType: 0
+    PositiveKey: 100
+    NegativeKey: 113
+    ComputerAxis: 0
+    ComputerAxisType2D: 0
+    Positive2DKey: 122
+    Negative2DKey: 115
+    ComputerAxis2D: 1
+    Axis: 0
+    Axis2D: 1
+  - E_OpenList: 00
+    E_ToggleList: 
+    AxisName: Editor_CameraAim
+    Is2D: 1
+    Revert: 0
+    Revert2D: 0
+    ClampToOne: 0
+    StickSide: 2
+    ComputerAxisType: 1
+    PositiveKey: 122
+    NegativeKey: 115
+    ComputerAxis: 0
+    ComputerAxisType2D: 1
+    Positive2DKey: 113
+    Negative2DKey: 100
+    ComputerAxis2D: 1
+    Axis: 2
+    Axis2D: 3
+  _mouseSensitivity: 1
+  _ps4Sensitivity:
+    _leftStick:
+      _innerDeadZone: 0.4
+      _outDeadZone: 0.1
+      _linearity: 1.3
+      _hSensitivity: 1
+      _vSensitivity: 1
+    _rightStick:
+      _innerDeadZone: 0.15
+      _outDeadZone: 0.1
+      _linearity: 1.3
+      _hSensitivity: 2
+      _vSensitivity: 1.5
+  _xBoxSensitivity:
+    _leftStick:
+      _innerDeadZone: 0.3
+      _outDeadZone: 0.1
+      _linearity: 1.3
+      _hSensitivity: 1
+      _vSensitivity: 1
+    _rightStick:
+      _innerDeadZone: 0.1
+      _outDeadZone: 0.1
+      _linearity: 1.3
+      _hSensitivity: 2
+      _vSensitivity: 1.5

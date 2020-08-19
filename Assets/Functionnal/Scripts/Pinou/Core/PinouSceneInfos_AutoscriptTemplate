@@ -1,0 +1,23 @@
+#pragma warning disable 1522
+using UnityEngine;
+
+namespace Pinou
+{
+	public enum SceneHolder
+	{
+|ENUM|	}
+	
+	public partial class PinouSceneInfos
+	{
+		[Header("Scene Holders")]
+		[Space]
+|FIELDS|	
+		public Transform GetHolder(SceneHolder holder)
+		{
+			switch(holder)
+			{
+|SWITCH|			}
+			return null;
+		}
+    }
+}

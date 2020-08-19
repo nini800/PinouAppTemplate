@@ -1,0 +1,6 @@
+﻿namespace Pinou
+{
+	public partial class PinouApp : PinouSingleton<PinouApp>
+	{
+|FIELDS|	}
+}

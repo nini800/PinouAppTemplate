@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2069fd25da409bc41b85bd0952add88a, type: 3}
+  m_Name: Editor_ShortcutsData
+  m_EditorClassIdentifier: Assembly-CSharp-Editor:Masks.Editor:Editor_ShortcutsData
+  _shortcuts:
+  - name: Main
+    path: 
+  - name: Scripts Folder
+    path: Assets\Functionnal\Scripts
+  - name: Visual Folder
+    path: Assets\Visual
+  - name: Data
+    path: 
+  - name: PinouData
+    path: Assets\Functionnal\Data\Pinou\Managers\Resources
+  - name: PlayerData
+    path: Assets\Functionnal\Data\TAP\Entities\PlayerData
+  - name: TAPData
+    path: Assets\Functionnal\Data\TAP
+  - name: Functionnal
+    path: 
+  - name: Prefabs
+    path: Assets\Functionnal\Prefabs
+  - name: TAP Entities Prefabs
+    path: Assets\Functionnal\Prefabs\TAP\Entities
+  - name: Misc.
+    path: 
+  - name: Shortcuts Editor
+    path: Assets\Functionnal\Scripts\Pinou\PinouEditor\Editor\Resources

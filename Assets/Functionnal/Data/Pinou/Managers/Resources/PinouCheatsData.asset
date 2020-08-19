@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9c7a803cd618c4e8b31d55c07e115b, type: 3}
+  m_Name: PinouCheatsData
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _cheats:
+  - _cheatType: 0
+    _cheatKeyModifier: 256
+    _cheatKey: 257
+    _entityModel: {fileID: 5350390672496040143, guid: 0ec65ad7805378049a19afb18e46644a,
+      type: 3}
+    _spawnMethod: 2
+    _forwardOffset: 0
+    _healthModifier: 0
+    _entitiesToImmortalize: 0
+    _teleportOffset: {x: 0, y: 0, z: 0}

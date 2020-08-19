@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d9e676caebdb244a5d715242fb79c6, type: 3}
+  m_Name: PinouResourcesData
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 0
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _layers:
+    _statics:
+      serializedVersion: 2
+      m_Bits: 1
+    _ground:
+      serializedVersion: 2
+      m_Bits: 1
+    _solids:
+      serializedVersion: 2
+      m_Bits: 1
+    _entities:
+      serializedVersion: 2
+      m_Bits: 512
+    _interactable:
+      serializedVersion: 2
+      m_Bits: 1024
+  _materials:
+    _defaultMaterial: {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  _entities:
+    _spawnPools:
+    - _poolName: LowLevel
+      _poolGroups:
+      - _entities:
+        - {fileID: 5350390672496040143, guid: 0ec65ad7805378049a19afb18e46644a, type: 3}
+        _cost: 1
+        _frequency: 10
+        _groupRadius: 0
+      - _entities:
+        - {fileID: 5350390672496040143, guid: 0ec65ad7805378049a19afb18e46644a, type: 3}
+        - {fileID: 5350390672496040143, guid: 0ec65ad7805378049a19afb18e46644a, type: 3}
+        - {fileID: 5350390672496040143, guid: 0ec65ad7805378049a19afb18e46644a, type: 3}
+        _cost: 3
+        _frequency: 2.5
+        _groupRadius: 3
+      _totalFrequency: 12.5
+  _abilityDatabase:
+    _abilities:
+    - {fileID: 11400000, guid: fe1ac3be63fa84347bff68f1d1dc9f40, type: 2}
+    - {fileID: 11400000, guid: 50ba871188a3dab4baca5a715b1cce68, type: 2}

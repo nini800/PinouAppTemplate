@@ -1,0 +1,43 @@
+﻿#pragma warning disable 1522
+namespace Pinou.InputSystem
+{
+	public enum PinouInput
+	{
+|ENUMINPUT|
+	}
+	public enum PinouAxis
+	{
+|ENUMAXIS|
+	}
+	public enum Pinou2DAxis
+	{
+|ENUMAXIS2D|
+	}
+/*	public partial class PinouInputManager
+	{
+		public static int GetInputParametersIndex(PinouInput input)
+		{
+			switch (input)
+			{
+|SWITCHINPUT|
+			}
+			throw new System.NotImplementedException();
+		}
+		public static int GetAxisParametersIndex(PinouAxis axis)
+		{
+			switch (axis)
+			{
+|SWITCHAXIS|
+			}
+			throw new System.NotImplementedException();
+		}
+		public static int Get2DAxisParametersIndex(Pinou2DAxis axis)
+		{
+			switch (axis)
+			{
+|SWITCHAXIS2D|
+			}
+			throw new System.NotImplementedException();
+		}
+	}*/
+}
