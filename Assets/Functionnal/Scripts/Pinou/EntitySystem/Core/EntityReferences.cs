@@ -44,27 +44,36 @@ namespace Pinou.EntitySystem
         public Vector2 Forward2D { get => master.Forward2D; }
 
         public bool HasController => master.HasController;
+		public bool HasStats => master.HasStats;
         public bool HasBeing => master.HasBeing;
         public bool HasAbilities => master.HasAbilities;
+		public bool HasInteractions => master.HasInteractions;
         public bool HasMovements => master.HasMovements;
+		public bool HasAnimations => master.HasAnimations;
         public bool HasVisual => master.HasVisual;
+        public bool HasLoot => master.HasLoot;
 
         public EntityControllerData.EntityController Controller => master.Controller;
+        public EntityStatsData.EntityStats Stats => master.Stats;
         public EntityBeingData.EntityBeing Being => master.Being;
         public EntityAbilitiesData.EntityAbilities Abilities => master.Abilities;
+        public EntityInteractionsData.EntityInteractions Interactions => master.Interactions;
         public EntityMovementsData.EntityMovements Movements => master.Movements;
+        public EntityAnimationsData.EntityAnimations Animations => master.Animations;
         public EntityVisualData.EntityVisual Visual => master.Visual;
+        public EntityLootData.EntityLoot Loot => master.Loot;
 
         public ControllerState ControllerState => master.ControllerState;
         public BeingState BeingState => master.BeingState;
         public AbilityState AbilityState => master.AbilityState;
+		public InteractionState InteractionState => master.InteractionState;
         public MovementState MovementState => master.MovementState;
         public MovementDirection MovementDirection => master.MovementDirection;
-        #endregion
+		#endregion
 
-        #region Editor
+		#region Editor
 #if UNITY_EDITOR
-        protected override void E_OnValidate()
+		protected override void E_OnValidate()
         {
             AutoFindReference(ref master);
             AutoFindReference(ref inputReceiver);

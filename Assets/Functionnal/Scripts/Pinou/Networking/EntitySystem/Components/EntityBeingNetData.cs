@@ -8,9 +8,6 @@ namespace Pinou.Networking
 {
 	public partial class EntityBeingNetData : EntityBeingData
     {
-        #region Fields, Getters
-        #endregion
-
         #region Component Core
         public override EntityComponent ConstructComponent(Entity master, EntityReferences references)
         {
@@ -93,9 +90,6 @@ namespace Pinou.Networking
                     deathResult = null;
                 }
             }
-			#endregion
-
-			#region Events
 			#endregion
 		}
     }

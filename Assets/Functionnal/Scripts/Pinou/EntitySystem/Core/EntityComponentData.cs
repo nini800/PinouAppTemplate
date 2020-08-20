@@ -51,31 +51,38 @@ namespace Pinou.EntitySystem
             public Vector2 Forward2D { get => master.Forward2D; }
 
             public bool HasController => master.HasController;
+            public bool HasStats => master.HasStats;
             public bool HasBeing => master.HasBeing;
             public bool HasAbilities => master.HasAbilities;
+            public bool HasInteractions => master.HasInteractions;
             public bool HasMovements => master.HasMovements;
+            public bool HasAnimations => master.HasAnimations;
             public bool HasVisual => master.HasVisual;
+            public bool HasLoot => master.HasLoot;
 
             public EntityControllerData.EntityController Controller => master.Controller;
+			public EntityStatsData.EntityStats Stats => master.Stats;
             public EntityBeingData.EntityBeing Being => master.Being;
             public EntityAbilitiesData.EntityAbilities Abilities => master.Abilities;
+			public EntityInteractionsData.EntityInteractions Interactions => master.Interactions;
             public EntityMovementsData.EntityMovements Movements => master.Movements;
+			public EntityAnimationsData.EntityAnimations Animations => master.Animations;
             public EntityVisualData.EntityVisual Visual => master.Visual;
+            public EntityLootData.EntityLoot Loot => master.Loot;
 
             public virtual ControllerState ControllerState => master.ControllerState;
             public virtual BeingState BeingState => master.BeingState;
             public virtual AbilityState AbilityState => master.AbilityState;
+            public virtual InteractionState InteractionState => master.InteractionState;
             public virtual MovementState MovementState => master.MovementState;
             public virtual MovementDirection MovementDirection => master.MovementDirection;
+			#endregion
 
-
-            #endregion
-
-            #region ISlave
-            /// <summary>
-            /// Do not need base.
-            /// </summary>
-            public virtual void SlaveAwake()
+			#region ISlave
+			/// <summary>
+			/// Do not need base.
+			/// </summary>
+			public virtual void SlaveAwake()
             {
             }
 

@@ -32,12 +32,15 @@ namespace Pinou.EntitySystem
 		protected EntityStatsData.EntityStats stats = null;
 		protected EntityBeingData.EntityBeing being = null;
 		protected EntityAbilitiesData.EntityAbilities abilities = null;
+		protected EntityInteractionsData.EntityInteractions interactions;
 		protected EntityMovementsData.EntityMovements movements = null;
+		protected EntityAnimationsData.EntityAnimations animations = null;
 		protected EntityVisualData.EntityVisual visual = null;
-        #endregion
+		protected EntityLootData.EntityLoot loot = null;
+		#endregion
 
-        #region Behaviour
-        protected override void OnAwake()
+		#region Behaviour
+		protected override void OnAwake()
         {
 			CreateComponents();
             for (int i = 0; i < components.Count; i++)
@@ -178,20 +181,29 @@ namespace Pinou.EntitySystem
 		public Vector2 Forward2D { get => transform.right; }
 
 		public bool HasController => controller != null;
+        public bool HasStats => stats != null;
         public bool HasBeing => being != null;
-        public bool HasAbilities => abilities != null;
+		public bool HasAbilities => abilities != null;
+        public bool HasInteractions => interactions != null;
 		public bool HasMovements => movements != null;
+        public bool HasAnimations => animations != null;
 		public bool HasVisual => visual != null;
+		public bool HasLoot => loot != null;
 
         public EntityControllerData.EntityController Controller => controller;
+        public EntityStatsData.EntityStats Stats => stats;
         public EntityBeingData.EntityBeing Being => being;
 		public EntityAbilitiesData.EntityAbilities Abilities => abilities;
+		public EntityInteractionsData.EntityInteractions Interactions => interactions;
 		public EntityMovementsData.EntityMovements Movements => movements;
+		public EntityAnimationsData.EntityAnimations Animations => animations;
 		public EntityVisualData.EntityVisual Visual => visual;
+		public EntityLootData.EntityLoot Loot => loot;
 
 		public ControllerState ControllerState => controller != null ? controller.ControllerState : ControllerState.None;
 		public BeingState BeingState => being != null ? being.BeingState : BeingState.None;
 		public AbilityState AbilityState => abilities != null ? abilities.AbilityState : AbilityState.None;
+		public InteractionState InteractionState => interactions != null ? interactions.InteractionState : InteractionState.None;
 		public MovementState MovementState => movements != null ? movements.MovementState : MovementState.None;
 		public MovementDirection MovementDirection => movements != null ? movements.MovementDirection : MovementDirection.None;
 		#endregion

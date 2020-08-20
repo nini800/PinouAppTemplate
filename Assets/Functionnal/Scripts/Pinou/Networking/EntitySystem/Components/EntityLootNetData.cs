@@ -5,16 +5,16 @@ using Pinou.EntitySystem;
 
 namespace Pinou.Networking
 {
-    public class EntityStatsNetData : EntityStatsData
+    public class EntityLootNetData : EntityLootData
     {
         #region Component Core
         public override EntityComponent ConstructComponent(Entity master, EntityReferences references)
         {
-            return ConstructComponent<EntityStatsNet, EntityStatsNetData>(master, references, this);
+            return ConstructComponent<EntityLootNet, EntityLootNetData>(master, references, this);
         }
         #endregion
 
-        public class EntityStatsNet : EntityStats
+        public class EntityLootNet : EntityLoot
         {
             #region OnConstruct
             /// <summary>
@@ -23,11 +23,11 @@ namespace Pinou.Networking
             protected override void OnConstruct()
             {
                 base.OnConstruct();
-                _data = (EntityStatsNetData)base.Data;
+                _data = (EntityLootNetData)base.Data;
             }
 
-            private EntityStatsNetData _data = null;
-            public new EntityStatsNetData Data => _data;
+            private EntityLootNetData _data = null;
+            public new EntityLootNetData Data => _data;
             #endregion
         }
     }

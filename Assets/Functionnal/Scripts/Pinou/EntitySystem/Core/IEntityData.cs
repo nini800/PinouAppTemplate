@@ -8,10 +8,14 @@ namespace Pinou.EntitySystem
 		EntityReferences References { get; }
 
 		EntityControllerData.EntityController Controller { get; }
+		EntityStatsData.EntityStats Stats { get; }
 		EntityBeingData.EntityBeing Being { get; }
 		EntityAbilitiesData.EntityAbilities Abilities { get; }
+		EntityInteractionsData.EntityInteractions Interactions { get; }
 		EntityMovementsData.EntityMovements Movements { get; }
+		EntityAnimationsData.EntityAnimations Animations { get; }
 		EntityVisualData.EntityVisual Visual { get; }
+		EntityLootData.EntityLoot Loot { get; }
 	}
 	public interface IEntityBaseData
 	{
@@ -21,14 +25,19 @@ namespace Pinou.EntitySystem
 		bool Is2D { get; }
 
 		bool HasController { get; }
+		bool HasStats { get; }
 		bool HasBeing { get; }
 		bool HasAbilities { get; }
+		bool HasInteractions { get; }
 		bool HasMovements { get; }
+		bool HasAnimations { get; }
 		bool HasVisual { get; }
+		bool HasLoot { get; }
 
 		ControllerState ControllerState { get; }
 		BeingState BeingState { get; }
 		AbilityState AbilityState { get; }
+		InteractionState InteractionState { get; }
 		MovementState MovementState { get; }
 		MovementDirection MovementDirection { get; }
 

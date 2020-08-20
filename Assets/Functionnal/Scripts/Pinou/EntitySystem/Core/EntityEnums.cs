@@ -39,6 +39,12 @@
         SoftRecovering = 8,
     }
     [System.Flags]
+    public enum InteractionState
+	{
+        None = 0,
+        Interacting = 1,
+	}
+    [System.Flags]
     public enum MovementState
     {
         None = 0,

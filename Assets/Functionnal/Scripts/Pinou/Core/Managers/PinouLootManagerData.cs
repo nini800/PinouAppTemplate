@@ -21,8 +21,6 @@ namespace Pinou
 			}
 			public new PinouLootManagerData Data { get; private set; }
 
-
-
 		}
 	}
 }
