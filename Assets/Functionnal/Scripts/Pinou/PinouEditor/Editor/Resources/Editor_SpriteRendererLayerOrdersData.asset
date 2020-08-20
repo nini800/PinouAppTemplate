@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f588571341fe56e48a94cf2f83bb9c32, type: 3}
+  m_Name: Editor_SpriteRendererLayerOrdersData
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _autoScriptPath: Assets\Functionnal\Scripts\Pinou\PinouEditor\Editor\
+  _orderDatas:
+  - _name: Background
+    _layerOrder: -100
+  - _name: ExperienceCircle
+    _layerOrder: 0
+  - _name: MovementsTrailsNParticles
+    _layerOrder: 10
+  - _name: Entity
+    _layerOrder: 20
+  - _name: UnderPlayer_FXs
+    _layerOrder: 25
+  - _name: Entity_Player
+    _layerOrder: 30
+  - _name: HealthCircle
+    _layerOrder: 100
+  - _name: FXs
+    _layerOrder: 125
+  - _name: Abilities
+    _layerOrder: 150

@@ -2,6 +2,11 @@
 using System.IO;
 using System.Text;
 using UnityEngine;
+using Pinou.EntitySystem;
+#if UNITY_EDITOR
+using UnityEditor;
+using Pinou.Editor;
+#endif
 
 namespace Pinou
 {
@@ -96,7 +101,9 @@ namespace Pinou
             File.WriteAllText(autoScriptPath, autoScript);
         }
 
-        public static void UpdateInputReceiverAutoScript(string autoScriptPath, PinouInputParameters[] gameInputs, PinouAxisParameters[] gameAxes)
+
+
+		public static void UpdateInputReceiverAutoScript(string autoScriptPath, PinouInputParameters[] gameInputs, PinouAxisParameters[] gameAxes)
         {
             string templatePath = Directory.GetCurrentDirectory() + "\\" + autoScriptPath + "PinouInputReceiver_AutoscriptTemplate";
             autoScriptPath = Directory.GetCurrentDirectory() + "\\" + autoScriptPath + "PinouInputReceiver_Autoscript.cs";
@@ -259,14 +266,13 @@ namespace Pinou
             File.WriteAllText(autoScriptPath, autoScript);
         }
 
-
         public static void UpdateBeingResourcesAutoScript(string entityBeingDataPath, string entityEnumsPath, string[] beingBaseEnumLines, string[] resourcesNames)
         {
             string entityBeingDataTemplatePath = Directory.GetCurrentDirectory() + "\\" + entityBeingDataPath + "EntityBeingData_AutoscriptTemplate";
             entityBeingDataPath = Directory.GetCurrentDirectory() + "\\" + entityBeingDataPath + "EntityBeingData_Autoscript.cs";
 
-            string entityEnumsTemplatePath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_AutoscriptTemplate";
-            entityEnumsPath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_Autoscript.cs";
+            string entityEnumsTemplatePath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_BeingAutoscriptTemplate";
+            entityEnumsPath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_BeingAutoscript.cs";
 
             string beingDataAutoscript = File.ReadAllText(entityBeingDataTemplatePath);
             string entityEnumsAutoscript = File.ReadAllText(entityEnumsTemplatePath);
@@ -367,7 +373,7 @@ namespace Pinou
             #region Data maxValue switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append("				case EntityBeingResourcesType.");
+                strBuilder.Append("				case EntityBeingResourceType.");
                 strBuilder.Append(resourcesNames[i]);
                 strBuilder.Append(":\n					return max");
                 strBuilder.Append(resourcesNames[i]);
@@ -381,7 +387,7 @@ namespace Pinou
             #region Data valueRegen switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append("				case EntityBeingResourcesType.");
+                strBuilder.Append("				case EntityBeingResourceType.");
                 strBuilder.Append(resourcesNames[i]);
                 strBuilder.Append(":\n					return ");
                 strBuilder.Append(resourcesNames[i].ToLower());
@@ -395,7 +401,7 @@ namespace Pinou
             #region Data valueReceiveFactor switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append("				case EntityBeingResourcesType.");
+                strBuilder.Append("				case EntityBeingResourceType.");
                 strBuilder.Append(resourcesNames[i]);
                 strBuilder.Append(":\n					return ");
                 strBuilder.Append(resourcesNames[i].ToLower());
@@ -409,7 +415,7 @@ namespace Pinou
             #region Data valueStartNotAtMax switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append(string.Format("{1}case EntityBeingResourcesType.{0}:\n{1}	return startNotAtMax{0};", resourcesNames[i], "				"));
+                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	return startNotAtMax{0};", resourcesNames[i], "				"));
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n");
             }
@@ -419,7 +425,7 @@ namespace Pinou
             #region Data valueStartAmount switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append(string.Format("{1}case EntityBeingResourcesType.{0}:\n{1}	return start{0};", resourcesNames[i], "				"));
+                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	return start{0};", resourcesNames[i], "				"));
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n");
             }
@@ -430,74 +436,10 @@ namespace Pinou
             #region Instance protected fields
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append("			//");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("\n			protected float current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(";\n\n			public float Current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" => current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(";\n			public float ");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("Regen => _data.");
-                strBuilder.Append(resourcesNames[i].ToLower());
-                strBuilder.Append("Regen;\n			public float ");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("ReceiveFactor => _data.");
-                strBuilder.Append(resourcesNames[i].ToLower());
-                strBuilder.Append("ReceiveFactor;\n			public float Max");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" => _data.max");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(";\n			public float ");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("Progress => current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" / _data.max");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(";\n\n			public void Set");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("(float value)\n			{\n				current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" = Mathf.Clamp(value, 0f, _data.max");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(");\n			}\n\n			public void Modify");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("(float amount)\n			{\n				current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" += amount;\n				current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" = Mathf.Clamp(current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(", 0f, _data.max");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(");\n			}");
-
-                if (i < resourcesNames.Length - 1)
-                    strBuilder.Append("\n\n");
-            }
-            beingDataAutoscript = beingDataAutoscript.Replace("|RESOURCESINSTANCE|", strBuilder.ToString());
-            strBuilder.Length = 0;
-
-            for (int i = 0; i < resourcesNames.Length; i++)
-            {
-                strBuilder.Append("			public void SetResource");
-                strBuilder.Append("(float value)\n			{\n				current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" = Mathf.Clamp(value, 0f, _data.max");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(");\n			}\n\n			public void Modify");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("(float amount)\n			{\n				current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" += amount;\n				current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" = Mathf.Clamp(current");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(", 0f, _data.max");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(");\n			}");
+                strBuilder.Append(string.Format("			//{0}\n			protected float current{0};\n\n			public float Current{0} => current{0};\n			public float {0}ReceiveFactor => _data.{1}ReceiveFactor;\n", resourcesNames[i], resourcesNames[i].ToLower()));
+                strBuilder.Append(string.Format("		public float Max{0} => _data.max{0};\n			public float {0}Progress => current{0} / _data.max{0};\n\n", resourcesNames[i]));
+                strBuilder.Append(string.Format("			public void Set{0}(float value)\n			{{\n				current{0} = Mathf.Clamp(value, 0f, _data.max{0});\n			}}\n\n", resourcesNames[i]));
+                strBuilder.Append(string.Format("			public void Modify{0}(float amount)\n			{{\n				current{0} += amount;\n current{0} = Mathf.Clamp(current{0}, 0f, _data.max{0});\n			}}", resourcesNames[i]));
 
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n\n");
@@ -509,7 +451,7 @@ namespace Pinou
             #region Instance GetCurrent switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append(string.Format("{1}case EntityBeingResourcesType.{0}:\n{1}	return current{0};", resourcesNames[i], "                    "));
+                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	return current{0};", resourcesNames[i], "                    "));
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n");
             }
@@ -519,7 +461,7 @@ namespace Pinou
             #region Instance SetCurrent switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append(string.Format("{1}case EntityBeingResourcesType.{0}:\n{1}	current{0} = value;\n{1}	current{0} = Mathf.Clamp(current{0}, 0f, _data.max{0});\n{1}	break;", resourcesNames[i], "                    "));
+                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	current{0} = value;\n{1}	current{0} = Mathf.Clamp(current{0}, 0f, _data.max{0});\n{1}	break;", resourcesNames[i], "                    "));
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n");
             }
@@ -529,7 +471,7 @@ namespace Pinou
             #region Instance ModifyCurrent switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append(string.Format("{1}case EntityBeingResourcesType.{0}:\n{1}	current{0} += amount;\n{1}	current{0} = Mathf.Clamp(current{0}, 0f, _data.max{0});\n{1}	break;", resourcesNames[i], "                    "));
+                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	current{0} += amount;\n{1}	current{0} = Mathf.Clamp(current{0}, 0f, _data.max{0});\n{1}	break;", resourcesNames[i], "                    "));
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n");
             }
@@ -540,7 +482,7 @@ namespace Pinou
             #region Instance maxValue switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append("					case EntityBeingResourcesType.");
+                strBuilder.Append("					case EntityBeingResourceType.");
                 strBuilder.Append(resourcesNames[i]);
                 strBuilder.Append(":\n						return _data.max");
                 strBuilder.Append(resourcesNames[i]);
@@ -551,10 +493,20 @@ namespace Pinou
             beingDataAutoscript = beingDataAutoscript.Replace("|SWITCHMAXINSTANCE|", strBuilder.ToString());
             strBuilder.Length = 0;
             #endregion
+            #region Instance GetProgress switch
+            for (int i = 0; i < resourcesNames.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	return {0}Progress;", resourcesNames[i], "                    "));
+                if (i < resourcesNames.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            beingDataAutoscript = beingDataAutoscript.Replace("|SWITCHGETPROGRESSINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
             #region Instance valueRegen switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append("					case EntityBeingResourcesType.");
+                strBuilder.Append("					case EntityBeingResourceType.");
                 strBuilder.Append(resourcesNames[i]);
                 strBuilder.Append(":\n						return _data.");
                 strBuilder.Append(resourcesNames[i].ToLower());
@@ -568,7 +520,7 @@ namespace Pinou
             #region Instance valueReceiveFactor switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append("					case EntityBeingResourcesType.");
+                strBuilder.Append("					case EntityBeingResourceType.");
                 strBuilder.Append(resourcesNames[i]);
                 strBuilder.Append(":\n						return _data.");
                 strBuilder.Append(resourcesNames[i].ToLower());
@@ -601,6 +553,304 @@ namespace Pinou
             }
         }
 
+        public static void UpdateStatsLevelsAutoScript(string entityStatsDataPath, string entityEnumsPath, string[] statsBaseEnumLines, EntityStatsLevelData.LevelTemplateData[] levelTemplates)
+        {
+            string entityStatsDataTemplatePath = Directory.GetCurrentDirectory() + "\\" + entityStatsDataPath + "EntityStatsData_AutoscriptTemplate";
+            entityStatsDataPath = Directory.GetCurrentDirectory() + "\\" + entityStatsDataPath + "EntityStatsData_Autoscript.cs";
 
+            string entityEnumsTemplatePath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_StatsAutoscriptTemplate";
+            entityEnumsPath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_StatsAutoscript.cs";
+
+            string statsDataAutoscript = File.ReadAllText(entityStatsDataTemplatePath);
+            string entityEnumsAutoscript = File.ReadAllText(entityEnumsTemplatePath);
+
+            #region EnumBuilder
+            StringBuilder strBuilder = new StringBuilder();
+            int powCount = -1;
+            for (int i = 0; i < statsBaseEnumLines.Length; i++)
+            {
+                strBuilder.Append("        ");
+                strBuilder.Append(statsBaseEnumLines[i]);
+                strBuilder.Append(" = ");
+                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
+                strBuilder.Append(",");
+
+                if (i < statsBaseEnumLines.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            entityEnumsAutoscript = entityEnumsAutoscript.Replace("|BASE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("		{0}ReceivedFactor = {1}", levelTemplates[i].ExperienceName, Mathf.Floor(Mathf.Pow(2, powCount++)).ToString()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append(",\n");
+            }
+            if (powCount >= 32)
+            {
+                throw new System.Exception("Extreme fatal error. Too much enum values !!! Maybe try something with enum long blablabla.");
+            }
+            entityEnumsAutoscript = entityEnumsAutoscript.Replace("|LEVELS|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            powCount = 0;
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append("        ");
+                strBuilder.Append(levelTemplates[i].LevelName);
+                strBuilder.Append(" = ");
+                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append(",\n");
+            }
+            entityEnumsAutoscript = entityEnumsAutoscript.Replace("|TYPES|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+
+            #region Fields
+            #region Data protected fields
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("		[SerializeField] protected bool has{0}Level;\n", levelTemplates[i].LevelName));
+                strBuilder.Append(string.Format("		[ShowIf(\"@has{0}Level\"), SerializeField] protected LevelData {1}Level;\n", levelTemplates[i].LevelName, levelTemplates[i].LevelName.ToLower()));
+
+                strBuilder.Append(string.Format("		public LevelData {0}Level => {1}Level;\n", levelTemplates[i].LevelName, levelTemplates[i].LevelName.ToLower()));
+                strBuilder.Append(string.Format("		public bool Has{0}Level => has{0}Level;\n", levelTemplates[i].LevelName));
+
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|LEVELSFIELDSDATA|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+
+            #region Data GetHasLevel switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("				case EntityStatsLevelType.{0}:\n					return has{0}Level;", levelTemplates[i].LevelName));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHGETHASLEVELDATA|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Data GetLevelData switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("				case EntityStatsLevelType.{0}:\n					return {1}Level;", levelTemplates[i].LevelName, levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHGETLEVELDATA|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+
+            #region Instance protected fields
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("			//{0}\n", levelTemplates[i].LevelName));
+                strBuilder.Append(string.Format("			protected LevelExperienceData {0}Experience;\n", levelTemplates[i].LevelName.ToLower()));
+                strBuilder.Append(string.Format("			public LevelExperienceData {0}Experience => {1}Experience;\n", levelTemplates[i].LevelName, levelTemplates[i].LevelName.ToLower()));
+                strBuilder.Append(string.Format("			public bool Has{0}Level => _data.Has{0}Level;\n", levelTemplates[i].LevelName));
+
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|LEVELSINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+
+            #region Instance GetLevelDataExperience switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	return {2}Experience;", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHGETLEVELEXPERIENCEDATAINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance SetLevelDataExperience switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	{2}Experience = experienceData;\n{1}	break;", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHSETLEVELEXPERIENCEDATAINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+
+            #region Instance GetCurrentLevel switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	return {2}Experience.Level;", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHGETCURRENTINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance SetCurrentLevel switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	{2}Experience.SetLevel(value);\n{1}	break;", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHSETCURRENTINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance ModifyCurrentLevel switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	{2}Experience.ModifyLevel(amount);\n{1}	break;", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHMODIFYCURRENTINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance GetMaxLevel switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	return {2}Experience.MaxLevel;", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHMAXINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance GetLevelProgress switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	return {2}Experience.ExperienceProgress;", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHGETPROGRESSINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance GetLevelExperience switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {	
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	return {2}Experience.Experience;", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHGETEXPERIENCEINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance SetLevelExperience switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	{2}Experience.SetExperience(experience);\n{1}	break;\n", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHSETEXPERIENCEINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance ModifyLevelExperience switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	{2}Experience.ModifyExperience(experience);\n{1}	break;\n", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHMODIFYEXPERIENCEINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance SetLevelExperiencePct switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	{2}Experience.SetExperiencePct(experience);\n{1}	break;\n", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHSETPCTEXPERIENCEINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance ModifyLevelExperiencePct switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	{2}Experience.ModifyExperiencePct(experience);\n{1}	break;\n", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHMODIFYPCTEXPERIENCEINSTANCE|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance GetTotalExperienceForNextLevel switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	return {2}Experience.TotalExperienceForNextLevel;\n", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHGETTOTALEXPERIENCEFORNEXTLEVEL|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+            #region Instance GetRemainingExperienceForNextLevel switch
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	return {2}Experience.RemainingExperienceForNextLevel;\n", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            statsDataAutoscript = statsDataAutoscript.Replace("|SWITCHGETREMAININGEXPERIENCEFORNEXTLEVEL|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+
+
+            #endregion
+
+            if (File.Exists(entityStatsDataPath) == false)
+            {
+                File.Create(entityStatsDataPath);
+            }
+            if (statsDataAutoscript.Equals(File.ReadAllText(entityStatsDataPath)) == false)
+            {
+                File.WriteAllText(entityStatsDataPath, statsDataAutoscript);
+            }
+
+            if (File.Exists(entityEnumsPath) == false)
+            {
+                File.Create(entityEnumsPath);
+            }
+            if (entityEnumsAutoscript.Equals(File.ReadAllText(entityEnumsPath)) == false)
+            {
+                File.WriteAllText(entityEnumsPath, entityEnumsAutoscript);
+            }
+        }
+
+#if UNITY_EDITOR
+        public static void E_UpdateSpriteRendererLayerOrderExtender(string extenderPath, string[] layerOrdersNames, int[] layerOrders)
+		{
+            string extenderTemplatePath = Directory.GetCurrentDirectory() + "\\" + extenderPath + "Editor_SpriteRendererExtender_AutoscriptTemplate";
+            extenderPath = Directory.GetCurrentDirectory() + "\\" + extenderPath + "Editor_SpriteRendererExtender.cs";
+            string extenderAutoScript = File.ReadAllText(extenderTemplatePath);
+            StringBuilder str = new StringBuilder();
+			for (int i = 0; i < layerOrdersNames.Length; i++)
+			{
+                str.Append(string.Format("		[MenuItem(\"CONTEXT/Renderer/OrderInLayer/{0}\")]\n		public static void Set{0}Layer_Rend(MenuCommand command) => UpdateLayerOrder(command, {1});\n", layerOrdersNames[i], layerOrders[i]));
+                str.Append(string.Format("		[MenuItem(\"CONTEXT/ParticleSystem/OrderInLayer/{0}\")]\n		public static void Set{0}Layer_PS(MenuCommand command) => UpdateLayerOrder(command, {1});\n", layerOrdersNames[i], layerOrders[i]));
+                str.Append(string.Format("		[MenuItem(\"CONTEXT/SortingGroup/OrderInLayer/{0}\")]\n		public static void Set{0}Layer_SG(MenuCommand command) => UpdateLayerOrder(command, {1});\n", layerOrdersNames[i], layerOrders[i]));
+                if (i < layerOrdersNames.Length - 1)
+				{
+                    str.Append("\n");
+                }
+			}
+            extenderAutoScript = extenderAutoScript.Replace("|CONTEXT|", str.ToString());
+            if (File.Exists(extenderPath) == false)
+            {
+                File.Create(extenderPath);
+            }
+
+            if (extenderAutoScript.Equals(File.ReadAllText(extenderPath)) == false)
+            {
+                File.WriteAllText(extenderPath, extenderAutoScript);
+            }
+        }
+#endif
     }
 }

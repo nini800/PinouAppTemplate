@@ -38,7 +38,7 @@ namespace Pinou.EntitySystem
 		public AbilityData AbilityCast => _abilityCast;
 
 		public AbilityResourceImpactData[] BaseResourcesImpacts => _baseResourcesImpacts;
-		public float GetResourceImpact(EntityBeingResourcesType type)
+		public float GetResourceImpact(EntityBeingResourceType type)
 		{
 			for (int i = 0; i < _baseResourcesImpacts.Length; i++)
 			{

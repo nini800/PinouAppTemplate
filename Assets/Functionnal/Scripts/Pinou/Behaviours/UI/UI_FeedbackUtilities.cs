@@ -451,6 +451,10 @@ namespace Pinou.UI
         private bool _imagesFinished = false;
         private bool _textFinished = false;
 
+        private Coroutine[] _graphicsCoroutines;
+        private Coroutine[] _imagesCoroutines;
+        private Coroutine[] _textCoroutines;
+
         public bool ScaledTime { get => _scaledTime; set => _scaledTime = value; }
         private float _DeltaTime { get { return _scaledTime ? Time.deltaTime : Time.unscaledDeltaTime; } }
         public PinouUtils.Delegate.Action OnFeedbackEnd = new PinouUtils.Delegate.Action();
@@ -473,13 +477,18 @@ namespace Pinou.UI
             _imagesFinished = false;
             _textFinished = false;
 
+            _graphicsCoroutines?.ForEach(c => StopCoroutine(c));
+            _imagesCoroutines?.ForEach(c => StopCoroutine(c));
+            _textCoroutines?.ForEach(c => StopCoroutine(c));
+
             if (_graphicsFeedbacks.Length > 0)
             {
+                _graphicsCoroutines = new Coroutine[_graphicsFeedbacks.Length];
                 for (int i = 0; i < _graphicsFeedbacks.Length; i++)
                 {
                     if (_graphicsFeedbacks[i]._states.Length > 0)
                     {
-                        StartCoroutine(GraphicsCoroutine(_graphicsFeedbacks[i]));
+                        _graphicsCoroutines[i] = StartCoroutine(GraphicsCoroutine(_graphicsFeedbacks[i]));
                     }
                 }
             }
@@ -489,11 +498,12 @@ namespace Pinou.UI
             }
             if (_imagesFeedbacks.Length > 0)
             {
+                _imagesCoroutines = new Coroutine[_imagesFeedbacks.Length];
                 for (int i = 0; i < _imagesFeedbacks.Length; i++)
                 {
                     if (_imagesFeedbacks[i]._states.Length > 0)
                     {
-                        StartCoroutine(ImagesCoroutine(_imagesFeedbacks[i]));
+                        _imagesCoroutines[i] = StartCoroutine(ImagesCoroutine(_imagesFeedbacks[i]));
                     }
                 }
             }
@@ -503,11 +513,12 @@ namespace Pinou.UI
             }
             if (_textsFeedbacks.Length > 0)
             {
+                _textCoroutines = new Coroutine[_textsFeedbacks.Length];
                 for (int i = 0; i < _textsFeedbacks.Length; i++)
                 {
                     if (_textsFeedbacks[i]._states.Length > 0)
                     {
-                        StartCoroutine(TextsCoroutine(_textsFeedbacks[i]));
+                        _textCoroutines[i] = StartCoroutine(TextsCoroutine(_textsFeedbacks[i]));
                     }
                 }
             }

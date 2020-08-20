@@ -2,7 +2,7 @@
 
 namespace Pinou
 {
-    [CreateAssetMenu(fileName = "TimeData", menuName = "Pinou/TimeData", order = 1000)]
+    [CreateAssetMenu(fileName = "TimeData", menuName = "Pinou/Managers/TimeData", order = 1000)]
 	public class PinouTimeManagerData : PinouManagerData
 	{
 		public override PinouManager BuildManagerInstance()

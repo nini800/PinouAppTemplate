@@ -9,7 +9,7 @@ namespace Pinou.EntitySystem
 		[FoldoutGroup("Being Resources")]
 |RESOURCESFIELDSDATA|
 
-		public float GetMaxResource(EntityBeingResourcesType resourceType)
+		public float GetMaxResource(EntityBeingResourceType resourceType)
 		{
 			switch(resourceType)
 			{
@@ -18,7 +18,7 @@ namespace Pinou.EntitySystem
 			
 			throw new System.Exception("No " + resourceType + " resource found.");
 		}
-		public float GetResourceRegen(EntityBeingResourcesType resourceType)
+		public float GetResourceRegen(EntityBeingResourceType resourceType)
 		{
 			switch(resourceType)
 			{
@@ -27,7 +27,7 @@ namespace Pinou.EntitySystem
 			
 			throw new System.Exception("No " + resourceType + " resource found.");
 		}
-		public float GetResourceReceivedFactor(EntityBeingResourcesType resourceType)
+		public float GetResourceReceivedFactor(EntityBeingResourceType resourceType)
 		{
 			switch(resourceType)
 			{
@@ -37,7 +37,7 @@ namespace Pinou.EntitySystem
 			throw new System.Exception("No " + resourceType + " resource found.");
 		}
 		
-		public bool GetResourceStartNotAtMax(EntityBeingResourcesType resourceType)
+		public bool GetResourceStartNotAtMax(EntityBeingResourceType resourceType)
 		{
 			switch(resourceType)
 			{
@@ -47,7 +47,7 @@ namespace Pinou.EntitySystem
 			throw new System.Exception("No " + resourceType + " resource found.");
 		}
 		
-		public float GetResourceStartAmount(EntityBeingResourcesType resourceType)
+		public float GetResourceStartAmount(EntityBeingResourceType resourceType)
 		{
 			switch(resourceType)
 			{
@@ -62,7 +62,7 @@ namespace Pinou.EntitySystem
 |RESOURCESINSTANCE|
 			
 			//Generics
-			public float GetCurrentResource(EntityBeingResourcesType resourceType)
+			public float GetCurrentResource(EntityBeingResourceType resourceType)
 			{
 				switch(resourceType)
 				{
@@ -71,21 +71,21 @@ namespace Pinou.EntitySystem
 				
 				throw new System.Exception("No " + resourceType + " resource found.");
 			}
-			public void SetCurrentResource(EntityBeingResourcesType resourceType, float value)
+			public void SetCurrentResource(EntityBeingResourceType resourceType, float value)
 			{
 				switch(resourceType)
 				{
 |SWITCHSETCURRENTINSTANCE|
 				}
 			}
-			public void ModifyCurrentResource(EntityBeingResourcesType resourceType, float amount)
+			public void ModifyCurrentResource(EntityBeingResourceType resourceType, float amount)
 			{
 				switch(resourceType)
 				{
 |SWITCHMODIFYCURRENTINSTANCE|
 				}
 			}
-			public float GetMaxResource(EntityBeingResourcesType resourceType)
+			public float GetMaxResource(EntityBeingResourceType resourceType)
 			{
 				switch(resourceType)
 				{
@@ -94,7 +94,16 @@ namespace Pinou.EntitySystem
 				
 				throw new System.Exception("No " + resourceType + " resource found.");
 			}
-			public float GetResourceRegen(EntityBeingResourcesType resourceType)
+			public float GetResourceProgress(EntityBeingResourceType resourceType)
+			{
+				switch(resourceType)
+				{
+|SWITCHGETPROGRESSINSTANCE|
+				}
+				
+				throw new System.Exception("No " + resourceType + " resource found.");
+			}
+			public float GetResourceRegen(EntityBeingResourceType resourceType)
 			{
 				switch(resourceType)
 				{
@@ -103,7 +112,7 @@ namespace Pinou.EntitySystem
 			
 				throw new System.Exception("No " + resourceType + " resource found.");
 			}
-			public float GetResourceReceivedFactor(EntityBeingResourcesType resourceType)
+			public float GetResourceReceivedFactor(EntityBeingResourceType resourceType)
 			{
 				switch(resourceType)
 				{

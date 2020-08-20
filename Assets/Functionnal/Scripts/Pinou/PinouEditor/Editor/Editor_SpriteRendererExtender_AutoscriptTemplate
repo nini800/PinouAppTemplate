@@ -1,0 +1,32 @@
+﻿using UnityEngine.Rendering;
+using UnityEngine;
+using UnityEditor;
+
+namespace Pinou.Editor
+{
+    public static class Editor_SpriteRendererExtender
+    {
+|CONTEXT|
+
+
+        private static void UpdateLayerOrder(MenuCommand command, int order)
+        {
+			if (command.context is Renderer)
+			{
+				Renderer rend = (Renderer)command.context;
+				rend.sortingOrder = order;
+			}
+			else if (command.context is ParticleSystem)
+			{
+				ParticleSystem ps = (ParticleSystem)command.context;
+				ParticleSystemRenderer rend = ps.GetComponent<ParticleSystemRenderer>();
+				rend.sortingOrder = order;
+			}
+			else if (command.context is SortingGroup)
+			{
+				SortingGroup sg = (SortingGroup)command.context;
+				sg.sortingOrder = order;
+			}
+        }
+    }
+}

@@ -53,7 +53,7 @@ namespace Pinou.Networking
 			{
 				base.SlaveAwake();
 
-                System.Array enumResourcesValues = System.Enum.GetValues(typeof(EntityBeingResourcesType));
+                System.Array enumResourcesValues = System.Enum.GetValues(typeof(EntityBeingResourceType));
                 int resourcesCount = enumResourcesValues.Length;
                 oldResourcesEnumIndices = new int[resourcesCount];
                 oldCurrentResources = new float[resourcesCount];
@@ -74,7 +74,7 @@ namespace Pinou.Networking
             {
                 for (int i = 0; i < oldCurrentResources.Length; i++)
                 {
-                    float curResource = GetCurrentResource((EntityBeingResourcesType)oldResourcesEnumIndices[i]);
+                    float curResource = GetCurrentResource((EntityBeingResourceType)oldResourcesEnumIndices[i]);
                     if (oldCurrentResources[i] != curResource)
                     {
                         oldCurrentResources[i] = curResource;

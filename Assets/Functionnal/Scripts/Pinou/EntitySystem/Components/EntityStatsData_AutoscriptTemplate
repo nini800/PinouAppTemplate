@@ -1,0 +1,184 @@
+﻿using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Pinou.EntitySystem	
+{
+	public partial class EntityStatsData : EntityComponentData
+	{
+		[Header("Stats Levels")]
+|LEVELSFIELDSDATA|
+
+		public bool GetHasLevelData(EntityStatsLevelType levelType)
+		{
+			switch(levelType)
+			{
+|SWITCHGETHASLEVELDATA|
+			}
+			
+			throw new System.Exception("No " + levelType + " level found.");
+		}
+		public LevelData GetLevelData(EntityStatsLevelType levelType)
+		{
+			if (GetHasLevelData(levelType) == false) { return null; }
+			
+			switch(levelType)
+			{
+|SWITCHGETLEVELDATA|	
+			}
+			
+			throw new System.Exception("No " + levelType + " level found.");
+		}
+
+        public partial class EntityStats : EntityComponent
+        {
+|LEVELSINSTANCE|
+			
+			//Generics
+			public LevelExperienceData GetLevelExperienceData(EntityStatsLevelType levelType)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return null; }
+				
+				switch(levelType)
+				{
+|SWITCHGETLEVELEXPERIENCEDATAINSTANCE|
+				}
+				
+				throw new System.Exception("No " + levelType + " level found.");
+			}
+			public void SetLevelExperienceData(EntityStatsLevelType levelType, LevelExperienceData experienceData)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return; }
+				
+				switch(levelType)
+				{
+|SWITCHSETLEVELEXPERIENCEDATAINSTANCE|
+				}
+				
+				throw new System.Exception("No " + levelType + " level found.");
+			}
+			public int GetCurrentLevel(EntityStatsLevelType levelType)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return 0; }
+				
+				switch(levelType)
+				{
+|SWITCHGETCURRENTINSTANCE|
+				}
+				
+				throw new System.Exception("No " + levelType + " level found.");
+			}
+			public void SetCurrentLevel(EntityStatsLevelType levelType, int value)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return; }
+				
+				switch(levelType)
+				{
+|SWITCHSETCURRENTINSTANCE|
+				}
+			}
+			public void ModifyCurrentLevel(EntityStatsLevelType levelType, int amount)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return; }
+				
+				switch(levelType)
+				{
+|SWITCHMODIFYCURRENTINSTANCE|
+				}
+			}
+			public int GetMaxLevel(EntityStatsLevelType levelType)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return 0; }
+				
+				switch(levelType)
+				{
+|SWITCHMAXINSTANCE|
+				}
+				
+				throw new System.Exception("No " + levelType + " level found.");
+			}
+			
+			public float GetLevelProgress(EntityStatsLevelType levelType)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return 0f; }
+				
+				switch(levelType)
+				{
+|SWITCHGETPROGRESSINSTANCE|
+				}
+				
+				throw new System.Exception("No " + levelType + " level found.");
+			}
+			
+			public float GetLevelExperience(EntityStatsLevelType levelType)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return 0f; }
+				
+				switch(levelType)
+				{
+|SWITCHGETEXPERIENCEINSTANCE|	
+				}
+				
+				throw new System.Exception("No " + levelType + " level found.");
+			}
+			public void SetLevelExperience(EntityStatsLevelType levelType, float experience)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return; }
+				
+				switch(levelType)
+				{
+|SWITCHSETEXPERIENCEINSTANCE|	
+				}
+			}
+			public void ModifyLevelExperience(EntityStatsLevelType levelType, float experience)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return; }
+				
+				switch(levelType)
+				{
+|SWITCHMODIFYEXPERIENCEINSTANCE|	
+				}
+			}
+			public void SetLevelExperiencePct(EntityStatsLevelType levelType, float experience)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return; }
+				
+				switch(levelType)
+				{
+|SWITCHSETPCTEXPERIENCEINSTANCE|	
+				}
+			}
+			public void ModifyLevelExperiencePct(EntityStatsLevelType levelType, float experience)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return; }
+				
+				switch(levelType)
+				{
+|SWITCHMODIFYPCTEXPERIENCEINSTANCE|	
+				}
+			}
+			public float GetTotalExperienceForNextLevel(EntityStatsLevelType levelType)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return 0f; }
+				
+				switch(levelType)
+				{
+|SWITCHGETTOTALEXPERIENCEFORNEXTLEVEL|	
+				}
+				
+				throw new System.Exception("No " + levelType + " level found.");
+			}
+			public float GetRemainingExperienceForNextLevel(EntityStatsLevelType levelType)
+			{
+				if (_data.GetHasLevelData(levelType) == false) { return 0f; }
+				
+				switch(levelType)
+				{
+|SWITCHGETREMAININGEXPERIENCEFORNEXTLEVEL|	
+				}
+				
+				throw new System.Exception("No " + levelType + " level found.");
+			}
+        }
+    }
+}

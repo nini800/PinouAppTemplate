@@ -64,17 +64,17 @@ namespace Pinou.EntitySystem
             }
             private void HandleStartResources()
             {
-                System.Array values = System.Enum.GetValues(typeof(EntityBeingResourcesType));
+                System.Array values = System.Enum.GetValues(typeof(EntityBeingResourceType));
 
                 for (int i = 0; i < values.Length; i++)
 				{
-                    if (_data.GetResourceStartNotAtMax((EntityBeingResourcesType)values.GetValue(i)) == true)
+                    if (_data.GetResourceStartNotAtMax((EntityBeingResourceType)values.GetValue(i)) == true)
 					{
-                        SetCurrentResource((EntityBeingResourcesType)values.GetValue(i), _data.GetResourceStartAmount((EntityBeingResourcesType)values.GetValue(i)));
+                        SetCurrentResource((EntityBeingResourceType)values.GetValue(i), _data.GetResourceStartAmount((EntityBeingResourceType)values.GetValue(i)));
 					}
                     else
 					{
-                        SetCurrentResource((EntityBeingResourcesType)values.GetValue(i), _data.GetMaxResource((EntityBeingResourcesType)values.GetValue(i)));
+                        SetCurrentResource((EntityBeingResourceType)values.GetValue(i), _data.GetMaxResource((EntityBeingResourceType)values.GetValue(i)));
                     }
                 }
             }
@@ -115,9 +115,9 @@ namespace Pinou.EntitySystem
             protected void TakeAbilityHit(AbilityCastResult result)
             {
                 float oldHealth = currentHealth;
-                ModifyHealth(result.CastData.GetResourceImpact(EntityBeingResourcesType.Health));
+                ModifyHealth(result.CastData.GetResourceImpact(EntityBeingResourceType.Health));
 
-                result.FillResourceChange(EntityBeingResourcesType.Health, currentHealth - oldHealth);
+                result.FillResourceChange(EntityBeingResourceType.Health, currentHealth - oldHealth);
 
                 if (BeingState == BeingState.Dead)
                 {

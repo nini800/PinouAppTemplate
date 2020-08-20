@@ -36,7 +36,7 @@ namespace Pinou.Networking
 		public void RpcSyncBeingCurrentResource(int enumIndex, float curResource)
 		{
 			if (isServer) { return; }
-			_entity.Being.SetCurrentResource((EntityBeingResourcesType)enumIndex, curResource);
+			_entity.Being.SetCurrentResource((EntityBeingResourceType)enumIndex, curResource);
 		}
 		#endregion
 	}

@@ -10,7 +10,7 @@ using UnityEditor;
 
 namespace Pinou
 {
-    [CreateAssetMenu(fileName = "PinouResourcesData", menuName = "Pinou/ResourcesData", order = 1000)]
+    [CreateAssetMenu(fileName = "PinouResourcesData", menuName = "Pinou/Managers/ResourcesData", order = 1000)]
 	public class PinouResourcesData : PinouManagerData
 	{
 		[SerializeField] private PinouResourcesLayers _layers;

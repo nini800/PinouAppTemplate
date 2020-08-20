@@ -42,7 +42,7 @@ namespace Pinou.Networking
         public static AbilityResourceImpactData ReadAbilityResourceImpactData(this NetworkReader reader)
         {
             AbilityResourceImpactData impactData = new AbilityResourceImpactData(
-                (EntityBeingResourcesType)reader.ReadInt32(),
+                (EntityBeingResourceType)reader.ReadInt32(),
                 (float)reader.ReadDouble());
 
             return impactData;

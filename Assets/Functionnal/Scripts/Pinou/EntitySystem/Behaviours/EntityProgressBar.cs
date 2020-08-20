@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace Pinou.EntitySystem
 {
-	public class EntityResourceBar : PinouBehaviour
+	public class EntityProgressBar : PinouBehaviour
 	{
 		public enum ResourceBarMethod
 		{
@@ -18,7 +18,8 @@ namespace Pinou.EntitySystem
 		[System.Serializable]
 		public class EntityResourceBarParameters
 		{
-			[SerializeField] private EntityBeingResourcesType _linkedResourceType;
+			//[SerializeField] private EntityStatsLevelType _linkedLevelType;
+			[SerializeField] private EntityBeingResourceType _linkedResourceType;
 			[SerializeField] private ResourceBarMethod _barMethod;
 			[SerializeField] private bool _instant;
 			[SerializeField, ShowIf("@_instant == false"), Range(0.001f, 10f)] private float _smoothTime;

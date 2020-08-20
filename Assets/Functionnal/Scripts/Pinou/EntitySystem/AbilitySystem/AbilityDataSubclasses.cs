@@ -7,16 +7,16 @@ namespace Pinou.EntitySystem
 	[System.Serializable]
 	public class AbilityResourceImpactData
 	{
-		public AbilityResourceImpactData(EntityBeingResourcesType resourceType, float change)
+		public AbilityResourceImpactData(EntityBeingResourceType resourceType, float change)
 		{
 			_resourceType = resourceType;
 			_resourceChange = change;
 		}
 
-		[SerializeField] private EntityBeingResourcesType _resourceType;
+		[SerializeField] private EntityBeingResourceType _resourceType;
 		[SerializeField] private float _resourceChange = 0f;
 
-		public EntityBeingResourcesType ResourceType => _resourceType;
+		public EntityBeingResourceType ResourceType => _resourceType;
 		public float ResourceChange => _resourceChange;
 
 		public void SetResourceChange(float change)
@@ -37,7 +37,7 @@ namespace Pinou.EntitySystem
 		[SerializeField] private bool _canRotateDuringCast = false;
 
 		public AbilityResourceImpactData[] BaseResourcesImpacts => _baseResourcesImpacts;
-		public float GetResourceImpact(EntityBeingResourcesType type)
+		public float GetResourceImpact(EntityBeingResourceType type)
 		{
 			for (int i = 0; i < _baseResourcesImpacts.Length; i++)
 			{

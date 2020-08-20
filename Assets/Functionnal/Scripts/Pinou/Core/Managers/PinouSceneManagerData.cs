@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Pinou
 {
-    [CreateAssetMenu(fileName = "SceneData", menuName = "Pinou/SceneData", order = 1000)]
+    [CreateAssetMenu(fileName = "SceneData", menuName = "Pinou/Managers/SceneData", order = 1000)]
     public class PinouSceneManagerData : PinouManagerData
     {
         public override PinouManager BuildManagerInstance()

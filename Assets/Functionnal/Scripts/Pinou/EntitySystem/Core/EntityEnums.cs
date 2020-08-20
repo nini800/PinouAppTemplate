@@ -62,7 +62,7 @@
     }
 
     [System.Flags]
-    public enum EntityMovementsStats
+    public enum EntityMovementsStat
     {
         None = 0,
         Acceleration = 1,
@@ -72,7 +72,7 @@
         RecoilFactor = 16,
     }
     [System.Flags]
-    public enum EntityAbilitiesStats
+    public enum EntityAbilitiesStat
     {
         None = 0,
         Damages = 1,
@@ -81,7 +81,7 @@
         KnockbackInflictedFactor = 8,
     }
     [System.Flags]
-    public enum EntityVisualStats
+    public enum EntityVisualStat
     {
         None = 0,
         Visual_RotationSpeed = 1,

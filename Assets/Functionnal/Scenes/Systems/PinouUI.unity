@@ -415,7 +415,7 @@ MonoBehaviour:
       WaitTime: 0
       MinWaitTime: 0
       MaxWaitTime: 0
-      Duration: 2
+      Duration: 1.5
       MinDuration: 0
       MaxDuration: 0
       UseCurve: 1
@@ -745,7 +745,7 @@ MonoBehaviour:
       RandomScale: 0
       SyncScaleAxises: 1
       ScaleDelta: {x: 0, y: 0, z: 0}
-      SyncScale: 0.65
+      SyncScale: 0.85
       MinScaleDelta: {x: 0, y: 0, z: 0}
       MaxScaleDelta: {x: 0, y: 0, z: 0}
       MinSyncScale: 0
@@ -1055,8 +1055,9 @@ GameObject:
   - component: {fileID: 1434256349}
   - component: {fileID: 1434256350}
   - component: {fileID: 1434256348}
+  - component: {fileID: 1434256351}
   m_Layer: 5
-  m_Name: RegionDisplayer
+  m_Name: RegionAnnouncer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1186,6 +1187,42 @@ MonoBehaviour:
     SerializationNodes: []
   _hasAfterFixedUpdate: 0
   RandomStart: 0
+--- !u!114 &1434256351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434256346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c41b6d680ccfd004abba46d6f39ee3c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _hasAfterFixedUpdate: 0
+  _colorParameters:
+  - _color: {r: 0.57254905, g: 1, b: 0.49019608, a: 1}
+    _targetLevel: 1
+  - _color: {r: 1, g: 1, b: 0.49019608, a: 1}
+    _targetLevel: 25
+  - _color: {r: 1, g: 0.51078194, b: 0.25098038, a: 1}
+    _targetLevel: 50
+  - _color: {r: 1, g: 0.24056602, b: 0.24056602, a: 1}
+    _targetLevel: 75
+  - _color: {r: 0.7247448, g: 0, b: 1, a: 1}
+    _targetLevel: 100
+  _effectSlave: {fileID: 1434256348}
+  _regionName: {fileID: 958892659}
+  _regionLevel: {fileID: 2071711644}
 --- !u!1 &1597716773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,7 +1603,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -88}
-  m_SizeDelta: {x: 500, y: 5}
+  m_SizeDelta: {x: 500, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1851424931
 MonoBehaviour:
@@ -2496,7 +2533,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 80}
-  m_SizeDelta: {x: 500, y: 5}
+  m_SizeDelta: {x: 500, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2139068377
 MonoBehaviour:

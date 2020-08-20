@@ -8,7 +8,7 @@ using UnityEditor;
 
 namespace Pinou
 {
-    [CreateAssetMenu(fileName = "Editor_ShortcutData", menuName = "Editor/Editor_ShortcutData", order = 1000)]
+    [CreateAssetMenu(fileName = "Ed0itor_ShortcutData", menuName = "Editor/Editor_ShortcutData", order = 1000)]
 	public class Editor_ShortcutsData : ScriptableObject
 	{
         [System.Serializable]

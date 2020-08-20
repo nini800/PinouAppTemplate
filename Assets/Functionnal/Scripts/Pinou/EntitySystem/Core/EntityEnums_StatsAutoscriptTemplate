@@ -1,14 +1,15 @@
 namespace Pinou.EntitySystem
-{
+{		
     [System.Flags]
-    public enum EntityBeingStats
+    public enum EntityStatsStat
     {
-|BASE|	
-|RESOURCES|
+|BASE|
+
+|LEVELS|
     }
 	
 	[System.Flags]
-    public enum EntityBeingResourcesType
+    public enum EntityStatsLevelType
     {
 |TYPES|
     }

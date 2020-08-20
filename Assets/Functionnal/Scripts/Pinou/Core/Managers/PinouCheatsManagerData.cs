@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Pinou.EntitySystem
 {
-	[CreateAssetMenu(fileName = "CheatsData", menuName = "Pinou/CheatsData", order = 1000)]
+	[CreateAssetMenu(fileName = "CheatsData", menuName = "Pinou/Managers/CheatsData", order = 1000)]
 	public class PinouCheatsManagerData : PinouManagerData
 	{
 		[Header("Cheats")]

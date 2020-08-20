@@ -10,7 +10,7 @@ namespace Pinou.EntitySystem
 		AroundPlayer,
 		AroundPlayer2D_XYPlane
 	}
-	[CreateAssetMenu(fileName = "EntityData", menuName = "Pinou/EntityData", order = 1000)]
+	[CreateAssetMenu(fileName = "EntityData", menuName = "Pinou/Managers/EntityData", order = 1000)]
 	public class PinouEntityManagerData : PinouManagerData
 	{
 		[Header("Main Parameters")]

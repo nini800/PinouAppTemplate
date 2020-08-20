@@ -27,7 +27,7 @@ namespace Pinou.EntitySystem
 		public Vector3 KnockbackApplied => _knockbackApplied;
 
 		public AbilityResourceImpactData[] ResourcesChanges => _resourcesChanges.ToArray();
-		public float GetResourceChange(EntityBeingResourcesType type)
+		public float GetResourceChange(EntityBeingResourceType type)
 		{
 			for (int i = 0; i < _resourcesChanges.Count; i++)
 			{
@@ -48,7 +48,7 @@ namespace Pinou.EntitySystem
 		{
 			_knockbackApplied = knockback;
 		}
-		public void FillResourceChange(EntityBeingResourcesType resource, float change)
+		public void FillResourceChange(EntityBeingResourceType resource, float change)
         {
 			AbilityResourceImpactData data = null;
 			for (int i = 0; i < _resourcesChanges.Count; i++)
