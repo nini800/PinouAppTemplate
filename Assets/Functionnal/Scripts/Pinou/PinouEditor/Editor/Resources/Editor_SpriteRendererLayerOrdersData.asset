@@ -29,6 +29,8 @@ MonoBehaviour:
     _layerOrder: 0
   - _name: MovementsTrailsNParticles
     _layerOrder: 10
+  - _name: Drops
+    _layerOrder: 15
   - _name: Entity
     _layerOrder: 20
   - _name: UnderPlayer_FXs

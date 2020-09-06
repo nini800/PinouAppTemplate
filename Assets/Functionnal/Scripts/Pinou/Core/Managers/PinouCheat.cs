@@ -14,10 +14,11 @@ namespace Pinou
 			SpawnEntity,
 			ModifyEntityHealth,
 			MakeEntityImmortal,
-			TeleportEntity
+			TeleportEntity,
+			SpawnLoot
 		}
 
-		public enum SpawnMethod
+		public enum LocationMethod
 		{
 			PlayerForward,
 			RayCastMouse,
@@ -35,10 +36,18 @@ namespace Pinou
 		[SerializeField] private PinouCheatType _cheatType;
 		[SerializeField] private KeyCode _cheatKeyModifier;
 		[SerializeField] private KeyCode _cheatKey;
+		[SerializeField] private bool _canBeHeld;
+		[SerializeField, ShowIf("_canBeHeld")] private float _holdTriggerPeriod;
 
-		[SerializeField, ShowIf("_cheatType", PinouCheatType.SpawnEntity)] private GameObject _entityModel;
-		[SerializeField, ShowIf("_cheatType", PinouCheatType.SpawnEntity)] private SpawnMethod _spawnMethod;
-		[SerializeField, ShowIf("_cheatType", PinouCheatType.SpawnEntity), ShowIf("_spawnMethod", SpawnMethod.PlayerForward)] private float _forwardOffset;
+		[ShowIf("@_cheatType == PinouCheatType.SpawnEntity || _cheatType == PinouCheatType.TeleportEntity || _cheatType == PinouCheatType.SpawnLoot")]
+		[SerializeField] private LocationMethod _locationMethod;
+		[ShowIf("@(_cheatType == PinouCheatType.SpawnEntity || _cheatType == PinouCheatType.TeleportEntity || _cheatType == PinouCheatType.SpawnLoot) && _locationMethod== LocationMethod.PlayerForward")]
+		[SerializeField] private float _forwardOffset;
+
+		[ShowIf("@_cheatType == PinouCheatType.SpawnEntity")]
+		[SerializeField] private GameObject _model;
+		[ShowIf("@_cheatType == PinouCheatType.SpawnLoot")]
+		[SerializeField] private EntityDropData _dropData;
 		[SerializeField, ShowIf("_cheatType", PinouCheatType.ModifyEntityHealth)] private float _healthModifier;
 		[SerializeField, ShowIf("_cheatType", PinouCheatType.MakeEntityImmortal)] private TargetEntity _entitiesToImmortalize;
 		[SerializeField, ShowIf("_cheatType", PinouCheatType.TeleportEntity)] private Vector3 _teleportOffset;
@@ -46,60 +55,80 @@ namespace Pinou
 		public PinouCheatType CheatType => _cheatType;
 		public KeyCode CheatKey => _cheatKey;
 
-		public GameObject EntityModel => _entityModel;
+		public GameObject Model => _model;
+		public EntityDropData DropData => _dropData;
 		public float HealthModifier => _healthModifier;
 		public TargetEntity EntitiesToImmortalize => _entitiesToImmortalize;
 		public Vector3 TeleportOffset => _teleportOffset;
 
+		private float _lastTriggerTime = -1 / 0f;
+
 		public void CheckCheat()
         {
-			if (Input.GetKey(_cheatKeyModifier) && Input.GetKeyDown(_cheatKey))
-            {
-                switch (_cheatType)
-                {
-                    case PinouCheatType.SpawnEntity:
-						HandleSpawnEntity();
-                        break;
-                    case PinouCheatType.ModifyEntityHealth:
-                        break;
-                    case PinouCheatType.MakeEntityImmortal:
-                        break;
-                    case PinouCheatType.TeleportEntity:
-                        break;
-                }
-            }
+			if (_canBeHeld == true)
+			{
+				if (Input.GetKey(_cheatKeyModifier) && Input.GetKey(_cheatKey))
+				{
+					if (Input.GetKeyDown(_cheatKey))
+					{
+						_lastTriggerTime = -1 / 0f;
+					}
+
+					if (Time.time - _lastTriggerTime > _holdTriggerPeriod)
+					{
+						TriggerCheat();
+					}
+				}
+			}
+			else
+			{
+				if (Input.GetKey(_cheatKeyModifier) && Input.GetKeyDown(_cheatKey))
+				{
+					TriggerCheat();
+				}
+			}
+
         }
 
-		private void HandleSpawnEntity()
-        {
-            switch (_spawnMethod)
-            {
-                case SpawnMethod.PlayerForward:
+		private void TriggerCheat()
+		{
+			switch (_cheatType)
+			{
+				case PinouCheatType.SpawnEntity:
+					PinouApp.Entity.CreateEntity(_model, GetLocation(_locationMethod), 0f);
+					break;
+				case PinouCheatType.ModifyEntityHealth:
+					break;
+				case PinouCheatType.MakeEntityImmortal:
+					break;
+				case PinouCheatType.TeleportEntity:
+					PinouApp.Entity.Player.Position = GetLocation(_locationMethod);
+					break;
+				case PinouCheatType.SpawnLoot:
+					PinouApp.Loot.HandleSpawnDrops(new EntityDropData[] { _dropData }, GetLocation(_locationMethod));
+					break;
+			}
+			_lastTriggerTime = Time.time;
+		}
+
+		private Vector3 GetLocation(LocationMethod method)
+		{
+			switch (method)
+			{
+				case LocationMethod.PlayerForward:
 					Entity player = PinouApp.Entity.Player;
 					if (player != null)
-                    {
-						PinouApp.Entity.CreateEntity(_entityModel, player.Position + player.Forward * _forwardOffset, 0f);
-                    }
-                    break;
-                case SpawnMethod.RayCastMouse:
+					{
+						return player.Position + player.Forward * _forwardOffset;
+					}
+					break;
+				case LocationMethod.RayCastMouse:
 					throw new System.Exception("To implement");
-                    //break;
-                case SpawnMethod.Mouse2d:
-						PinouApp.Entity.CreateEntity(_entityModel, Camera.main.ScreenToWorldPoint(Input.mousePosition).SetZ(0f), 0f);
-                    break;
+				case LocationMethod.Mouse2d:
+					return Camera.main.ScreenToWorldPoint(Input.mousePosition).SetZ(0f);
 			}
-        }
-		private void HandleModifyEntityHealth()
-		{
 
-		}
-		private void HandleMakeEntityImmortal()
-		{
-
-		}
-		private void HandleTeleportEntity()
-		{
-
+			return Vector3.zero;
 		}
 	}
 }

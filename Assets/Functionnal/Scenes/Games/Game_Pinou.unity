@@ -51,7 +51,7 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 12
@@ -151,6 +151,36 @@ Transform:
   - {fileID: 1484322793}
   m_Father: {fileID: 1330606010}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &272928401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 272928402}
+  m_Layer: 0
+  m_Name: Abilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &272928402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272928401}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1330606010}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &412978385
 GameObject:
@@ -345,6 +375,36 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
+--- !u!1 &719845882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 719845883}
+  m_Layer: 0
+  m_Name: Loots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &719845883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719845882}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1330606010}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &920766152
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1208834005
 Transform:
   m_ObjectHideFlags: 0
@@ -742,6 +802,8 @@ Transform:
   - {fileID: 133878397}
   - {fileID: 920766153}
   - {fileID: 989629162}
+  - {fileID: 719845883}
+  - {fileID: 272928402}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -925,11 +987,13 @@ MonoBehaviour:
   _levelHolder: {fileID: 2137188784}
   _staticsHolder: {fileID: 645899784}
   _interactablesHolder: {fileID: 944645091}
-  _systemsHolder: {fileID: 2140202970}
   _postprocessingHolder: {fileID: 1358689009}
+  _systemsHolder: {fileID: 2140202970}
   _lightsHolder: {fileID: 133878397}
   _entitiesHolder: {fileID: 920766153}
   _fxsHolder: {fileID: 989629162}
+  _abilitiesHolder: {fileID: 272928402}
+  _lootsHolder: {fileID: 719845883}
 --- !u!1 &1563868836
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,7 +1010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1563868837
 Transform:
   m_ObjectHideFlags: 0
@@ -1014,7 +1078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2055909889
 Transform:
   m_ObjectHideFlags: 0
@@ -1305,8 +1369,12 @@ MonoBehaviour:
     SerializationNodes: []
   _hasAfterFixedUpdate: 0
   _zoomSmoothTime: 0.1
-  _zoomLimits: {x: 1.5, y: 3.5}
+  _zoomLimits: {x: 1.5, y: 4.25}
   _moveSmoothTime: 0.1
+  _minAimOffset2DDistanceFactor: 0
+  _maxAimOffset2DDistanceFactor: 0.3
+  _aimOffset2DMaxDistance: 35
+  _aimOffsetZoomPow: -0.25
   _ir: {fileID: 3779001162728965299}
   _cam: {fileID: 3779001162728965297}
 --- !u!114 &3779001162728965312

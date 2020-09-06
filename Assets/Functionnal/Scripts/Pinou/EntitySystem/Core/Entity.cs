@@ -18,10 +18,14 @@ namespace Pinou.EntitySystem
 		[Space]
 		[SerializeField] protected EntityControllerData controllerData;
 		[SerializeField] protected EntityStatsData statsData;
+		[SerializeField] protected EntityEquipmentData equipmentData;
 		[SerializeField] protected EntityBeingData beingData;
 		[SerializeField] protected EntityAbilitiesData abilitiesData;
+		[SerializeField] protected EntityInteractionsData interactionsData;
 		[SerializeField] protected EntityMovementsData movementsData;
+		[SerializeField] protected EntityAnimationsData animationsData;
 		[SerializeField] protected EntityVisualData visualData;
+		[SerializeField] protected EntityLootData lootData;
 
 		[Header("References")]
 		[Space]
@@ -30,9 +34,10 @@ namespace Pinou.EntitySystem
 		protected List<EntityComponentData.EntityComponent> components = new List<EntityComponentData.EntityComponent>();
 		protected EntityControllerData.EntityController controller = null;
 		protected EntityStatsData.EntityStats stats = null;
+		protected EntityEquipmentData.EntityEquipment equipment = null;
 		protected EntityBeingData.EntityBeing being = null;
 		protected EntityAbilitiesData.EntityAbilities abilities = null;
-		protected EntityInteractionsData.EntityInteractions interactions;
+		protected EntityInteractionsData.EntityInteractions interactions = null;
 		protected EntityMovementsData.EntityMovements movements = null;
 		protected EntityAnimationsData.EntityAnimations animations = null;
 		protected EntityVisualData.EntityVisual visual = null;
@@ -53,10 +58,14 @@ namespace Pinou.EntitySystem
         {
 			CreateComponent(controllerData,		ref controller);
 			CreateComponent(statsData,			ref stats);
+			CreateComponent(equipmentData,		ref equipment);
 			CreateComponent(beingData,			ref being);
 			CreateComponent(abilitiesData,		ref abilities);
+			CreateComponent(interactionsData,	ref interactions);
 			CreateComponent(movementsData,		ref movements);
+			CreateComponent(animationsData,		ref animations);
 			CreateComponent(visualData,			ref visual);
+			CreateComponent(lootData,			ref loot);
 		}
 		private void CreateComponent<T, TT>(T componentData, ref TT component) where T : EntityComponentData where TT : EntityComponentData.EntityComponent
         {
@@ -108,6 +117,11 @@ namespace Pinou.EntitySystem
 		}
         protected override void OnEnabled()
         {
+			if (components.Count <= 0)
+			{
+				OnAwake();
+				OnSafeStart();
+			}
 			for (int i = 0; i < components.Count; i++)
 			{
 				components[i].SlaveEnabled();
@@ -115,7 +129,7 @@ namespace Pinou.EntitySystem
 
 			if (HasBeing)
             {
-				being.OnDeath.Subscribe(OnDeath);
+				being.OnDeath.Subscribe(OnDeath, -100);
             }
 		}
 		protected override void OnDisabled()
@@ -177,12 +191,13 @@ namespace Pinou.EntitySystem
 		public new Vector3 Forward { get => references.VisualBody.forward; }
 
 		public Vector2 Position2D { get => Position.ToV2(); set => Position = value.ToV3(); }
-		public float Rotation2D { get => transform.eulerAngles.z; set => transform.rotation = Quaternion.Euler(0f,0f,value); }
-		public Vector2 Forward2D { get => transform.right; }
+		public float Rotation2D { get => references.VisualBody.eulerAngles.z; set => references.VisualBody.rotation = Quaternion.Euler(0f,0f,value); }
+		public Vector2 Forward2D { get => references.VisualBody.right; }
 
 		public bool HasController => controller != null;
         public bool HasStats => stats != null;
-        public bool HasBeing => being != null;
+        public bool HasEquipment => equipment != null;
+		public bool HasBeing => being != null;
 		public bool HasAbilities => abilities != null;
         public bool HasInteractions => interactions != null;
 		public bool HasMovements => movements != null;
@@ -192,7 +207,8 @@ namespace Pinou.EntitySystem
 
         public EntityControllerData.EntityController Controller => controller;
         public EntityStatsData.EntityStats Stats => stats;
-        public EntityBeingData.EntityBeing Being => being;
+        public EntityEquipmentData.EntityEquipment Equipment => equipment;
+		public EntityBeingData.EntityBeing Being => being;
 		public EntityAbilitiesData.EntityAbilities Abilities => abilities;
 		public EntityInteractionsData.EntityInteractions Interactions => interactions;
 		public EntityMovementsData.EntityMovements Movements => movements;
@@ -200,15 +216,23 @@ namespace Pinou.EntitySystem
 		public EntityVisualData.EntityVisual Visual => visual;
 		public EntityLootData.EntityLoot Loot => loot;
 
-		public ControllerState ControllerState => controller != null ? controller.ControllerState : ControllerState.None;
-		public BeingState BeingState => being != null ? being.BeingState : BeingState.None;
-		public AbilityState AbilityState => abilities != null ? abilities.AbilityState : AbilityState.None;
-		public InteractionState InteractionState => interactions != null ? interactions.InteractionState : InteractionState.None;
-		public MovementState MovementState => movements != null ? movements.MovementState : MovementState.None;
-		public MovementDirection MovementDirection => movements != null ? movements.MovementDirection : MovementDirection.None;
+		[Title("Entity States")]
+		[ShowInInspector] public ControllerState ControllerState => controller != null ? controller.ControllerState : ControllerState.None;
+		[ShowInInspector] public BeingState BeingState => being != null ? being.BeingState : BeingState.None;
+		[ShowInInspector] public AbilityState AbilityState => abilities != null ? abilities.AbilityState : AbilityState.None;
+		[ShowInInspector] public InteractionState InteractionState => interactions != null ? interactions.InteractionState : InteractionState.None;
+		[ShowInInspector] public MovementState MovementState => movements != null ? movements.MovementState : MovementState.None;
+		[ShowInInspector] public MovementDirection MovementDirection => movements != null ? movements.MovementDirection : MovementDirection.None;
 		#endregion
 
 		#region Utilities
+		private void ResetEntity()
+		{
+			components.Clear();
+			transform.position = Vector3.zero;
+			references.PhysicsBody.localPosition = Vector3.zero;
+			references.VisualBody.localPosition = Vector3.zero;
+		}
 		public virtual void ReceiveAbilityHit(AbilityCastResult result)
 		{
 			OnReceiveAbilityHit.Invoke(this, result);
@@ -219,6 +243,7 @@ namespace Pinou.EntitySystem
 		#endregion
 
 		#region Events
+
 		/// <summary>
 		/// Component event
 		/// </summary>
@@ -230,9 +255,11 @@ namespace Pinou.EntitySystem
 
 		public PinouUtils.Delegate.Action<Entity> OnRemovedByManager { get; private set; } = new PinouUtils.Delegate.Action<Entity>();
 
-		private void OnDeath(Entity entity, AbilityCastResult killingResult)
+		protected virtual void OnDeath(Entity entity, AbilityCastResult killingResult)
         {
-			Destroy(gameObject);
+			PinouApp.Pooler.Store(gameObject);
+
+			ResetEntity();
         }
 		#endregion
 
@@ -266,12 +293,30 @@ namespace Pinou.EntitySystem
 			}
 		}
 
-		[Header("Editor Only")]
+
+		//AI Editor vars
+		private const string AI_Cond = "E_AIController != null";
+		private const string AI_Cond_Full = "@E_AIController != null";
+		private EntityEnemyControllerData.EntityEnemyController E_AIController => (controller as EntityEnemyControllerData.EntityEnemyController);
+
+		[Title("AI")]
+		[Title("Behaviour")]
+		[PropertySpace]
+		[ShowIf(AI_Cond_Full)]
+		[ShowInInspector] private Entity E_AITarget => E_AIController != null ? E_AIController.Target : default;
+		[ShowIf(AI_Cond_Full)]
+		[ShowInInspector] private float E_NoTarget_NextMoveTime => E_AIController != null ? E_AIController.NoTarget_NextMoveTime : default;
+		[ShowIf(AI_Cond_Full)]
+		[ShowInInspector] private float E_NoTarget_NextWaitTime => E_AIController != null ? E_AIController.NoTarget_NextWaitTime : default;
+		[ShowIf(AI_Cond_Full)]
+		[ShowInInspector] private Vector3 E_NoTarget_NextPosition => E_AIController != null ? E_AIController.NoTarget_NextPosition : default;
+
+		[Title("Range Detection")]
 		[Space]
-		[SerializeField, ShowIf("@(this.controllerData as EntityEnemyControllerData != null)")] public bool E_PreviewViewRange = false;
-        [SerializeField, ShowIf("@E_PreviewViewRange == true && (this.controllerData as EntityEnemyControllerData != null)")] public Entity E_rangeTester;
-		[SerializeField, ShowIf("@E_PreviewViewRange == true && (this.controllerData as EntityEnemyControllerData != null)"), MinValue(10), Max(10000)] public int E_PreviewViewRangeSteps = 1000;
-		[SerializeField, ShowIf("@(this.controllerData as EntityEnemyControllerData != null)")] public bool E_PreviewTarget = false;
+		[SerializeField, ShowIf(AI_Cond_Full)] public bool E_PreviewViewRange = false;
+		[SerializeField, ShowIf("@E_PreviewViewRange == true && " + AI_Cond)] public Entity E_rangeTester;
+		[SerializeField, ShowIf("@E_PreviewViewRange == true && " + AI_Cond), MinValue(10), Max(10000)] public int E_PreviewViewRangeSteps = 1000;
+		[SerializeField, ShowIf(AI_Cond_Full)] public bool E_PreviewTarget = false;
 #endif
 		#endregion
 	}

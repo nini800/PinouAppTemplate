@@ -14,19 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoScriptPath: Assets\Functionnal\Scripts\Pinou\Core\
   _sceneHolders:
-  - HolderName: Level
-    SubHolders:
-    - HolderName: Statics
-      SubHolders: []
-    - HolderName: Interactables
-      SubHolders: []
-  - HolderName: Systems
-    SubHolders: []
-  - HolderName: PostProcessing
-    SubHolders: []
-  - HolderName: Lights
-    SubHolders: []
-  - HolderName: Entities
-    SubHolders: []
-  - HolderName: FXs
-    SubHolders: []
+  - _holderName: Level
+    _subHolders:
+    - _holderName: Statics
+      _subHolders: []
+    - _holderName: Interactables
+      _subHolders: []
+  - _holderName: PostProcessing
+    _subHolders: []
+  - _holderName: Systems
+    _subHolders: []
+  - _holderName: Lights
+    _subHolders: []
+  - _holderName: Entities
+    _subHolders: []
+  - _holderName: FXs
+    _subHolders: []
+  - _holderName: Abilities
+    _subHolders: []
+  - _holderName: Loots
+    _subHolders: []

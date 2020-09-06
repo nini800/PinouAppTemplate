@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pinou.Editor;
 using Sirenix.OdinInspector;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -68,15 +69,15 @@ namespace Pinou
 				E_StructureAllHolders(world, data.SceneHolders[i]);
 			}
 		}
-		private void E_StructureAllHolders(Transform parent, PinouSceneInfosData.SceneHolderParams holder)
+		private void E_StructureAllHolders(Transform parent, PinouSceneInfosData.ISubHolder holder)
 		{
 			Transform newParent = E_StructureHolder(parent, holder);
-			for (int i = 0; i < holder.SubHolders.Length; i++)
+			for (int i = 0; i < holder.SubHolders.Count; i++)
 			{
-				E_StructureAllHolders(newParent, holder.SubHolders[i]);
+				E_StructureAllHolders(newParent, holder.SubHolders.ElementAt(i));
 			}
 		}
-		private Transform E_StructureHolder(Transform parent, PinouSceneInfosData.SceneHolderParams holder)
+		private Transform E_StructureHolder(Transform parent, PinouSceneInfosData.ISubHolder holder)
 		{
 			Transform t = parent.Find(holder.HolderName);
 			E_CreateIfNull(ref t, parent, holder.HolderName);

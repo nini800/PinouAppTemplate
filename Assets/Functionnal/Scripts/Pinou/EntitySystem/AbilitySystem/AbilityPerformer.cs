@@ -6,8 +6,34 @@ namespace Pinou.EntitySystem
 {
 	public class AbilityPerformer
 	{
-        #region Commands
-        public static void PerformAbility(AbilityCastData castData)
+		#region Data Class
+        public class AdditionalHitInfos
+		{
+            public AdditionalHitInfos(Vector3 rayOrigin, Vector3 rayDirection, float distance, RaycastHit hit)
+			{
+                _rayOrigin = rayOrigin;
+                _rayDirection = rayDirection;
+                _distance = distance;
+                _hit = hit;
+			}
+            private Vector3 _rayOrigin;
+            private Vector3 _rayDirection;
+            private float _distance;
+            private RaycastHit _hit;
+
+            public Vector3 RayOrigin => _rayOrigin;
+            public Vector3 RayDirection => _rayDirection;
+            public float Distance => _distance;
+            public RaycastHit Hit => _hit;
+
+            public AdditionalHitInfos CopyWithHit(RaycastHit hit)
+			{
+                return new AdditionalHitInfos(_rayOrigin, _rayDirection, _distance, hit);
+			}
+        }
+		#endregion
+		#region Commands
+		public static void PerformAbility(AbilityCastData castData)
         {
             if (castData.AbilityCast.Hitbox.UnlimitedLifeSpan == true || castData.AbilityCast.Hitbox.LifeSpan > 0)
             {
@@ -16,17 +42,25 @@ namespace Pinou.EntitySystem
             else
             {
                 ApplyAbilityPerformedOnHitEntities(castData,
-                    ComputeHitboxHitEntities(castData));
+                    ComputeStaticHitboxHitEntities(castData, castData.Origin + castData.AbilityCast.Hitbox.Offset));
             }
         }
         #endregion
 
         #region Utilities
-        private static void HandleSpawnAbilityHitbox(AbilityCastData castData)
+        public static AbilityHitbox HandleSpawnAbilityHitbox(AbilityCastData castData)
         {
-
+            GameObject hitBoxGo = new GameObject();
+            hitBoxGo.name = castData.Caster.EntityName + "'s Ability: " + castData.AbilityCast.Name;
+            hitBoxGo.transform.SetParent(PinouApp.Scene.ActiveSceneInfos.AbilitiesHolder);
+            hitBoxGo.transform.position = castData.Origin + castData.AbilityCast.Hitbox.Offset;
+            hitBoxGo.transform.rotation = PinouUtils.Quaternion.SafeLookRotation(castData.CastDirection, Vector3.right);
+            AbilityHitbox hitBox = hitBoxGo.AddComponent<AbilityHitbox>();
+            hitBox.BuildHitbox(castData);
+            castData.Caster.Abilities.OnBuildAbilityHitbox.Invoke(castData.Caster, hitBox);
+            return hitBox;
         }
-        private static Entity[] ComputeHitboxHitEntities(AbilityCastData castData, ICollection<Entity> toIgnore = null)
+        public static Entity[] ComputeStaticHitboxHitEntities(AbilityCastData castData, Vector3 hitBoxOrigin, ICollection<Entity> toIgnore = null)
         {
             AbilityHitboxData hParams = castData.AbilityCast.Hitbox;
             List<Entity> hitEntities = new List<Entity>();
@@ -36,11 +70,11 @@ namespace Pinou.EntitySystem
             Collider[] entitiesHit = null;
             if (hParams.Type == HitboxType.Sphere)
             {
-                entitiesHit = Physics.OverlapSphere(castData.Origin, hParams.Radius, PinouApp.Resources.Data.Layers.Entities);
+                entitiesHit = Physics.OverlapSphere(hitBoxOrigin, hParams.Radius, PinouApp.Resources.Data.Layers.Entities);
             }
             else if (hParams.Type == HitboxType.Box)
             {
-                entitiesHit = Physics.OverlapBox(castData.Origin, hParams.Size * 0.5f, Quaternion.Euler(hParams.Orientation), PinouApp.Resources.Data.Layers.Entities);
+                entitiesHit = Physics.OverlapBox(hitBoxOrigin, hParams.Size * 0.5f, Quaternion.Euler(hParams.Orientation), PinouApp.Resources.Data.Layers.Entities);
             }
             #endregion
 
@@ -53,7 +87,7 @@ namespace Pinou.EntitySystem
                     (toIgnore == null || toIgnore.Contains(collMaster) == false) &&
                     CanPerformedAbilityHitEntity(castData, collMaster) == true)
                 {
-                    float dst = Vector3.SqrMagnitude(collMaster.Position - castData.Origin);
+                    float dst = Vector3.SqrMagnitude(collMaster.Position - hitBoxOrigin);
                     if (hitEntities.Count == 0)
                     {
                         hitEntities.Add(collMaster);
@@ -90,16 +124,121 @@ namespace Pinou.EntitySystem
 
             return hitEntities.ToArray();
         }
-        private static void ApplyAbilityPerformedOnHitEntities(AbilityCastData castData, ICollection<Entity> entities)
+        public static (Entity[], AdditionalHitInfos[]) ComputeMovingHitboxHitEntities(AbilityCastData castData, Vector3 hitBoxOrigin, ICollection<Entity> toIgnore = null)
+        {
+            AbilityHitboxData hParams = castData.AbilityCast.Hitbox;
+            List<Entity> hitEntities = new List<Entity>();
+            List<float> hitEntitiesDst = new List<float>();
+            List<AdditionalHitInfos> hitEntitiesInfos = new List<AdditionalHitInfos>();
+            Dictionary<Collider, AdditionalHitInfos> colliderHitInfos = new Dictionary<Collider, AdditionalHitInfos>();
+
+            #region Detect all entities hit
+            Collider[] entitiesHit = null;
+            AdditionalHitInfos baseHitInfos = new AdditionalHitInfos(hitBoxOrigin, castData.CastDirection, hParams.MoveSpeed * Time.fixedDeltaTime, default);
+            #region Static Hitboxes
+            #endregion
+            #region Moving Hitboxes
+            if (hParams.Type == HitboxType.Sphere)
+            {
+                RaycastHit[] hits = Physics.SphereCastAll(
+                    baseHitInfos.RayOrigin,
+                    hParams.Radius,
+                    baseHitInfos.RayDirection,
+                    baseHitInfos.Distance,
+                    PinouApp.Resources.Data.Layers.Entities);
+                entitiesHit = new Collider[hits.Length];
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    entitiesHit[i] = hits[i].collider;
+                    colliderHitInfos.Add(hits[i].collider, baseHitInfos.CopyWithHit(hits[i]));
+                }
+            }
+            else if (hParams.Type == HitboxType.Box)
+            {
+                RaycastHit[] hits = Physics.BoxCastAll(
+                    baseHitInfos.RayOrigin,
+                    hParams.Size * 0.5f,
+                    baseHitInfos.RayDirection,
+                    Quaternion.Euler(hParams.Orientation),
+                    baseHitInfos.Distance,
+                    PinouApp.Resources.Data.Layers.Entities);
+
+                entitiesHit = new Collider[hits.Length];
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    entitiesHit[i] = hits[i].collider;
+                    colliderHitInfos.Add(hits[i].collider, baseHitInfos.CopyWithHit(hits[i]));
+                }
+            }
+            #endregion
+            #endregion
+
+            #region Sort entities
+            //Sort allowed entities and store them
+            foreach (Collider coll in entitiesHit)
+            {
+                Entity collMaster = coll.GetComponentInParent<Entity>();
+                if (hitEntities.Contains(collMaster) == false &&
+                    (toIgnore == null || toIgnore.Contains(collMaster) == false) &&
+                    CanPerformedAbilityHitEntity(castData, collMaster) == true)
+                {
+                    float dst = Vector3.SqrMagnitude(collMaster.Position - hitBoxOrigin);
+                    if (hitEntities.Count == 0)
+                    {
+                        hitEntities.Add(collMaster);
+                        hitEntitiesDst.Add(dst);
+                        hitEntitiesInfos.Add(colliderHitInfos[coll]);
+                    }
+                    else
+                    {
+                        //Order the hit entity directly by distance
+                        for (int i = hitEntities.Count - 1; i >= 0; i--)
+                        {
+                            if (dst > (hitEntitiesDst[i]))
+                            {
+                                hitEntities.Insert(i + 1, collMaster);
+                                hitEntitiesDst.Insert(i + 1, dst);
+                                hitEntitiesInfos.Add(colliderHitInfos[coll]);
+                                break;
+                            }
+                            else if (i == 0)
+                            {
+                                hitEntities.Insert(0, collMaster);
+                                hitEntitiesDst.Insert(0, dst);
+                                hitEntitiesInfos.Add(colliderHitInfos[coll]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Keep only nearest entities and right count
+            if (hitEntities.Count > hParams.MaxTargetHit)
+            {
+                hitEntities.RemoveRange(hParams.MaxTargetHit, hitEntities.Count - hParams.MaxTargetHit);
+            }
+            #endregion
+
+            return (hitEntities.ToArray(), hitEntitiesInfos.ToArray());
+        }
+        public static void ApplyAbilityPerformedOnHitEntities(AbilityCastData castData, ICollection<Entity> entities)
         {
             foreach (Entity entity in entities)
             {
-                AbilityCastResult result = new AbilityCastResult(castData);
-                result.FillVictim(entity);
-                result.FillImpact(ComputePerformedAbilityImpact(castData, entity));
-
-                entity.ReceiveAbilityHit(result);
+                ApplyAbilityPerformedOnHitEntity(castData, entity);
             }
+        }
+        public static void ApplyAbilityPerformedOnHitEntity(AbilityCastData castData, Entity entity, AbilityCastResult existingResult = null)
+		{
+            AbilityCastResult result = existingResult == null ? new AbilityCastResult(castData) : existingResult;
+            result.FillVictim(entity);
+            if (result.ImpactFilled == false)
+            {
+                result.FillImpact(ComputePerformedAbilityImpact(castData, entity));
+            }
+
+            entity.ReceiveAbilityHit(result);
         }
         private static Vector3 ComputePerformedAbilityImpact(AbilityCastData castData, Entity entity)
         {
@@ -113,22 +252,42 @@ namespace Pinou.EntitySystem
                     return (entity.Position + castData.Origin) * 0.5f;
                 case AbilityImpactMethod.RayCastTowardVictim:
                     throw new System.NotImplementedException();
+                case AbilityImpactMethod.ProjectileImpact:
+                    throw new System.Exception("This line can not be called, projectiles' impacts are calculated earlier.");
             }
 
             throw new System.Exception("Enum AbilityImapctMethod changed. Require update here.");
         }
         public static bool CanPerformedAbilityHitEntity(AbilityCastData castData, Entity entity)
         {
-            if (castData.AbilityCast.Hitbox.CanHitSelf == false && entity == castData.Caster ||
-                castData.AbilityCast.Hitbox.CanHitAllies == false && 
-                    ((entity.Team == EntityTeam.Players && entity != castData.Caster) ||
-                    entity.Team == EntityTeam.Allies) ||
-                castData.AbilityCast.Hitbox.CanHitEnemies == false && entity.Team == EntityTeam.Enemies)
+            if (castData.AbilityCast.Hitbox.CanHitSelf == false && entity == castData.Caster)
             {
                 return false;
             }
             else
             {
+                if (castData.Caster.Team == EntityTeam.Players || castData.Caster.Team == EntityTeam.Allies)
+				{
+                    if (castData.AbilityCast.Hitbox.CanHitAllies == false && (entity.Team == EntityTeam.Allies || entity.Team == EntityTeam.Players))
+					{
+                        return false;
+					}
+                    if (castData.AbilityCast.Hitbox.CanHitEnemies == false && entity.Team == EntityTeam.Enemies)
+					{
+                        return false;
+					}
+				}
+                else
+				{
+                    if (castData.AbilityCast.Hitbox.CanHitAllies == false && entity.Team == EntityTeam.Enemies)
+                    {
+                        return false;
+                    }
+                    if (castData.AbilityCast.Hitbox.CanHitEnemies == false && (entity.Team == EntityTeam.Players || entity.Team == EntityTeam.Allies))
+                    {
+                        return false;
+                    }
+                }
                 return true;
             }
         }
@@ -158,7 +317,7 @@ namespace Pinou.EntitySystem
                 switch (castFx.DirectionMethod)
                 {
                     case AbilityVisualData.AbilityResultDirectionMethod.CastDirection:
-                        fxGo.transform.rotation = Quaternion.LookRotation(castData.CastDirection);
+                        fxGo.transform.rotation = PinouUtils.Quaternion.SafeLookRotation(castData.CastDirection, Vector3.right);
                         break;
                     case AbilityVisualData.AbilityResultDirectionMethod.KnockbackDirection:
                         Debug.LogError("Wrong parameter: " + castFx.DirectionMethod + " for a cast FX");
@@ -170,7 +329,7 @@ namespace Pinou.EntitySystem
         {
             if (castFx.DestroyMethod == AbilityVisualData.AbilityVisualFXDestroyMethod.Timed)
             {
-                Object.Destroy(fxGo, castFx.DestroyTime);
+                PinouUtils.Coroutine.Invoke(PinouApp.Pooler.Store, castFx.DestroyTime, fxGo, true);
             }
         }
         private static void HandleAbilityPlacingMethod(GameObject fxGo, AbilityCastResult result, AbilityVisualData.AbilityVisualFX resultFx)
@@ -222,10 +381,11 @@ namespace Pinou.EntitySystem
         }
         public static void HandleAbilityCastDataFX(AbilityCastData castData, AbilityVisualData.AbilityVisualFX fx)
         {
-            GameObject fxGo = Object.Instantiate(fx.Model, PinouApp.Scene.ActiveSceneInfos.FXsHolder);
+            GameObject fxGo = PinouApp.Pooler.Retrieve(fx.Model, PinouApp.Scene.ActiveSceneInfos.FXsHolder);
             HandleAbilityPlacingMethod(fxGo, castData, fx);
             HandleAbilityDirectionMethod(fxGo, castData, fx);
             HandleAbilityDestroyMethod(fxGo, castData, fx);
+            fx.FXVisualParameters.Apply(fxGo);
         }
 
         public static void HandleAbilityCastResultVisual(AbilityCastResult result)
@@ -244,12 +404,13 @@ namespace Pinou.EntitySystem
         }
         public static void HandleAbilityCastResultFX(AbilityCastResult result, AbilityVisualData.AbilityVisualFX fx)
         {
-            GameObject fxGo = Object.Instantiate(fx.Model, PinouApp.Scene.ActiveSceneInfos.FXsHolder);
+            GameObject fxGo = PinouApp.Pooler.Retrieve(fx.Model, PinouApp.Scene.ActiveSceneInfos.FXsHolder);
             HandleAbilityPlacingMethod(fxGo, result, fx);
             HandleAbilityDirectionMethod(fxGo, result, fx);
             HandleAbilityDestroyMethod(fxGo, result.CastData, fx);
+            fx.FXVisualParameters.Apply(fxGo);
         }
-		#endregion
+        #endregion
 
         #endregion
     }

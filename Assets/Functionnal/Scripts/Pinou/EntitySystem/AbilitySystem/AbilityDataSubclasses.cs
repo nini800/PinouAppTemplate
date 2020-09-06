@@ -69,6 +69,7 @@ namespace Pinou.EntitySystem
 		public float PerformDuration => _performDuration;
 		public float HardRecoverDuration => _hardRecoverDuration;
 		public float SoftRecoverDuration => _softRecoverDuration;
+		public float Cooldown => _cooldown;
 	}
 
 	[System.Serializable]
@@ -80,11 +81,13 @@ namespace Pinou.EntitySystem
 		[SerializeField, ShowIf("_type", HitboxType.Box)] private Vector3 _size;
 		[SerializeField, ShowIf("_type", HitboxType.Box)] private Vector3 _orientation;
 		[SerializeField] private Vector3 _offset;
+		[SerializeField, Min(0f)] private float _moveSpeed;
 		[Space]
 		[SerializeField] private bool _unlimitedLifeSpan = false;
 		[SerializeField, ShowIf("@_unlimitedLifeSpan == false"), Min(0f)] private float _lifeSpan = 0f;
 		[Space]
 		[SerializeField, EnumToggleButtons] private AbilityTargets _possibleTargets = AbilityTargets.Enemies;
+		[SerializeField, Min(0f)] private float _sameTargetHitPeriod = 0.5f;
 		[SerializeField, Min(1)] private int _maxTargetHit = 1;
 
 		public HitboxType Type => _type;
@@ -92,6 +95,7 @@ namespace Pinou.EntitySystem
 		public Vector3 Size => _size;
 		public Vector3 Orientation => _orientation;
 		public Vector3 Offset => _offset;
+		public float MoveSpeed => _moveSpeed;
 
 		public bool UnlimitedLifeSpan => _unlimitedLifeSpan;
 		public float LifeSpan => _lifeSpan;
@@ -100,6 +104,7 @@ namespace Pinou.EntitySystem
 		public bool CanHitSelf => (_possibleTargets & AbilityTargets.Self) != 0;
 		public bool CanHitAllies => (_possibleTargets & AbilityTargets.Allies) != 0;
 		public bool CanHitEnemies => (_possibleTargets & AbilityTargets.Enemies) != 0;
+		public float SameTargetHitPeriod => _sameTargetHitPeriod;
 		public int MaxTargetHit => _maxTargetHit;
 	}
 
@@ -132,6 +137,7 @@ namespace Pinou.EntitySystem
 		public class AbilityVisualFX
         {
 			[SerializeField] private GameObject _model;
+			[SerializeField] private VisualManipulator.VisualParameters _fxVisualParameters;
 			[SerializeField] private AbilityVisualFXTimingMethod _timingMethod;
 			[SerializeField] private AbilityVisualFXPlacingMethod _placingMethod;
 			[SerializeField, ShowIf("@_placingMethod != AbilityVisualFXPlacingMethod.Script")] private AbilityResultDirectionMethod _directionMethod;
@@ -139,16 +145,24 @@ namespace Pinou.EntitySystem
 			[SerializeField, ShowIf("_destroyMethod", AbilityVisualFXDestroyMethod.Timed)] private float _destroyTime;
 
 			public GameObject Model => _model;
+			public VisualManipulator.VisualParameters FXVisualParameters => _fxVisualParameters;
 			public AbilityVisualFXTimingMethod TimingMethod => _timingMethod;
 			public AbilityVisualFXPlacingMethod PlacingMethod => _placingMethod;
 			public AbilityResultDirectionMethod DirectionMethod => _directionMethod;
 			public AbilityVisualFXDestroyMethod DestroyMethod => _destroyMethod;
 			public float DestroyTime => _destroyTime;
         }
+		[SerializeField] private GameObject _hitboxVisualModel;
+		[SerializeField] private VisualManipulator.VisualParameters _hitboxVisualParameters;
+		[SerializeField, ShowIf("@_hitboxVisualModel != null")] private float _hitboxVisualModelRelativeLifeSpan = 0f;
 		[SerializeField] private AbilityVisualFX[] _FXs;
 
 		public bool HasFX => _FXs.Length > 0;
 		public AbilityVisualFX[] FXs => _FXs;
+
+		public GameObject HitboxVisualModel => _hitboxVisualModel;
+		public VisualManipulator.VisualParameters HitboxVisualParameters => _hitboxVisualParameters;
+		public float HitboxVisualLifeSpan => _hitboxVisualModelRelativeLifeSpan;
     }
 
 	[System.Serializable]
@@ -160,6 +174,8 @@ namespace Pinou.EntitySystem
 		[SerializeField] private AbilityCastOrigin _castOrigin = AbilityCastOrigin.Caster;
 		[SerializeField] private AbilityCastOriginTiming _castOriginTiming = AbilityCastOriginTiming.CastEntrance;
 		[SerializeField] private AbilityImpactMethod _impactMethod = AbilityImpactMethod.VictimCenter;
+		[SerializeField, ShowIf("@_abilityData == null ? false : _abilityData._type == AbilityType.Projectile")] private ProjectileImpactMethod _projectileImpactMethod = ProjectileImpactMethod.Pierce;
+		[SerializeField, HideInInspector] private AbilityData _abilityData;
 
 		public DirectionMethod DirectionMethod => _directionMethod;
 		public RecoilCondition RecoilCondition => _recoilCondition;
@@ -167,5 +183,6 @@ namespace Pinou.EntitySystem
 		public AbilityCastOrigin CastOrigin => _castOrigin;
 		public AbilityCastOriginTiming CastOriginTiming => _castOriginTiming;
 		public AbilityImpactMethod ImpactMethod => _impactMethod;
+		public ProjectileImpactMethod ProjectileImpactMethod => _projectileImpactMethod;
 	}
 }

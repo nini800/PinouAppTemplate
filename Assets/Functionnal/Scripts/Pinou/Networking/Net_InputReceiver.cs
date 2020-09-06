@@ -11,6 +11,8 @@ namespace Pinou.Networking
 	{
 		[SerializeField] private PinouInputReceiver _ir;
 		[SerializeField] private bool _receiveFocusOnAuthorityStart = true;
+		[SerializeField] private bool _receiveFocusOnEnableIfAuthority = true;
+		[SerializeField] private bool _looseFocusOnDisableIfAuthority = true;
 
 		public override void OnStartAuthority()
 		{
@@ -23,6 +25,21 @@ namespace Pinou.Networking
 		public override void OnStopAuthority()
 		{
 			if (_receiveFocusOnAuthorityStart == true)
+			{
+				_ir?.LooseFocus(PinouApp.Player.GetPlayerByID(0));
+			}
+		}
+
+		private void OnEnable()
+		{
+			if (_receiveFocusOnEnableIfAuthority == true)
+			{
+				_ir?.ReceiveFocus(PinouApp.Player.GetPlayerByID(0));
+			}
+		}
+		private void OnDisable()
+		{
+			if (_looseFocusOnDisableIfAuthority == true)
 			{
 				_ir?.LooseFocus(PinouApp.Player.GetPlayerByID(0));
 			}

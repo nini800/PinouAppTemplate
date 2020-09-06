@@ -15,7 +15,15 @@ namespace Pinou.Networking
 		{
 			if (PinouNetworkManager.IsServer == true) { return; }
 
+			entity.SetActive(true);
+
 			PinouApp.Entity.RegisterEntity(entity.GetComponent<Entity>());
+		}
+
+		[TargetRpc]
+		public void TargetSetLocalPlayer(NetworkConnection conn, GameObject newPlayer)
+		{
+			PinouApp.Entity.SetLocalPlayer(newPlayer.GetComponent<EntityNet>());
 		}
 	}
 }

@@ -6,6 +6,10 @@ namespace Pinou.InputSystem
 	{
 		public bool Game_ShowPauseMenu => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_ShowPauseMenu) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_ShowPauseMenu)) : false;
 		public bool Game_Shoot => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_Shoot) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_Shoot)) : false;
+		public bool Game_Pause => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_Pause) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_Pause)) : false;
+		public bool Game_Dash => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_Dash) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_Dash)) : false;
+		public bool Game_Sprint_Toggle => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_Sprint_Toggle) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_Sprint_Toggle)) : false;
+		public bool Game_Sprint_Held => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_Sprint_Held) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_Sprint_Held)) : false;
 		public bool Editor_CameraLook => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Editor_CameraLook) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Editor_CameraLook)) : false;
 		public bool Editor_CameraSprint => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Editor_CameraSprint) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Editor_CameraSprint)) : false;
 		public bool Editor_CameraUp => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Editor_CameraUp) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Editor_CameraUp)) : false;

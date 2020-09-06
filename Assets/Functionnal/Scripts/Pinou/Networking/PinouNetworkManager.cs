@@ -63,6 +63,10 @@ namespace Pinou.Networking
 		public override void OnServerAddPlayer(NetworkConnection conn)
 		{
 			GameObject go = PinouApp.Entity.CreateEntity(playerPrefab, Vector3.zero, 0f).gameObject;
+			if (conn == NetworkServer.localConnection)
+			{
+				PinouApp.Entity.SetLocalPlayer(go.GetComponent<EntityNet>());
+			}
 
 			NetworkServer.AddPlayerForConnection(conn, go);
 			if (conn != NetworkServer.localConnection)
@@ -73,14 +77,14 @@ namespace Pinou.Networking
 
 		public override void OnServerDisconnect(NetworkConnection conn)
 		{
-			Debug.LogError("Server Disconnect");
+			Debug.Log("Server Disconnect");
 			OnBeforeServerDisconnect.Invoke(conn);
 
 			base.OnServerDisconnect(conn);
 		}
 		public override void OnStopClient()
 		{
-			Debug.LogError("Stop Client");
+			Debug.Log("Stop Client");
 			OnBeforeStopClient.Invoke();
 		}
 		#endregion
@@ -97,11 +101,6 @@ namespace Pinou.Networking
 			base.OnValidate();
 			if (_mainBehaviour == null) { _mainBehaviour = GetComponentInChildren<PinouNetworkMainBehaviour>(); }
 			if (_entityBehaviour == null) { _entityBehaviour = GetComponentInChildren<PinouNetworkEntityBehaviour>(); }
-			for (int i = 0; i < _transportChild.childCount; i++)
-			{
-				_transportChild.GetChild(i).gameObject.SetActive(false);
-			}
-			transport.gameObject.SetActive(true);
 		}
 		#endregion
 	}

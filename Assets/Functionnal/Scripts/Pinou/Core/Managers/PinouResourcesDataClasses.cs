@@ -3,7 +3,6 @@ using Pinou.EntitySystem;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace Pinou
@@ -15,12 +14,20 @@ namespace Pinou
 		[SerializeField] private LayerMask _ground;
 		[SerializeField] private LayerMask _solids;
 		[SerializeField] private LayerMask _entities;
+		[SerializeField] private LayerMask _entityAbilities;
+		[SerializeField] private LayerMask _entityHitboxes;
+		[SerializeField] private LayerMask _entitysProjectiles;
+		[SerializeField] private LayerMask _entityDrops;
 		[SerializeField] private LayerMask _interactable;
 
 		public LayerMask Statics => _statics;
 		public LayerMask Ground => _ground;
 		public LayerMask Solids => _solids;
 		public LayerMask Entities => _entities;
+		public LayerMask EntityAbilities => _entityAbilities;
+		public LayerMask EntityHitboxes => _entityHitboxes;
+		public LayerMask EntityProjectiles => _entitysProjectiles;
+		public LayerMask EntityDrops => _entityDrops;
 		public LayerMask Interactable => _interactable;
 	}
 
@@ -34,6 +41,7 @@ namespace Pinou
 	[Serializable]
 	public class PinouResourcesEntities
 	{
+		#region Data Classes
 		[Serializable]
 		public class SpawnGroup
 		{
@@ -47,7 +55,6 @@ namespace Pinou
 			public float Frequency => _frequency;
 			public float GroupRadius => _groupRadius;
 		}
-
 		[Serializable]
 		public class SpawnPool
 		{
@@ -84,10 +91,23 @@ namespace Pinou
 				throw new Exception("This should never happen.");
 			}
 		}
+		#endregion
 
+		[Header("Main")]
+		[Space]
+		[SerializeField] private GameObject _playerModel;
+		[Header("Spawn Pools")]
+		[Space]
 		[SerializeField] private SpawnPool[] _spawnPools;
 
+		[Header("FXs")]
+		[Space]
+		[SerializeField] private GameObject _dashFX;
+
+
+		public GameObject PlayerModel => _playerModel;
 		public SpawnPool[] SpawnPools => _spawnPools;
+		public GameObject DashFX => _dashFX;
 
 		public SpawnPool GetPool(string name)
 		{
@@ -111,6 +131,7 @@ namespace Pinou
 
 		public AbilityData GetAbilityByID(int id)
 		{
+			if (id < 0 || id >= _abilities.Count) { return null; }
 			return _abilities[id];
 		}
 
@@ -139,9 +160,15 @@ namespace Pinou
 		public int E_AddAbility(AbilityData ability)
 		{
 			E_AbilityDatabaseSecurityCheck();
-
-			_abilities.Add(ability);
-			return _abilities.Count - 1;
+			if (_abilities.Contains(ability) == false)
+			{
+				_abilities.Add(ability);
+				return _abilities.Count - 1;
+			}
+			else
+			{
+				return _abilities.IndexOf(ability);
+			}
 		}
 		#endif
 	}

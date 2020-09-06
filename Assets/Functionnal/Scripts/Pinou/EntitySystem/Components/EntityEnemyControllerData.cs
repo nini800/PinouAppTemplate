@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Steamworks;
+using UnityEngine.Serialization;
 
 namespace Pinou.EntitySystem
 {
@@ -10,9 +12,11 @@ namespace Pinou.EntitySystem
         #region Fields, Getters
         [Title("Base AI")]
         [Space]
-        [SerializeField] private EnemyBaseBehaviour _baseBehaviour;
+        [SerializeField] protected EnemyNoTargetBehaviour noTargetBehaviour;
+        [SerializeField] protected EnemyHasTargetBehaviour hasTargetBehaviour;
 
         [Header("Target Detection Parameters")]
+        [Space]
         [SerializeField, Min(0.02f)] protected float detectionCheckPeriod = 0.2f;
         [SerializeField, MinValue("targetBackwardDetectionDistance")] protected float targetForwardDetectionDistance = 3f;
         [SerializeField] protected bool detectionCheckForWalls = false;
@@ -21,18 +25,50 @@ namespace Pinou.EntitySystem
         [SerializeField, Min(1f), MaxValue(360f), ShowIf("complexDetection")] protected float targetForwardDetectionAngle = 120f;
         [SerializeField, Min(1f), MaxValue("@360f - targetForwardDetectionAngle"), ShowIf("complexDetection")] protected float targetDetectionTransitionAngle = 30f;
         [SerializeField, Range(0.001f, 5f), ShowIf("complexDetection")] protected float targetDetectionTransitionPow = 1f;
+
+
+        [Header("Global Parameters")]
         [Space]
-        [Header("Movement Parameters")]
-        [Tooltip("Tries to get to the smallest value, then, only start moving again when the biggest value is reached.")]
-        [SerializeField] protected Vector2 aproachRange;
+        [SerializeField] protected float global_MoveTowardMargin = 0.5f;
 
-        [ShowIf("_baseBehaviour", EnemyBaseBehaviour.RotateAround)]
-        [Tooltip("Proportion to maxSpeed")]
-        [SerializeField, Range(0f, 1f)] protected float rotateAroundSpeed;
+        private const string NO_TARGET_COND = "@noTargetBehaviour == EnemyNoTargetBehaviour.MoveRandomly || noTargetBehaviour == EnemyNoTargetBehaviour.MoveRandomlyAroundSpawn";
+        [Header("No Target Parameters")]
+        [Header("Movements Parameters")]
+        [Space]
+        [SerializeField, ShowIf(NO_TARGET_COND), Min(0f)] protected float noTarget_MinMoveWaitTime = 0f; 
+        [SerializeField, ShowIf(NO_TARGET_COND), Min(0f)] protected float noTarget_MaxMoveWaitTime = 2f;
+        [Space]
+        [SerializeField, ShowIf(NO_TARGET_COND), Min(0f)] protected float noTarget_MinIdleWaitTime = 0f;
+        [SerializeField, ShowIf(NO_TARGET_COND), Min(0f)] protected float noTarget_MaxIdleWaitTime = 2f;
+        [Space]
+        [SerializeField, ShowIf("noTargetBehaviour", EnemyNoTargetBehaviour.MoveRandomly), Min(0f)] protected float noTarget_MinMoveDistance = 0f;
+        [SerializeField, ShowIf("noTargetBehaviour", EnemyNoTargetBehaviour.MoveRandomly), Min(0f)] protected float noTarget_MaxMoveDistance = 5f;
+        [SerializeField, ShowIf("noTargetBehaviour", EnemyNoTargetBehaviour.MoveRandomlyAroundSpawn), Min(0f)] protected float noTarget_maxAroundSpawnMoveRange = 10f;
 
-        [ShowIf("_baseBehaviour", EnemyBaseBehaviour.RotateAround)]
-        [Tooltip("Negative numbers means never")]
-        [SerializeField] protected Vector2 rotateAroundDirectionChangeWaitRange;
+
+        [Header("Has Target Parameters")]
+        [Header("Movements Parameters")]
+        [SerializeField] protected Vector2 hasTarget_AproachRange;
+
+        [ShowIf("hasTargetBehaviour", EnemyHasTargetBehaviour.RotateAround)]
+        [SerializeField, Range(0f, 1f)] protected float hasTarget_RotateAroundSpeed;
+
+        [ShowIf("hasTargetBehaviour", EnemyHasTargetBehaviour.RotateAround)]
+        [SerializeField] protected Vector2 hasTarget_RotateAroundDirectionChangeWaitRange;
+
+        [Header("Aim Parameters")]
+        [SerializeField, Min(0f)] protected float hasTarget_ExpectedProjectileSpeedAimFactor = 1f;
+        [SerializeField, Min(0f)] protected float hasTarget_AimSpread = 0.3f;
+        [ShowInInspector]
+        protected float hasTarget_MaxAimSpreadAngle
+        {
+            get 
+            {
+                Vector2 v = new Vector2(1f, 0f);
+                v += Vector2.up * hasTarget_AimSpread;
+                return Vector2.Angle(Vector2.right, v);
+            }
+        }
         #endregion
 
         #region Component Core
@@ -58,18 +94,46 @@ namespace Pinou.EntitySystem
             #endregion
 
             #region Vars, Getters
+            protected Vector3 spawnPosition;
+
             protected float targetSqrDst = 0f;
+            protected float targetDst = 0f;
+            protected Vector3 toTarget = Vector3.zero;
+            protected Vector3 toTargetNorm = Vector3.zero;
+
             protected Entity target = null;
+
+            protected bool noTarget_waiting = true;
+            protected float noTarget_NextMoveTime = -1 / 0f;
+            protected float noTarget_NextWaitTime = -1 / 0f;
+            protected Vector3 noTarget_NextPosition;
+
+            protected bool hasTarget_rangeReached = false;
 
             public bool HasTarget => target != null;
             public Entity Target => target;
 
+            public float NoTarget_NextMoveTime => noTarget_NextMoveTime;
+            public float NoTarget_NextWaitTime => noTarget_NextWaitTime;
+            public Vector3 NoTarget_NextPosition => noTarget_NextPosition;
+
             private float _lastDetectionTry = -1 / 0f;
 
             public override ControllerState ControllerState => ControllerState.Empty;
-            #endregion
+			#endregion
 
-            #region Behaviour
+			#region Behaviour
+            /// <summary>
+            /// Need base
+            /// </summary>
+			public override void SlaveAwake()
+			{
+                spawnPosition = Position;
+                noTarget_NextPosition = ComputeNoTargetNextPosition();
+                noTarget_NextMoveTime = Time.time + Random.Range(_data.noTarget_MinIdleWaitTime, _data.noTarget_MaxIdleWaitTime);
+                noTarget_NextWaitTime = noTarget_NextMoveTime + Random.Range(_data.noTarget_MinMoveWaitTime, _data.noTarget_MaxMoveWaitTime);
+            }
+
             /// <summary>
             /// Need base
             /// </summary>
@@ -78,11 +142,12 @@ namespace Pinou.EntitySystem
                 if (HasTarget == false)
                 {
                     HandleDetection();
+                    HandleNoTargetBehaviour();
                 }
                 else
                 {
                     HandleComputeTargetInfos();
-                    HandleBehaviour();
+                    HandleHasTargetBehaviour();
                 }
             }
             protected virtual void HandleDetection()
@@ -92,18 +157,109 @@ namespace Pinou.EntitySystem
                     TryDetect();
                 }
             }
+            protected void HandleNoTargetBehaviour()
+			{
+                switch (_data.noTargetBehaviour)
+				{
+					case EnemyNoTargetBehaviour.StayStill:
+                        HandleStayStill();
+						break;
+					case EnemyNoTargetBehaviour.MoveRandomly:
+                        HandleMoveRandomly();
+						break;
+                    case EnemyNoTargetBehaviour.MoveRandomlyAroundSpawn:
+                        HandleMoveRandomlyAroundPoint();
+						break;
+                    case EnemyNoTargetBehaviour.MoveForward:
+                        HandleMoveForward();
+						break;
+                }
+
+                HandleNoTarget_Abilities();
+            }
+
+            protected virtual void HandleStayStill()
+			{
+                StayStill();
+            }
+            protected virtual void HandleMoveRandomly()
+            {
+                //Waiting
+                if (noTarget_waiting == true)
+				{
+                    StayStill();
+                    if (Time.time >= noTarget_NextMoveTime)
+					{
+                        noTarget_NextMoveTime = noTarget_NextWaitTime + Random.Range(_data.noTarget_MinIdleWaitTime, _data.noTarget_MaxIdleWaitTime);
+                        noTarget_waiting = false;
+                        noTarget_NextPosition = ComputeNoTargetNextPosition();
+
+                        HandleMoveRandomly();
+                    }
+                }
+                //Moving
+                else
+				{
+                    MoveToward(noTarget_NextPosition);
+                    if (Time.time >= noTarget_NextWaitTime)
+                    {
+                        noTarget_NextWaitTime = noTarget_NextMoveTime + Random.Range(_data.noTarget_MinMoveWaitTime, _data.noTarget_MaxMoveWaitTime);
+                        noTarget_waiting = true;
+
+                        HandleMoveRandomly();
+                    }
+                }
+            }
+            protected virtual void HandleMoveRandomlyAroundPoint()
+            {
+                HandleMoveRandomly();
+            }
+            protected virtual void HandleMoveForward()
+            {
+                MoveToward(noTarget_NextPosition);
+            }
+            protected virtual Vector3 ComputeNoTargetNextPosition()
+			{
+                float randAngle = Random.Range(0f, Mathf.PI * 2f);
+                Vector3 direction = new Vector3(Mathf.Cos(randAngle), Mathf.Sin(randAngle));
+                if (PinouApp.Entity.Mode2D == false) { direction = direction.SwapYZ(); }
+
+				switch (_data.noTargetBehaviour)
+				{
+					case EnemyNoTargetBehaviour.StayStill:
+                        return Position;
+					case EnemyNoTargetBehaviour.MoveRandomly:
+                        return Position + direction * Random.Range(_data.noTarget_MinMoveDistance, _data.noTarget_MaxMoveDistance);
+                    case EnemyNoTargetBehaviour.MoveRandomlyAroundSpawn:
+                        return spawnPosition + direction * Random.Range(0f, _data.noTarget_maxAroundSpawnMoveRange);
+                    case EnemyNoTargetBehaviour.MoveForward:
+                        return Position + direction * 100000000;
+                }
+
+                throw new System.Exception("Requires update here.");
+			}
+            protected virtual void HandleNoTarget_Abilities()
+            {
+                aimTarget = default;
+                aimDirection = default;
+                shoot = false;
+            }
+
             protected void HandleComputeTargetInfos()
 			{
-                targetSqrDst = (target.Position - Position).sqrMagnitude;
+                toTarget = target.Position - Position;
+                targetSqrDst = toTarget.sqrMagnitude;
+                targetDst = Mathf.Sqrt(targetSqrDst);
+                toTargetNorm = toTarget / targetDst;
             }
-            protected void HandleBehaviour()
+            protected void HandleHasTargetBehaviour()
             {
-                switch (_data._baseBehaviour)
+                switch (_data.hasTargetBehaviour)
                 {
-                    case EnemyBaseBehaviour.BrainlessRush:
+                    case EnemyHasTargetBehaviour.BrainlessRush:
                         HandleBrainlessRush();
                         break;
-                    case EnemyBaseBehaviour.RotateAround:
+                    case EnemyHasTargetBehaviour.RotateAround:
                         HandleRotateAround();
                         break;
                 }
@@ -113,8 +269,53 @@ namespace Pinou.EntitySystem
             /// </summary>
             protected virtual void HandleBrainlessRush()
             {
-
+                HandleBrainlessRush_Movements();
+                HandleBrainlessRush_Abilities();
             }
+            protected void HandleBrainlessRush_Movements()
+			{
+                HandleApproachRangeState();
+                if (hasTarget_rangeReached == false)
+                {
+                    MoveToward(target.Position - toTargetNorm * _data.hasTarget_AproachRange.x);
+                }
+                else
+                {
+                    StayStill();
+                }
+            }
+            protected void HandleBrainlessRush_Abilities()
+            {
+                aimTarget = PinouUtils.Maths.PredictAim(Position, target.Position, target.HasMovements ? target.Movements.AverageVelocity : Vector3.zero, _data.hasTarget_ExpectedProjectileSpeedAimFactor);
+                aimDirection = (aimTarget - Position).normalized;
+                if (PinouApp.Entity.Mode2D == true)
+                {
+                    float randSpread = Random.Range(-_data.hasTarget_AimSpread * 0.5f, _data.hasTarget_AimSpread * 0.5f);
+                    Vector3 crossProduct = Vector3.Cross(aimDirection, Vector3.forward) * randSpread;
+                    aimDirection = (aimDirection + crossProduct).normalized;
+                }
+                else
+				{
+                    float randAngle = Random.Range(0f, Mathf.PI * 2f);
+                    float randDst = Mathf.Sqrt(Random.value) * Random.Range(0f, _data.hasTarget_AimSpread);
+                    Vector2 randSpread = new Vector2(Mathf.Cos(randAngle), Mathf.Sin(randAngle)) * randDst;
+                    Vector3 crossProduct = Vector3.Cross(aimDirection, Vector3.up);
+
+                    aimDirection = (aimDirection + crossProduct * randSpread.x + Vector3.up * randSpread.y).normalized;
+                }
+                shoot = true;
+            }
+            protected void HandleApproachRangeState()
+			{
+                if (hasTarget_rangeReached == false && targetDst <= _data.hasTarget_AproachRange.x)
+				{
+                    hasTarget_rangeReached = true;
+				}
+                else if (hasTarget_rangeReached == true && targetDst >= _data.hasTarget_AproachRange.y)
+				{
+                    hasTarget_rangeReached = false;
+				}
+			}
             /// <summary>
             /// Do not need base
             /// </summary>
@@ -122,11 +323,42 @@ namespace Pinou.EntitySystem
             {
 
             }
-            #endregion
+
+			public override void SlaveEnabled()
+			{
+                master.OnReceiveAbilityHit.SafeSubscribe(OnReceiveAbilityHit);
+			}
+			public override void SlaveDisabled()
+			{
+                master.OnReceiveAbilityHit.Unsubscribe(OnReceiveAbilityHit);
+			}
+			#endregion
 
 
-            #region Utilities
-            protected virtual void TryDetect()
+			#region Utilities
+			#region Movements
+            protected void StayStill()
+			{
+                inputingMovement = false;
+                moveVector = Vector3.zero;
+			}
+            protected void MoveToward(Vector3 position)
+			{
+                inputingMovement = true;
+                float dst = (Position - position).magnitude - _data.global_MoveTowardMargin;
+                float speed = Movements.Data.BaseAcceleration * (Mathf.Clamp(dst, 0f, Movements.Data.BaseMaxSpeed) / Movements.Data.BaseMaxSpeed);
+                if (speed <= 0f)
+				{
+                    StayStill();
+				}
+                else
+				{
+                    moveVector = (position - Position).normalized * speed;
+                }
+            }
+			#endregion
+			#region Target Detection
+			protected virtual void TryDetect()
             {
                 _lastDetectionTry = Time.time;
                 List<Entity> detectedEntities = new List<Entity>(PinouUtils.Entity.DetectEntitiesInSphere<Entity>(Position, _data.targetForwardDetectionDistance));
@@ -217,6 +449,20 @@ namespace Pinou.EntitySystem
 				}
                 return true;
 			}
+			#endregion
+			#endregion
+
+			#region Events
+			private void OnReceiveAbilityHit(Entity master, AbilityCastResult castResult)
+            {
+                if (HasTarget == false) 
+                { 
+                    if (IsEntityAuthorizedTarget(castResult.CastData.Caster))
+					{
+                        target = castResult.CastData.Caster;
+                    }
+                }
+            }
             #endregion
 
             #region Editor

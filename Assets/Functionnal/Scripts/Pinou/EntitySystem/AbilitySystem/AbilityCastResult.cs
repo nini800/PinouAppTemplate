@@ -36,17 +36,26 @@ namespace Pinou.EntitySystem
 			return 0f;
 		}
 
+		private bool _victimFilled, _impactFilled, _knockbackAppliedFilled, _resourceChangesFilled;
+		public bool VictimFilled => _victimFilled;
+		public bool ImpactFilled => _impactFilled;
+		public bool KnockbackAppliedFilled => _knockbackAppliedFilled;
+		public bool ResourceChangesFilled => _resourceChangesFilled;
+
 		public void FillVictim(Entity victim)
         {
 			_victim = victim;
+			_victimFilled = true;
         }
 		public void FillImpact(Vector3 impact)
 		{
 			_impact = impact;
+			_impactFilled = true;
 		}
 		public void FillKnockbackApplied(Vector3 knockback)
 		{
 			_knockbackApplied = knockback;
+			_knockbackAppliedFilled = true;
 		}
 		public void FillResourceChange(EntityBeingResourceType resource, float change)
         {
@@ -66,6 +75,8 @@ namespace Pinou.EntitySystem
 			{
 				data.SetResourceChange(change);
 			}
+
+			_resourceChangesFilled = true;
         }
 		public void SetResourceChanges(AbilityResourceImpactData[] resourceChanges)
 		{

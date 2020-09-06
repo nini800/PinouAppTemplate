@@ -18,6 +18,12 @@ namespace Pinou
             _emissionModule.rateOverTime = _emission;
         }
 
+        public void PlayFromStart()
+		{
+            _ps.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+            _ps.Play();
+		}
+
 #if UNITY_EDITOR
         protected override void E_OnValidate()
         {

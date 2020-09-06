@@ -1,0 +1,28 @@
+using System;
+
+namespace Pinou.EntitySystem
+{		
+	[Flags]
+    public enum EntityBeingResourceType
+    {
+|ENUMRESOURCES|
+    }
+	
+	[Flags]
+    public enum EntityStatsLevelType
+    {
+|ENUMLEVELS|
+    }
+	
+	[Flags]
+    public enum EntityEquipableType
+    {
+|ENUMEQUIPMENTS|
+    }
+	
+	[Flags]
+    public enum EntityBodySocket
+    {
+|ENUMSOCKETS|
+    }
+}

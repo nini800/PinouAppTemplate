@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   _autoScriptPath: Assets\Functionnal\Scripts\Pinou\InputSystem\
   _gameInputs:
-  - E_OpenList: 00
+  - E_OpenList: 01
     E_ToggleList: 
     InputName: Game_ShowPauseMenu
     _computerInputs:
@@ -61,7 +61,118 @@ MonoBehaviour:
         Key: 0
         MouseButtonId: 0
         WheelDirection: 0
-    _controllerInputs: []
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 10
+        Axis: 0
+        InputDirection: 0
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Game_Pause
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 27
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 11
+        Axis: 0
+        InputDirection: 0
+  - E_OpenList: 01
+    E_ToggleList: 
+    InputName: Game_Dash
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 32
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 4
+        Axis: 0
+        InputDirection: 0
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Game_Sprint_Toggle
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 304
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 1
+        Axis: 0
+        InputDirection: 0
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Game_Sprint_Held
+    _computerInputs:
+    - InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 304
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 1
+        Axis: 0
+        InputDirection: 0
   - E_OpenList: 00
     E_ToggleList: 
     InputName: Editor_CameraLook

@@ -27,6 +27,13 @@ namespace Pinou.Editor
 		[MenuItem("CONTEXT/SortingGroup/OrderInLayer/MovementsTrailsNParticles")]
 		public static void SetMovementsTrailsNParticlesLayer_SG(MenuCommand command) => UpdateLayerOrder(command, 10);
 
+		[MenuItem("CONTEXT/Renderer/OrderInLayer/Drops")]
+		public static void SetDropsLayer_Rend(MenuCommand command) => UpdateLayerOrder(command, 15);
+		[MenuItem("CONTEXT/ParticleSystem/OrderInLayer/Drops")]
+		public static void SetDropsLayer_PS(MenuCommand command) => UpdateLayerOrder(command, 15);
+		[MenuItem("CONTEXT/SortingGroup/OrderInLayer/Drops")]
+		public static void SetDropsLayer_SG(MenuCommand command) => UpdateLayerOrder(command, 15);
+
 		[MenuItem("CONTEXT/Renderer/OrderInLayer/Entity")]
 		public static void SetEntityLayer_Rend(MenuCommand command) => UpdateLayerOrder(command, 20);
 		[MenuItem("CONTEXT/ParticleSystem/OrderInLayer/Entity")]

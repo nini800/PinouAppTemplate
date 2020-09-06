@@ -41,11 +41,18 @@ namespace Pinou.EntitySystem
 		private void OnValidate()
         {
 			_velocityOverrideChain.E_UpdateAverageCurvesValue();
+
+			if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode == true) { return; }
+
+			if (PinouApp.Resources == null) { return; }
+			if (PinouApp.Resources.Data.AbilityDatabase.GetAbilityByID(_abilityID) != this) { _abilityID = -1; }
 			if (_abilityID == -1)
 			{
 				int id = PinouApp.Resources.Data.AbilityDatabase.E_AddAbility(this);
 				E_SetAbilityID(id);
 			}
+
+			_methods.GetType().GetField("_abilityData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(_methods, this);
         }
 		public void E_SetAbilityID(int id)
 		{

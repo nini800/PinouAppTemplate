@@ -26,6 +26,7 @@ namespace Pinou.EntitySystem
 		AttackEntityAverage,
 		VictimEntityBased,
 		AttackImpactToEntity,
+		CasterToVictim
 	}
 	public enum AbilityCastOrigin
     {
@@ -42,8 +43,14 @@ namespace Pinou.EntitySystem
 		VictimCenter,
 		CastOrigin,
 		OriginVictimCenterAverage,
-		RayCastTowardVictim
-    }
+		RayCastTowardVictim,
+		ProjectileImpact,
+	}
+	public enum ProjectileImpactMethod
+	{
+		Pierce,
+		Bounce
+	}
 
 	[System.Flags]
 	public enum AbilityTargets

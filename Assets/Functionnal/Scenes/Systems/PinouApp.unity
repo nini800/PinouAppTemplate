@@ -130,6 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 491807770}
+  - component: {fileID: 491807771}
   m_Layer: 0
   m_Name: Transports
   m_TagString: Untagged
@@ -153,6 +154,45 @@ Transform:
   m_Father: {fileID: 606729188}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &491807771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491807769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929e3234c7db540b899f00183fc2b1fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnClientConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  transports:
+  - {fileID: 1395423783}
+  - {fileID: 947766155}
 --- !u!1 &606729186
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +283,12 @@ MonoBehaviour:
     _managerVariableName: entity
   - _managerData: {fileID: 11400000, guid: d2f979932e8b4814ea0ef1c3573174fa, type: 2}
     _managerVariableName: cheats
+  - _managerData: {fileID: 11400000, guid: fbcf23c7c72b84e4e993bac8bed775a9, type: 2}
+    _managerVariableName: loot
+  - _managerData: {fileID: 11400000, guid: 16a29447f6a047d4c81b78a6acc21d04, type: 2}
+    _managerVariableName: options
+  - _managerData: {fileID: 11400000, guid: 15fcce5a8c08150488a816736365b743, type: 2}
+    _managerVariableName: pooler
   _fakePlayersCreator: {fileID: 606729190}
   _autoscriptPath: Assets\Functionnal\Scripts\Pinou\Core\Managers\
 --- !u!114 &606729190
@@ -290,7 +336,7 @@ MonoBehaviour:
   serverTickRate: 30
   offlineScene: 
   onlineScene: 
-  transport: {fileID: 1395423783}
+  transport: {fileID: 491807771}
   networkAddress: localhost
   maxConnections: 4
   disconnectInactiveConnections: 0
@@ -322,7 +368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &947766154
 Transform:
   m_ObjectHideFlags: 0
@@ -373,7 +419,7 @@ MonoBehaviour:
   OnServerDisconnected:
     m_PersistentCalls:
       m_Calls: []
-  Channels: 02000000
+  Channels: 020000000000000001000000
   Timeout: 25
   SteamAppID: 480
   AllowSteamRelay: 1

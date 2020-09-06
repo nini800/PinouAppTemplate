@@ -85,13 +85,27 @@ namespace Pinou.EntitySystem
             public override void SlaveEnabled()
             {
                 master.OnReceiveAbilityHit.Subscribe(OnReceiveAbilityHit);
+                if (HasStats == true)
+				{
+                    Stats.MainExperience.OnLevelUp.SafeSubscribe(OnMainLevelUp);
+				}
             }
-            /// <summary>
-            /// Need base
-            /// </summary>
-            public override void SlaveDisabled()
+
+			private void OnMainLevelUp(EntityStatsData.LevelExperienceData levelData, int level)
+			{
+                SetHealth(MaxHealth);
+			}
+
+			/// <summary>
+			/// Need base
+			/// </summary>
+			public override void SlaveDisabled()
             {
                 master.OnReceiveAbilityHit.Unsubscribe(OnReceiveAbilityHit);
+                if (HasStats == true)
+				{
+                    Stats.MainExperience.OnLevelUp.Unsubscribe(OnMainLevelUp);
+                }
             }
 
             /// <summary>

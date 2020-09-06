@@ -1,0 +1,47 @@
+﻿using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Pinou.EntitySystem	
+{
+	public partial class EntityEquipmentData : EntityComponentData
+	{
+		[Header("Default Equipment")]
+		[Space]
+|PRIVATEBUILDERFIELDS|
+
+		public EntityEquipableBuilder GetDefaultEquipmentBuilder(EntityEquipableType equipmentType)
+		{
+			switch(equipmentType)
+			{
+|SWITCHDEFAULTEQUIPMENT|
+			}
+			
+			throw new System.Exception("No Equipable " + equipmentType + " found.");
+		}
+	
+        public partial class EntityEquipment : EntityComponent
+        {
+|PRIVATEINSTANCEFIELDS|
+
+			public bool GetHasEquipped(EntityEquipableType equipmentType)
+			{
+				switch(equipmentType)
+				{
+|SWITCHHASEQUIPPED|
+				}
+				
+				throw new System.Exception("No Equipable " + equipmentType + " found.");
+			}
+			public EntityEquipable GetEquipped(EntityEquipableType equipmentType)
+			{
+				switch(equipmentType)
+				{
+|SWITCHEQUIPPED|
+				}
+				
+				throw new System.Exception("No Equipable " + equipmentType + " found.");
+			}
+        }
+    }
+}

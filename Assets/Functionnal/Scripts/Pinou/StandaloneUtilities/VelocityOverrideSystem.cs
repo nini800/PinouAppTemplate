@@ -1,5 +1,6 @@
 ﻿#pragma warning disable 1522, 0649
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace Pinou.EntitySystem
 		Absolute
 	}
 
-	[System.Serializable]
+	[Serializable]
 	public class VelocityOverrideData
 	{
 		[Header("Velocity Override")]
@@ -107,6 +108,7 @@ namespace Pinou.EntitySystem
 	public class VelocityOverrideAgent
 	{
 		private int _currentChainIndex = 0;
+		private float _statsSpeedFactor = 1f;
 		private VelocityOverrideData _currentVoData;
 		private VelocityOverrideChainData _currentChainData;
 		private Coroutine _currentCoroutine;
@@ -201,11 +203,11 @@ namespace Pinou.EntitySystem
 
 				if (voData.FixedProgressOverTime == true)
 				{
-					rb.velocity = direction * voData.SpeedFactor;
+					rb.velocity = direction * voData.SpeedFactor * _statsSpeedFactor;
 				}
 				else
 				{
-					rb.velocity = direction * voData.OverTimeCurve.Evaluate(progress) * voData.SpeedFactor;
+					rb.velocity = direction * voData.OverTimeCurve.Evaluate(progress) * voData.SpeedFactor * _statsSpeedFactor;
 				}
 
 				yield return new WaitForFixedUpdate();
@@ -238,15 +240,20 @@ namespace Pinou.EntitySystem
 
 				if (voData.FixedProgressOverTime == true)
 				{
-					rb.velocity = direction * estimatedAverageSpeed;
+					rb.velocity = direction * estimatedAverageSpeed * _statsSpeedFactor;
 				}
 				else
 				{
-					rb.velocity = direction * voData.OverTimeCurve.Evaluate(progress) * estimatedCurveSpeed;
+					rb.velocity = direction * voData.OverTimeCurve.Evaluate(progress) * estimatedCurveSpeed * _statsSpeedFactor;
 				}
 
 				yield return new WaitForFixedUpdate();
 			}
+		}
+
+		public void SetStatsSpeedFactor(float speedFactor)
+		{
+			_statsSpeedFactor = speedFactor;
 		}
 
 		#region Events

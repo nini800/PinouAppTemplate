@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Pinou.EntitySystem;
+using Mirror;
 
 namespace Pinou.Networking
 {
@@ -18,7 +19,7 @@ namespace Pinou.Networking
         }
         #endregion
 
-        public class EntityEnemyControllerNet : EntityEnemyController
+        public class EntityEnemyControllerNet : EntityEnemyController, IControllerNet
         {
             #region OnConstruct
             /// <summary>
@@ -32,16 +33,30 @@ namespace Pinou.Networking
 
             private EntityEnemyControllerNetData _data = null;
             protected new EntityEnemyControllerNetData Data => _data;
-            #endregion
-
-            #region Vars, Getters
-            #endregion
-
-            #region Behaviour
-            #endregion
-
-            #region Editor
 			#endregion
-        }
+
+			#region Vars, Getters
+			#endregion
+
+			#region Behaviour
+			public override void SlaveAwake()
+			{
+                if (PinouNetworkManager.IsServer)
+				{
+                    base.SlaveAwake();
+				}
+			}
+			public override void SlaveUpdate()
+			{
+                if (PinouNetworkManager.IsServer)
+                {
+                    base.SlaveUpdate();
+                }
+            }
+			#endregion
+
+			#region Editor
+			#endregion
+		}
     }
 }

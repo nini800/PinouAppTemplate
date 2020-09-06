@@ -1,3 +1,4 @@
+#pragma warning disable 0649
 namespace Pinou
 {
 	public partial class PinouApp : PinouSingleton<PinouApp>
@@ -16,5 +17,11 @@ namespace Pinou
 		public static Pinou.Networking.PinouEntityManagerNetData.PinouEntityManagerNet Entity=> _entity;
 		private static Pinou.EntitySystem.PinouCheatsManagerData.PinouCheatsManager _cheats;
 		public static Pinou.EntitySystem.PinouCheatsManagerData.PinouCheatsManager Cheats=> _cheats;
+		private static Pinou.PinouLootManagerData.PinouLootManager _loot;
+		public static Pinou.PinouLootManagerData.PinouLootManager Loot=> _loot;
+		private static Pinou.PinouOptionsManagerData.PinouOptionsManager _options;
+		public static Pinou.PinouOptionsManagerData.PinouOptionsManager Options=> _options;
+		private static Pinou.Pooler.PinouPoolerData.PinouPooler _pooler;
+		public static Pinou.Pooler.PinouPoolerData.PinouPooler Pooler=> _pooler;
 	}
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
+using Mirror;
+using Pinou.Networking;
+using System.Threading.Tasks;
 
 namespace Pinou.EntitySystem
 {
@@ -44,14 +47,16 @@ namespace Pinou.EntitySystem
 			#endregion
 
 			#region Vars, Getters
-			private List<Entity> _players = new List<Entity>();
-			private List<Entity> _allies = new List<Entity>();
-			private List<Entity> _enemies = new List<Entity>();
+			protected List<Vector3> recentPlayerDeathPoses = new List<Vector3>();
 
-			public Entity Player => _players.Count > 0 ? _players[0] : null;
-			public Entity[] Players => _players.ToArray();
-			public Entity[] Allies => _allies.ToArray();
-			public Entity[] Enemies => _enemies.ToArray();
+			protected List<Entity> players = new List<Entity>();
+			protected List<Entity> allies = new List<Entity>();
+			protected List<Entity> enemies = new List<Entity>();
+
+			public virtual Entity Player => players.Count > 0 ? players[0] : null;
+			public Entity[] Players => players.ToArray();
+			public Entity[] Allies => allies.ToArray();
+			public Entity[] Enemies => enemies.ToArray();
 
 			public bool Mode2D => Data._Mode2D;
 			#endregion
@@ -85,13 +90,13 @@ namespace Pinou.EntitySystem
                         switch (entity.Team)
                         {
                             case EntityTeam.Players:
-								_players.Add(entity);
+								players.Add(entity);
                                 break;
 							case EntityTeam.Allies:
-								_allies.Add(entity);
+								allies.Add(entity);
                                 break;
 							case EntityTeam.Enemies:
-								_enemies.Add(entity);
+								enemies.Add(entity);
                                 break;
 						}
 
@@ -106,22 +111,33 @@ namespace Pinou.EntitySystem
 			}
 			private void HandleDespawnEnemies()
 			{
-				for (int i = _enemies.Count - 1; i >= 0; i--)
+				if (PinouNetworkManager.MainBehaviour.isServer == false) { return; }
+				for (int i = enemies.Count - 1; i >= 0; i--)
 				{
-					if (_enemies[i] == null)
+					if (enemies[i] == null)
 					{
-						_enemies.RemoveAt(i);
+						enemies.RemoveAt(i);
 						continue;
 					}
 					bool shouldKill = true;
-					for (int j = _players.Count - 1; j >= 0; j--)
+					//Check around all players
+					for (int j = players.Count - 1; j >= 0; j--)
 					{
-						if (_players[j] == null)
+						if (players[j] == null)
 						{
-							_players.RemoveAt(j);
+							players.RemoveAt(j);
 							continue;
 						}
-						if (Vector3.SqrMagnitude(_players[j].Position - _enemies[i].Position) <= Data.enemyDespawnDistance * Data.enemyDespawnDistance)
+						if (Vector3.SqrMagnitude(players[j].Position - enemies[i].Position) <= Data.enemyDespawnDistance * Data.enemyDespawnDistance)
+						{
+							shouldKill = false;
+							break;
+						}
+					}
+					//Prevent removing monsters right after player death
+					for (int j = 0; j < recentPlayerDeathPoses.Count; j++)
+					{
+						if (Vector3.SqrMagnitude(recentPlayerDeathPoses[j] - enemies[i].Position) <= Data.enemyDespawnDistance * Data.enemyDespawnDistance)
 						{
 							shouldKill = false;
 							break;
@@ -129,9 +145,9 @@ namespace Pinou.EntitySystem
 					}
 					if (shouldKill == true)
 					{
-						_enemies[i].OnRemovedByManager.Invoke(_enemies[i]);
-						Destroy(_enemies[i].gameObject);
-						_enemies.RemoveAt(i);
+						enemies[i].OnRemovedByManager.Invoke(enemies[i]);
+						Destroy(enemies[i].gameObject);
+						enemies.RemoveAt(i);
 					}
 				}
 			}
@@ -143,10 +159,10 @@ namespace Pinou.EntitySystem
 				if (Data.entityCreationMethod == EntityCreationMethod.AroundPlayer2D_XYPlane)
 				{
 					float randAngle = Random.Range(0f, Mathf.PI * 2f);
-					return 
-						new Vector2(Mathf.Cos(randAngle), Mathf.Sin(randAngle)) *
-						Random.Range(Data.spawnDistanceRange2D.x, Data.spawnDistanceRange2D.y) +
-						player.Position2D;
+					Vector2 offset = new Vector2(Mathf.Cos(randAngle), Mathf.Sin(randAngle)) *
+						Random.Range(Data.spawnDistanceRange2D.x, Data.spawnDistanceRange2D.y);
+
+					return offset +player.Position2D;
 				}
 				else
 				{
@@ -195,7 +211,7 @@ namespace Pinou.EntitySystem
 			}
 			public virtual Entity CreateEntity(GameObject entityModel, Vector3 pos, float startRotation)
 			{
-				GameObject entGo = Instantiate(entityModel, pos, Quaternion.identity, PinouApp.Scene.ActiveSceneInfos.EntitiesHolder);
+				GameObject entGo = PinouApp.Pooler.Retrieve(entityModel, pos, Quaternion.identity, PinouApp.Scene.ActiveSceneInfos.EntitiesHolder);
 				Entity ent = entGo.GetComponent<Entity>();
 				if (ent == null)
 				{
@@ -217,21 +233,21 @@ namespace Pinou.EntitySystem
 
 				return ent;
 			}
-			public void RegisterEntity(Entity ent)
+			public virtual void RegisterEntity(Entity ent)
 			{
 				SubscribeToEntityEvents(ent);
 
 				switch (ent.Team)
 				{
 					case EntityTeam.Players:
-						_players.Add(ent);
+						players.Add(ent);
 						OnPlayerCreated.Invoke(ent);
 						break;
 					case EntityTeam.Allies:
-						_allies.Add(ent);
+						allies.Add(ent);
 						break;
 					case EntityTeam.Enemies:
-						_enemies.Add(ent);
+						enemies.Add(ent);
 						OnEnemyCreated.Invoke(ent);
 						break;
 				}
@@ -242,57 +258,67 @@ namespace Pinou.EntitySystem
 				switch (ent.Team)
 				{
 					case EntityTeam.Players:
-						_players.Remove(ent);
+						players.Remove(ent);
 						break;
 					case EntityTeam.Allies:
-						_allies.Remove(ent);
+						allies.Remove(ent);
 						break;
 					case EntityTeam.Enemies:
-						_enemies.Remove(ent);
+						enemies.Remove(ent);
 						break;
 				}
 				Destroy(ent.gameObject);
 			}
 			public void ClearEntities()
 			{
-				_players.Clear();
-				_allies.Clear();
-				_enemies.Clear();
+				players.Clear();
+				allies.Clear();
+				enemies.Clear();
 			}
 
 			private void SubscribeToEntityEvents(Entity ent)
 			{
+				ent.OnAbilityHitResult.Subscribe(OnEntityAbilityHitResult.Invoke);
 				if (ent.HasBeing)
 				{
 					ent.Being.OnDeath.Subscribe(_OnEntityDeath);
 				}
 			}
 
-			private void _OnEntityDeath(Entity ent, AbilityCastResult killingResult)
+			protected async virtual void HandleRespawnPlayer(Entity ent)
 			{
-				switch (ent.Team)
-				{
-					case EntityTeam.Players:
-						_players.Remove(ent);
-						break;
-					case EntityTeam.Allies:
-						_allies.Remove(ent);
-						break;
-					case EntityTeam.Enemies:
-						_enemies.Remove(ent);
-						break;
-				}
-				OnEntityDeath.Invoke(ent, killingResult);
+				await Task.Delay(5000);
+				CreateEntity(PinouApp.Resources.Data.Entities.PlayerModel, default, default);
 			}
-
-
 			#endregion
 
 			#region Events
 			public PinouUtils.Delegate.Action<Entity> OnPlayerCreated { get; private set; } = new PinouUtils.Delegate.Action<Entity>();
 			public PinouUtils.Delegate.Action<Entity> OnEnemyCreated { get; private set; } = new PinouUtils.Delegate.Action<Entity>();
 			public PinouUtils.Delegate.Action<Entity> OnEntityCreated { get; private set; } = new PinouUtils.Delegate.Action<Entity>();
+			public PinouUtils.Delegate.Action<Entity, AbilityCastResult> OnEntityAbilityHitResult { get; private set; } = new PinouUtils.Delegate.Action<Entity, AbilityCastResult>();
 			public PinouUtils.Delegate.Action<Entity, AbilityCastResult> OnEntityDeath { get; private set; } = new PinouUtils.Delegate.Action<Entity, AbilityCastResult>();
+
+			protected virtual void _OnEntityDeath(Entity ent, AbilityCastResult killingResult)
+			{
+				switch (ent.Team)
+				{
+					case EntityTeam.Players:
+						players.Remove(ent);
+						HandleRespawnPlayer(ent);
+						Vector3 pos = ent.Position;
+						recentPlayerDeathPoses.Add(pos);
+						PinouUtils.Coroutine.Invoke(delegate() { recentPlayerDeathPoses.Remove(pos); }, 10f, true);
+						break;
+					case EntityTeam.Allies:
+						allies.Remove(ent);
+						break;
+					case EntityTeam.Enemies:
+						enemies.Remove(ent);
+						break;
+				}
+				OnEntityDeath.Invoke(ent, killingResult);
+			}
 			#endregion
 
 		}

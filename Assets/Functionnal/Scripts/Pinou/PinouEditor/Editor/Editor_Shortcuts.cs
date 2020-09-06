@@ -98,6 +98,10 @@ namespace Pinou.Editor
         private const string META_SUFFIX = ".meta";
         public static void OpenFolder(string path) 
         {
+            var projectBrowserType = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.ProjectBrowser");
+            var projectBrowser = EditorWindow.GetWindow(projectBrowserType);
+            projectBrowser.Focus();
+
             List<string> names = new List<string>(Directory.GetFiles(path));
             for (int i = names.Count - 1; i >= 0; i--)
             {

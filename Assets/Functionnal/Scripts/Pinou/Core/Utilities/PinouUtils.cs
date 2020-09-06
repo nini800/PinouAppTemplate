@@ -7,6 +7,7 @@ using System.Linq;
 using System;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
+using Pinou.EntitySystem;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -408,6 +409,129 @@ namespace Pinou
                 return b * t + a * (1 - t);
             }
 
+            public static Vector3 PredictAim(Vector3 shootPos, Vector3 targetPos, Vector3 targetVel, float projSpeed)
+			{
+                if (targetVel.sqrMagnitude <= 0f)
+				{
+                    return targetPos;
+                }
+                else
+				{
+                    Vector3 targetToBullet = shootPos - targetPos;
+                    float distToTargetSqr = (shootPos - targetPos).sqrMagnitude;
+                    float distToTarget = (shootPos - targetPos).magnitude;
+                    Vector3 targetToBulletNorm = targetToBullet / distToTarget;
+                    float tarSpeed = targetVel.magnitude;
+                    float tarSpeedSqr = targetVel.sqrMagnitude;
+                    Vector3 tarVelNorm = targetVel / tarSpeed;
+                    float projSpeedSqr = projSpeed.Squared();
+
+                    float cosTheta = Vector3.Dot(targetToBulletNorm, tarVelNorm);
+
+                    float offset = Mathf.Sqrt((2 * distToTarget * tarSpeed * cosTheta).Squared() + 4 * (projSpeedSqr - tarSpeedSqr) * distToTargetSqr);
+
+                    float estimatedTravelTime = (-2 * distToTarget * tarSpeed * cosTheta + offset) / (2 * (projSpeedSqr - tarSpeedSqr));
+                    #region Offset should be ±, but works fine with just +
+                    //float estimatedTravelTimeTwo = (-2 * distToTarget * tarSpeed * cosTheta + offset) / (2 * (projSpeedSqr - tarSpeedSqr));
+
+                    /*if (estimatedTravelTimeOne < 0 && estimatedTravelTimeTwo < 0 ||
+                        estimatedTravelTimeOne == float.NaN && estimatedTravelTimeTwo == float.NaN)*/
+                    #endregion
+
+                    if (estimatedTravelTime < 0 || estimatedTravelTime == float.NaN)
+					{
+                        return targetPos;
+                    }
+                    else
+					{
+						#region Offset should be ±, but works fine with just +
+						/*if (estimatedTravelTimeOne < estimatedTravelTimeTwo)
+						{
+                            return targetPos + tarVelNorm * tarSpeed * estimatedTravelTimeOne;
+						}
+                        else
+						{
+                            return targetPos + tarVelNorm * tarSpeed * estimatedTravelTimeTwo;
+
+                        }*/
+						#endregion
+
+						return targetPos + tarVelNorm * tarSpeed * estimatedTravelTime;
+                    }
+                }
+            }
+
+            public static int Pow2toIndex(int pow)
+			{
+				switch (pow)
+				{
+                    case 1:
+                        return 0;
+                    case 2:
+                        return 1;
+                    case 4:
+                        return 2;
+                    case 8:
+                        return 3;
+                    case 16:
+                        return 4;
+                    case 32:
+                        return 5;
+                    case 64:
+                        return 6;
+                    case 128:
+                        return 7;
+                    case 256:
+                        return 8;
+                    case 512:
+                        return 9;
+                    case 1024:
+                        return 10;
+                    case 2048:
+                        return 11;
+                    case 4096:
+                        return 12;
+                    case 8192:
+                        return 13;
+                    case 16384:
+                        return 14;
+                    case 32768:
+                        return 15;
+                    case 65536:
+                        return 16;
+                    case 131072:
+                        return 17;
+                    case 262144:
+                        return 18;
+                    case 524288:
+                        return 19;
+                    case 1048576:
+                        return 20;
+                    case 2097152:
+                        return 21;
+                    case 4194304:
+                        return 22;
+                    case 8388608:
+                        return 23;
+                    case 16777216:
+                        return 24;
+                    case 33554432:
+                        return 25;
+                    case 67108664:
+                        return 26;
+                    case 134217728:
+                        return 27;
+                    case 268435546:
+                        return 28;
+                    case 536870912:
+                        return 29;
+                    case 1073741824:
+                        return 30;
+                }
+
+                return -1;
+			}
+
             [Serializable]
             public class Formula
             {
@@ -491,11 +615,11 @@ namespace Pinou
 
         public static class Quaternion
         {
-            public static UnityEngine.Quaternion SafeLookRotation(Vector3 direction)
+            public static UnityEngine.Quaternion SafeLookRotation(Vector3 direction,Vector3 defaultDirection)
             {
                 if (direction.sqrMagnitude <= Mathf.Epsilon || direction == Vector3.zero)
                 {
-                    return UnityEngine.Quaternion.identity;
+                    return UnityEngine.Quaternion.LookRotation(defaultDirection);
                 }
 
                 return UnityEngine.Quaternion.LookRotation(direction);
@@ -675,7 +799,8 @@ namespace Pinou
                     T t;
                     for (int i = 0; i < gos.Length; i++)
                     {
-                        if ((t = FindObjectOfTypeInChildren<T>(gos[i])) != null)
+                        t = FindObjectOfTypeInChildren<T>(gos[i]);
+                        if (t != null)
                         {
                             return t;
                         }
@@ -687,16 +812,17 @@ namespace Pinou
             }
             private static T FindObjectOfTypeInChildren<T>(UnityEngine.GameObject o) where T : Component
             {
-                T t;
-                for (int i = 0; i < o.transform.childCount; i++)
-                {
-                    if (t = o.GetComponent<T>())
+                T t = o.GetComponent<T>();
+                if (t != null) { return t; }
+                else
+				{
+                    for (int i = 0; i < o.transform.childCount; i++)
                     {
-                        return t;
-                    }
-                    else
-                    {
-                        FindObjectOfTypeInChildren<T>(o.transform.GetChild(i).gameObject);
+                        t = FindObjectOfTypeInChildren<T>(o.transform.GetChild(i).gameObject);
+                        if (t != null)
+						{
+                            return t;
+						}
                     }
                 }
 
@@ -948,13 +1074,26 @@ namespace Pinou
             {
                 public class PriorityMethod
                 {
-                    public System.Action method;
-                    public int priority;
+                    public System.Action Method { get; private set; }
+                    public System.Action<GenericDataHolder> GenericDataMethod { get; private set; }
+                    public int Priority { get; private set; }
+                    public GenericDataHolder GenericData { get; private set; }
+                    public bool HasGenericData => GenericData != null;
 
                     public PriorityMethod(System.Action method, int priority)
                     {
-                        this.method = method;
-                        this.priority = priority;
+                        Method = method;
+                        GenericDataMethod = null;
+                        Priority = priority;
+                        GenericData = null;
+                    }
+
+                    public PriorityMethod(System.Action<GenericDataHolder> method, GenericDataHolder genericData, int priority)
+                    {
+                        Method = null;
+                        GenericDataMethod = method;
+                        Priority = priority;
+                        GenericData = genericData;
                     }
                 }
                 private static int currentId = 0;
@@ -981,6 +1120,11 @@ namespace Pinou
                     while (Unsubscribe(method)) { }
                     Subscribe(method, priority);
                 }
+                public void SafeSubscribe(System.Action<GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    while (Unsubscribe(method, data)) { }
+                    Subscribe(method, data, priority);
+                }
 
                 public void Subscribe(System.Action method, int priority = 0)
                 {
@@ -994,7 +1138,33 @@ namespace Pinou
                     {
                         for (int i = toInvoke.Count - 1; i >= 0; i--)
                         {
-                            if (priority > toInvoke[i].priority)
+                            if (priority > toInvoke[i].Priority)
+                            {
+                                toInvoke.Insert(i + 1, newMethod);
+                                break;
+                            }
+                            else if (i == 0)
+                            {
+                                toInvoke.Insert(0, newMethod);
+                                break;
+                            }
+                        }
+                    }
+
+                }
+                public void Subscribe(System.Action<GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    PriorityMethod newMethod = new PriorityMethod(method, data, priority);
+
+                    if (toInvoke.Count == 0)
+                    {
+                        toInvoke.Add(newMethod);
+                    }
+                    else
+                    {
+                        for (int i = toInvoke.Count - 1; i >= 0; i--)
+                        {
+                            if (priority > toInvoke[i].Priority)
                             {
                                 toInvoke.Insert(i + 1, newMethod);
                                 break;
@@ -1018,7 +1188,20 @@ namespace Pinou
                 {
                     for (int i = 0; i < toInvoke.Count; i++)
                     {
-                        if (toInvoke[i].method == method)
+                        if (toInvoke[i].Method == method)
+                        {
+                            toInvoke.RemoveAt(i);
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+                public bool Unsubscribe(System.Action<GenericDataHolder> method, GenericDataHolder data)
+                {
+                    for (int i = 0; i < toInvoke.Count; i++)
+                    {
+                        if (toInvoke[i].GenericDataMethod == method && toInvoke[i].GenericData == data)
                         {
                             toInvoke.RemoveAt(i);
                             return true;
@@ -1032,7 +1215,14 @@ namespace Pinou
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {
-                        array[i].method.Invoke();
+                        if (array[i].HasGenericData == true)
+                        {
+                            array[i].GenericDataMethod.Invoke(array[i].GenericData);
+                        }
+                        else
+                        {
+                            array[i].Method.Invoke();
+                        }
                     }
                 }
 
@@ -1054,13 +1244,26 @@ namespace Pinou
             {
                 public class PriorityMethod
                 {
-                    public System.Action<T> method;
-                    public int priority;
+                    public System.Action<T> Method { get; private set; }
+                    public System.Action<T, GenericDataHolder> GenericDataMethod { get; private set; }
+                    public int Priority { get; private set; }
+                    public GenericDataHolder GenericData { get; private set; }
+                    public bool HasGenericData => GenericData != null;
 
                     public PriorityMethod(System.Action<T> method, int priority)
                     {
-                        this.method = method;
-                        this.priority = priority;
+                        Method = method;
+                        GenericDataMethod = null;
+                        Priority = priority;
+                        GenericData = null;
+                    }
+
+                    public PriorityMethod(System.Action<T, GenericDataHolder> method, GenericDataHolder genericData, int priority)
+                    {
+                        Method = null;
+                        GenericDataMethod = method;
+                        Priority = priority;
+                        GenericData = genericData;
                     }
                 }
                 private static int currentId = 0;
@@ -1077,10 +1280,20 @@ namespace Pinou
                     toInvoke = new List<PriorityMethod>();
                 }
 
+                /// <summary>
+                /// Will ensure that only one instance of this method is subscribed
+                /// </summary>
+                /// <param name="method"></param>
+                /// <param name="priority"></param>
                 public void SafeSubscribe(System.Action<T> method, int priority = 0)
                 {
                     while (Unsubscribe(method)) { }
                     Subscribe(method, priority);
+                }
+                public void SafeSubscribe(System.Action<T, GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    while (Unsubscribe(method, data)) { }
+                    Subscribe(method, data, priority);
                 }
 
                 public void Subscribe(System.Action<T> method, int priority = 0)
@@ -1095,7 +1308,7 @@ namespace Pinou
                     {
                         for (int i = toInvoke.Count - 1; i >= 0; i--)
                         {
-                            if (priority > toInvoke[i].priority)
+                            if (priority > toInvoke[i].Priority)
                             {
                                 toInvoke.Insert(i + 1, newMethod);
                                 break;
@@ -1109,11 +1322,43 @@ namespace Pinou
                     }
 
                 }
+                public void Subscribe(System.Action<T, GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    PriorityMethod newMethod = new PriorityMethod(method, data, priority);
+
+                    if (toInvoke.Count == 0)
+                    {
+                        toInvoke.Add(newMethod);
+                    }
+                    else
+                    {
+                        for (int i = toInvoke.Count - 1; i >= 0; i--)
+                        {
+                            if (priority > toInvoke[i].Priority)
+                            {
+                                toInvoke.Insert(i + 1, newMethod);
+                                break;
+                            }
+                            else if (i == 0)
+                            {
+                                toInvoke.Insert(0, newMethod);
+                                break;
+                            }
+                        }
+                    }
+
+                }
+
+                /// <summary>
+                /// Returns true if unsubscribed
+                /// </summary>
+                /// <param name="method"></param>
+                /// <returns></returns>
                 public bool Unsubscribe(System.Action<T> method)
                 {
                     for (int i = 0; i < toInvoke.Count; i++)
                     {
-                        if (toInvoke[i].method == method)
+                        if (toInvoke[i].Method == method)
                         {
                             toInvoke.RemoveAt(i);
                             return true;
@@ -1122,26 +1367,46 @@ namespace Pinou
 
                     return false;
                 }
-                public void Invoke(T param1)
+                public bool Unsubscribe(System.Action<T, GenericDataHolder> method, GenericDataHolder data)
+                {
+                    for (int i = 0; i < toInvoke.Count; i++)
+                    {
+                        if (toInvoke[i].GenericDataMethod == method && toInvoke[i].GenericData == data)
+                        {
+                            toInvoke.RemoveAt(i);
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+                public void Invoke(T param)
                 {
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {
-                        array[i].method.Invoke(param1);
+                        if (array[i].HasGenericData == true)
+                        {
+                            array[i].GenericDataMethod.Invoke(param, array[i].GenericData);
+                        }
+                        else
+                        {
+                            array[i].Method.Invoke(param);
+                        }
                     }
                 }
-
-                public static Action<T> operator +(Action<T> a, System.Action<T> func)
+            }
+            public class SelfAction<T> : Action<T>
+            {
+                public SelfAction(T self) : base()
                 {
-                    if (a == null) a = new Action<T>();
-                    a.Subscribe(func, 0);
-                    return a;
+                    _self = self;
                 }
-                public static Action<T> operator -(Action<T> a, System.Action<T> func)
+
+                private T _self;
+                public void SelfInvoke()
                 {
-                    if (a == null) a = new Action<T>();
-                    a.Unsubscribe(func);
-                    return a;
+                    Invoke(_self);
                 }
             }
 
@@ -1149,13 +1414,26 @@ namespace Pinou
             {
                 public class PriorityMethod
                 {
-                    public System.Action<T, T2> method;
-                    public int priority;
+                    public System.Action<T, T2> Method { get; private set; }
+                    public System.Action<T, T2, GenericDataHolder> GenericDataMethod { get; private set; }
+                    public int Priority { get; private set; }
+                    public GenericDataHolder GenericData { get; private set; }
+                    public bool HasGenericData => GenericData != null;
 
                     public PriorityMethod(System.Action<T, T2> method, int priority)
                     {
-                        this.method = method;
-                        this.priority = priority;
+                        Method = method;
+                        GenericDataMethod = null;
+                        Priority = priority;
+                        GenericData = null;
+                    }
+
+                    public PriorityMethod(System.Action<T, T2, GenericDataHolder> method, GenericDataHolder genericData, int priority)
+                    {
+                        Method = null;
+                        GenericDataMethod = method;
+                        Priority = priority;
+                        GenericData = genericData;
                     }
                 }
                 private static int currentId = 0;
@@ -1182,6 +1460,12 @@ namespace Pinou
                     while (Unsubscribe(method)) { }
                     Subscribe(method, priority);
                 }
+                public void SafeSubscribe(System.Action<T, T2, GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    while (Unsubscribe(method, data)) { }
+                    Subscribe(method, data, priority);
+                }
+
                 public void Subscribe(System.Action<T, T2> method, int priority = 0)
                 {
                     PriorityMethod newMethod = new PriorityMethod(method, priority);
@@ -1194,7 +1478,7 @@ namespace Pinou
                     {
                         for (int i = toInvoke.Count - 1; i >= 0; i--)
                         {
-                            if (priority > toInvoke[i].priority)
+                            if (priority > toInvoke[i].Priority)
                             {
                                 toInvoke.Insert(i + 1, newMethod);
                                 break;
@@ -1208,11 +1492,43 @@ namespace Pinou
                     }
 
                 }
+                public void Subscribe(System.Action<T, T2, GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    PriorityMethod newMethod = new PriorityMethod(method, data, priority);
+
+                    if (toInvoke.Count == 0)
+                    {
+                        toInvoke.Add(newMethod);
+                    }
+                    else
+                    {
+                        for (int i = toInvoke.Count - 1; i >= 0; i--)
+                        {
+                            if (priority > toInvoke[i].Priority)
+                            {
+                                toInvoke.Insert(i + 1, newMethod);
+                                break;
+                            }
+                            else if (i == 0)
+                            {
+                                toInvoke.Insert(0, newMethod);
+                                break;
+                            }
+                        }
+                    }
+
+                }
+
+                /// <summary>
+                /// Returns true if unsubscribed
+                /// </summary>
+                /// <param name="method"></param>
+                /// <returns></returns>
                 public bool Unsubscribe(System.Action<T, T2> method)
                 {
                     for (int i = 0; i < toInvoke.Count; i++)
                     {
-                        if (toInvoke[i].method == method)
+                        if (toInvoke[i].Method == method)
                         {
                             toInvoke.RemoveAt(i);
                             return true;
@@ -1221,26 +1537,46 @@ namespace Pinou
 
                     return false;
                 }
-                public void Invoke(T param1, T2 param2)
+                public bool Unsubscribe(System.Action<T, T2, GenericDataHolder> method, GenericDataHolder data)
+                {
+                    for (int i = 0; i < toInvoke.Count; i++)
+                    {
+                        if (toInvoke[i].GenericDataMethod == method && toInvoke[i].GenericData == data)
+                        {
+                            toInvoke.RemoveAt(i);
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+                public void Invoke(T param, T2 param2)
                 {
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {
-                        array[i].method.Invoke(param1, param2);
+                        if (array[i].HasGenericData == true)
+                        {
+                            array[i].GenericDataMethod.Invoke(param, param2, array[i].GenericData);
+                        }
+                        else
+                        {
+                            array[i].Method.Invoke(param, param2);
+                        }
                     }
                 }
-
-                public static Action<T, T2> operator +(Action<T, T2> a, System.Action<T, T2> func)
+			}
+            public class SelfAction<T, T2> : Action<T, T2>
+            {
+                public SelfAction(T self) : base()
                 {
-                    if (a == null) a = new Action<T, T2>();
-                    a.Subscribe(func, 0);
-                    return a;
+                    _self = self;
                 }
-                public static Action<T, T2> operator -(Action<T, T2> a, System.Action<T, T2> func)
+
+                private T _self;
+                public void SelfInvoke(T2 param2)
                 {
-                    if (a == null) a = new Action<T, T2>();
-                    a.Unsubscribe(func);
-                    return a;
+                    Invoke(_self, param2);
                 }
             }
 
@@ -1248,13 +1584,26 @@ namespace Pinou
             {
                 public class PriorityMethod
                 {
-                    public System.Action<T, T2, T3> method;
-                    public int priority;
+                    public System.Action<T, T2, T3> Method { get; private set; }
+                    public System.Action<T, T2, T3, GenericDataHolder> GenericDataMethod { get; private set; }
+                    public int Priority { get; private set; }
+                    public GenericDataHolder GenericData { get; private set; }
+                    public bool HasGenericData => GenericData != null;
 
                     public PriorityMethod(System.Action<T, T2, T3> method, int priority)
                     {
-                        this.method = method;
-                        this.priority = priority;
+                        Method = method;
+                        GenericDataMethod = null;
+                        Priority = priority;
+                        GenericData = null;
+                    }
+
+                    public PriorityMethod(System.Action<T, T2, T3, GenericDataHolder> method, GenericDataHolder genericData, int priority)
+                    {
+                        Method = null;
+                        GenericDataMethod = method;
+                        Priority = priority;
+                        GenericData = genericData;
                     }
                 }
                 private static int currentId = 0;
@@ -1281,6 +1630,12 @@ namespace Pinou
                     while (Unsubscribe(method)) { }
                     Subscribe(method, priority);
                 }
+                public void SafeSubscribe(System.Action<T, T2, T3, GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    while (Unsubscribe(method, data)) { }
+                    Subscribe(method, data, priority);
+                }
+
                 public void Subscribe(System.Action<T, T2, T3> method, int priority = 0)
                 {
                     PriorityMethod newMethod = new PriorityMethod(method, priority);
@@ -1293,7 +1648,7 @@ namespace Pinou
                     {
                         for (int i = toInvoke.Count - 1; i >= 0; i--)
                         {
-                            if (priority > toInvoke[i].priority)
+                            if (priority > toInvoke[i].Priority)
                             {
                                 toInvoke.Insert(i + 1, newMethod);
                                 break;
@@ -1307,11 +1662,43 @@ namespace Pinou
                     }
 
                 }
+                public void Subscribe(System.Action<T, T2, T3, GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    PriorityMethod newMethod = new PriorityMethod(method, data, priority);
+
+                    if (toInvoke.Count == 0)
+                    {
+                        toInvoke.Add(newMethod);
+                    }
+                    else
+                    {
+                        for (int i = toInvoke.Count - 1; i >= 0; i--)
+                        {
+                            if (priority > toInvoke[i].Priority)
+                            {
+                                toInvoke.Insert(i + 1, newMethod);
+                                break;
+                            }
+                            else if (i == 0)
+                            {
+                                toInvoke.Insert(0, newMethod);
+                                break;
+                            }
+                        }
+                    }
+
+                }
+
+                /// <summary>
+                /// Returns true if unsubscribed
+                /// </summary>
+                /// <param name="method"></param>
+                /// <returns></returns>
                 public bool Unsubscribe(System.Action<T, T2, T3> method)
                 {
                     for (int i = 0; i < toInvoke.Count; i++)
                     {
-                        if (toInvoke[i].method == method)
+                        if (toInvoke[i].Method == method)
                         {
                             toInvoke.RemoveAt(i);
                             return true;
@@ -1320,26 +1707,46 @@ namespace Pinou
 
                     return false;
                 }
-                public void Invoke(T param1, T2 param2, T3 param3)
+                public bool Unsubscribe(System.Action<T, T2, T3, GenericDataHolder> method, GenericDataHolder data)
+                {
+                    for (int i = 0; i < toInvoke.Count; i++)
+                    {
+                        if (toInvoke[i].GenericDataMethod == method && toInvoke[i].GenericData == data)
+                        {
+                            toInvoke.RemoveAt(i);
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+                public void Invoke(T param, T2 param2, T3 param3)
                 {
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {
-                        array[i].method.Invoke(param1, param2, param3);
+                        if (array[i].HasGenericData == true)
+                        {
+                            array[i].GenericDataMethod.Invoke(param, param2, param3, array[i].GenericData);
+                        }
+                        else
+                        {
+                            array[i].Method.Invoke(param, param2, param3);
+                        }
                     }
                 }
-
-                public static Action<T, T2, T3> operator +(Action<T, T2, T3> a, System.Action<T, T2, T3> func)
+            }
+            public class SelfAction<T, T2, T3> : Action<T, T2, T3>
+            {
+                public SelfAction(T self) : base()
                 {
-                    if (a == null) a = new Action<T, T2, T3>();
-                    a.Subscribe(func, 0);
-                    return a;
+                    _self = self;
                 }
-                public static Action<T, T2, T3> operator -(Action<T, T2, T3> a, System.Action<T, T2, T3> func)
+
+                private T _self;
+                public void SelfInvoke(T2 param2, T3 param3)
                 {
-                    if (a == null) a = new Action<T, T2, T3>();
-                    a.Unsubscribe(func);
-                    return a;
+                    Invoke(_self, param2, param3);
                 }
             }
 
@@ -1347,13 +1754,26 @@ namespace Pinou
             {
                 public class PriorityMethod
                 {
-                    public System.Action<T, T2, T3, T4> method;
-                    public int priority;
+                    public System.Action<T, T2, T3, T4> Method { get; private set; }
+                    public System.Action<T, T2, T3, T4, GenericDataHolder> GenericDataMethod { get; private set; }
+                    public int Priority { get; private set; }
+                    public GenericDataHolder GenericData { get; private set; }
+                    public bool HasGenericData => GenericData != null;
 
                     public PriorityMethod(System.Action<T, T2, T3, T4> method, int priority)
                     {
-                        this.method = method;
-                        this.priority = priority;
+                        Method = method;
+                        GenericDataMethod = null;
+                        Priority = priority;
+                        GenericData = null;
+                    }
+
+                    public PriorityMethod(System.Action<T, T2, T3, T4, GenericDataHolder> method, GenericDataHolder genericData, int priority)
+                    {
+                        Method = null;
+                        GenericDataMethod = method;
+                        Priority = priority;
+                        GenericData = genericData;
                     }
                 }
                 private static int currentId = 0;
@@ -1380,6 +1800,12 @@ namespace Pinou
                     while (Unsubscribe(method)) { }
                     Subscribe(method, priority);
                 }
+                public void SafeSubscribe(System.Action<T, T2, T3, T4, GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    while (Unsubscribe(method, data)) { }
+                    Subscribe(method, data, priority);
+                }
+
                 public void Subscribe(System.Action<T, T2, T3, T4> method, int priority = 0)
                 {
                     PriorityMethod newMethod = new PriorityMethod(method, priority);
@@ -1392,7 +1818,7 @@ namespace Pinou
                     {
                         for (int i = toInvoke.Count - 1; i >= 0; i--)
                         {
-                            if (priority > toInvoke[i].priority)
+                            if (priority > toInvoke[i].Priority)
                             {
                                 toInvoke.Insert(i + 1, newMethod);
                                 break;
@@ -1404,13 +1830,45 @@ namespace Pinou
                             }
                         }
                     }
+
+                }
+                public void Subscribe(System.Action<T, T2, T3, T4, GenericDataHolder> method, GenericDataHolder data, int priority = 0)
+                {
+                    PriorityMethod newMethod = new PriorityMethod(method, data, priority);
+
+                    if (toInvoke.Count == 0)
+                    {
+                        toInvoke.Add(newMethod);
+                    }
+                    else
+                    {
+                        for (int i = toInvoke.Count - 1; i >= 0; i--)
+                        {
+                            if (priority > toInvoke[i].Priority)
+                            {
+                                toInvoke.Insert(i + 1, newMethod);
+                                break;
+                            }
+                            else if (i == 0)
+                            {
+                                toInvoke.Insert(0, newMethod);
+                                break;
+                            }
+                        }
+                    }
+
                 }
 
+                /// <summary>
+                /// Returns true if unsubscribed
+                /// </summary>
+                /// <param name="method"></param>
+                /// <returns></returns>
                 public bool Unsubscribe(System.Action<T, T2, T3, T4> method)
                 {
                     for (int i = 0; i < toInvoke.Count; i++)
                     {
-                        if (toInvoke[i].method == method)
+                        if (toInvoke[i].Method == method)
                         {
                             toInvoke.RemoveAt(i);
                             return true;
@@ -1419,26 +1877,46 @@ namespace Pinou
 
                     return false;
                 }
-                public void Invoke(T param1, T2 param2, T3 param3, T4 param4)
+                public bool Unsubscribe(System.Action<T, T2, T3, T4, GenericDataHolder> method, GenericDataHolder data)
+                {
+                    for (int i = 0; i < toInvoke.Count; i++)
+                    {
+                        if (toInvoke[i].GenericDataMethod == method && toInvoke[i].GenericData == data)
+                        {
+                            toInvoke.RemoveAt(i);
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+                public void Invoke(T param, T2 param2, T3 param3, T4 param4)
                 {
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {
-                        array[i].method.Invoke(param1, param2, param3, param4);
+                        if (array[i].HasGenericData == true)
+                        {
+                            array[i].GenericDataMethod.Invoke(param, param2, param3, param4, array[i].GenericData);
+                        }
+                        else
+                        {
+                            array[i].Method.Invoke(param, param2, param3, param4);
+                        }
                     }
                 }
-
-                public static Action<T, T2, T3, T4> operator +(Action<T, T2, T3, T4> a, System.Action<T, T2, T3, T4> func)
+            }
+            public class SelfAction<T, T2, T3, T4> : Action<T, T2, T3, T4>
+            {
+                public SelfAction(T self) : base()
                 {
-                    if (a == null) a = new Action<T, T2, T3, T4>();
-                    a.Subscribe(func, 0);
-                    return a;
+                    _self = self;
                 }
-                public static Action<T, T2, T3, T4> operator -(Action<T, T2, T3, T4> a, System.Action<T, T2, T3, T4> func)
+
+                private T _self;
+                public void SelfInvoke(T2 param2, T3 param3, T4 param4)
                 {
-                    if (a == null) a = new Action<T, T2, T3, T4>();
-                    a.Unsubscribe(func);
-                    return a;
+                    Invoke(_self, param2, param3, param4);
                 }
             }
 
@@ -1860,7 +2338,6 @@ namespace Pinou
                 return ents.ToArray();
             }
         }
-
 
 #if UNITY_EDITOR
         /// <summary>

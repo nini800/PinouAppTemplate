@@ -13,7 +13,7 @@ namespace Pinou.Networking
         }
         #endregion
 
-        public class EntityControllerNet : EntityController
+        public class EntityControllerNet : EntityController, IControllerNet
         {
             #region OnConstruct
             /// <summary>

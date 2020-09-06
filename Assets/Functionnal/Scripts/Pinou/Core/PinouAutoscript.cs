@@ -3,6 +3,8 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using Pinou.EntitySystem;
+using Pinou.Networking;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 using Pinou.Editor;
@@ -190,16 +192,15 @@ namespace Pinou
             }
             File.WriteAllText(autoScriptPath, autoScript);
         }
-        private static void SceneInfos_AppendAllHolders(StringBuilder enumBuilder, StringBuilder fieldBuilder, StringBuilder switchBuilder, PinouSceneInfosData.SceneHolderParams holder)
+        private static void SceneInfos_AppendAllHolders(StringBuilder enumBuilder, StringBuilder fieldBuilder, StringBuilder switchBuilder, PinouSceneInfosData.ISubHolder holder)
         {
             AppendHolder(enumBuilder, fieldBuilder, switchBuilder, holder);
-            if (holder.SubHolders == null) { holder.SubHolders = new PinouSceneInfosData.SceneHolderParams[] { }; }
-            for (int i = 0; i < holder.SubHolders.Length; i++)
+            for (int i = 0; i < holder.SubHolders.Count; i++)
             {
-                SceneInfos_AppendAllHolders(enumBuilder, fieldBuilder, switchBuilder, holder.SubHolders[i]);
+                SceneInfos_AppendAllHolders(enumBuilder, fieldBuilder, switchBuilder, holder.SubHolders.ElementAt(i));
             }
         }
-        private static void AppendHolder(StringBuilder enumBuilder, StringBuilder fieldBuilder, StringBuilder switchBuilder, PinouSceneInfosData.SceneHolderParams holder)
+        private static void AppendHolder(StringBuilder enumBuilder, StringBuilder fieldBuilder, StringBuilder switchBuilder, PinouSceneInfosData.ISubHolder holder)
         {
             enumBuilder.Append("		");
             enumBuilder.Append(holder.HolderName);
@@ -266,80 +267,16 @@ namespace Pinou
             File.WriteAllText(autoScriptPath, autoScript);
         }
 
-        public static void UpdateBeingResourcesAutoScript(string entityBeingDataPath, string entityEnumsPath, string[] beingBaseEnumLines, string[] resourcesNames)
+        public static void UpdateBeingResourcesAutoScript(string entityBeingDataPath, string[] resourcesNames)
         {
             string entityBeingDataTemplatePath = Directory.GetCurrentDirectory() + "\\" + entityBeingDataPath + "EntityBeingData_AutoscriptTemplate";
             entityBeingDataPath = Directory.GetCurrentDirectory() + "\\" + entityBeingDataPath + "EntityBeingData_Autoscript.cs";
 
-            string entityEnumsTemplatePath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_BeingAutoscriptTemplate";
-            entityEnumsPath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_BeingAutoscript.cs";
-
             string beingDataAutoscript = File.ReadAllText(entityBeingDataTemplatePath);
-            string entityEnumsAutoscript = File.ReadAllText(entityEnumsTemplatePath);
-
-            #region EnumBuilder
-            StringBuilder strBuilder = new StringBuilder();
-            int powCount = -1;
-            for (int i = 0; i < beingBaseEnumLines.Length; i++)
-            {
-                strBuilder.Append("        ");
-                strBuilder.Append(beingBaseEnumLines[i]);
-                strBuilder.Append(" = ");
-                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
-                strBuilder.Append(",");
-
-                if (i < beingBaseEnumLines.Length - 1)
-                    strBuilder.Append("\n");
-            }
-            entityEnumsAutoscript = entityEnumsAutoscript.Replace("|BASE|", strBuilder.ToString());
-            strBuilder.Length = 0;
-            for (int i = 0; i < resourcesNames.Length; i++)
-            {
-                strBuilder.Append("\n");
-                strBuilder.Append("        Max");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" = ");
-                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
-                strBuilder.Append(",\n");
-                strBuilder.Append("        ");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("Regen = ");
-                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
-                strBuilder.Append(",\n");
-                strBuilder.Append("        ");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("ReceivedFactor = ");
-                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
-                strBuilder.Append(",\n");
-                strBuilder.Append("        ");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append("DoneFactor = ");
-                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
-                if (i < resourcesNames.Length - 1)
-                    strBuilder.Append(",\n");
-            }
-            if (powCount >= 32)
-            {
-                throw new System.Exception("Extreme fatal error. Too much enum values !!! Maybe try something with enum long blablabla.");
-            }
-            entityEnumsAutoscript = entityEnumsAutoscript.Replace("|RESOURCES|", strBuilder.ToString());
-            strBuilder.Length = 0;
-            powCount = 0;
-            for (int i = 0; i < resourcesNames.Length; i++)
-            {
-                strBuilder.Append("        ");
-                strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(" = ");
-                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
-                if (i < resourcesNames.Length - 1)
-                    strBuilder.Append(",\n");
-            }
-            entityEnumsAutoscript = entityEnumsAutoscript.Replace("|TYPES|", strBuilder.ToString());
-            strBuilder.Length = 0;
-            #endregion
 
             #region Fields
             #region Data protected fields
+            StringBuilder strBuilder = new StringBuilder();
             for (int i = 0; i < resourcesNames.Length; i++)
             {
                 strBuilder.Append("        [Header(\"");
@@ -436,10 +373,12 @@ namespace Pinou
             #region Instance protected fields
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append(string.Format("			//{0}\n			protected float current{0};\n\n			public float Current{0} => current{0};\n			public float {0}ReceiveFactor => _data.{1}ReceiveFactor;\n", resourcesNames[i], resourcesNames[i].ToLower()));
-                strBuilder.Append(string.Format("		public float Max{0} => _data.max{0};\n			public float {0}Progress => current{0} / _data.max{0};\n\n", resourcesNames[i]));
-                strBuilder.Append(string.Format("			public void Set{0}(float value)\n			{{\n				current{0} = Mathf.Clamp(value, 0f, _data.max{0});\n			}}\n\n", resourcesNames[i]));
-                strBuilder.Append(string.Format("			public void Modify{0}(float amount)\n			{{\n				current{0} += amount;\n current{0} = Mathf.Clamp(current{0}, 0f, _data.max{0});\n			}}", resourcesNames[i]));
+                strBuilder.Append(string.Format("			//{0}\n			protected float current{0};\n\n			public float Current{0} => current{0};\n", resourcesNames[i], resourcesNames[i].ToLower()));
+                strBuilder.Append(string.Format("			public float {0}ReceiveFactor => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.{0}, EntityBeingResourceStat.ResourceReceivedFactor, _data.{1}ReceiveFactor) : _data.{1}ReceiveFactor;\n", resourcesNames[i], resourcesNames[i].ToLower()));
+                strBuilder.Append(string.Format("			public float Max{0} => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.{0}, EntityBeingResourceStat.MaxResource, _data.max{0}) : _data.max{0};\n", resourcesNames[i]));
+                strBuilder.Append(string.Format("			public float {0}Progress => current{0} / Max{0};\n\n", resourcesNames[i]));
+                strBuilder.Append(string.Format("			public void Set{0}(float value)\n			{{\n				current{0} = Mathf.Clamp(value, 0f, Max{0});\n			}}\n\n", resourcesNames[i]));
+                strBuilder.Append(string.Format("			public void Modify{0}(float amount)\n			{{\n				current{0} += amount;\n				current{0} = Mathf.Clamp(current{0}, 0f, Max{0});\n			}}", resourcesNames[i]));
 
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n\n");
@@ -461,7 +400,7 @@ namespace Pinou
             #region Instance SetCurrent switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	current{0} = value;\n{1}	current{0} = Mathf.Clamp(current{0}, 0f, _data.max{0});\n{1}	break;", resourcesNames[i], "                    "));
+                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	current{0} = value;\n{1}	current{0} = Mathf.Clamp(current{0}, 0f, Max{0});\n{1}	break;", resourcesNames[i], "                    "));
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n");
             }
@@ -471,7 +410,7 @@ namespace Pinou
             #region Instance ModifyCurrent switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	current{0} += amount;\n{1}	current{0} = Mathf.Clamp(current{0}, 0f, _data.max{0});\n{1}	break;", resourcesNames[i], "                    "));
+                strBuilder.Append(string.Format("{1}case EntityBeingResourceType.{0}:\n{1}	current{0} += amount;\n{1}	current{0} = Mathf.Clamp(current{0}, 0f, Max{0});\n{1}	break;", resourcesNames[i], "                    "));
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n");
             }
@@ -484,7 +423,7 @@ namespace Pinou
             {
                 strBuilder.Append("					case EntityBeingResourceType.");
                 strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(":\n						return _data.max");
+                strBuilder.Append(":\n						return Max");
                 strBuilder.Append(resourcesNames[i]);
                 strBuilder.Append(";");
                 if (i < resourcesNames.Length - 1)
@@ -506,14 +445,15 @@ namespace Pinou
             #region Instance valueRegen switch
             for (int i = 0; i < resourcesNames.Length; i++)
             {
-                strBuilder.Append("					case EntityBeingResourceType.");
+                /*strBuilder.Append("					case EntityBeingResourceType.");
                 strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(":\n						return _data.");
-                strBuilder.Append(resourcesNames[i].ToLower());
-                strBuilder.Append("Regen;");
+                strBuilder.Append(":\n						return ");
+                strBuilder.Append(resourcesNames[i]);
+                strBuilder.Append("Regen;");*/
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n");
             }
+            strBuilder.Append("default: return 0f;");
             beingDataAutoscript = beingDataAutoscript.Replace("|SWITCHREGENINSTANCE|", strBuilder.ToString());
             strBuilder.Length = 0;
             #endregion
@@ -522,8 +462,8 @@ namespace Pinou
             {
                 strBuilder.Append("					case EntityBeingResourceType.");
                 strBuilder.Append(resourcesNames[i]);
-                strBuilder.Append(":\n						return _data.");
-                strBuilder.Append(resourcesNames[i].ToLower());
+                strBuilder.Append(":\n						return ");
+                strBuilder.Append(resourcesNames[i]);
                 strBuilder.Append("ReceiveFactor;");
                 if (i < resourcesNames.Length - 1)
                     strBuilder.Append("\n");
@@ -542,72 +482,17 @@ namespace Pinou
             {
                 File.WriteAllText(entityBeingDataPath, beingDataAutoscript);
             }
-
-            if (File.Exists(entityEnumsPath) == false)
-            {
-                File.Create(entityEnumsPath);
-            }
-            if (entityEnumsAutoscript.Equals(File.ReadAllText(entityEnumsPath)) == false)
-            {
-                File.WriteAllText(entityEnumsPath, entityEnumsAutoscript);
-            }
         }
-
-        public static void UpdateStatsLevelsAutoScript(string entityStatsDataPath, string entityEnumsPath, string[] statsBaseEnumLines, EntityStatsLevelData.LevelTemplateData[] levelTemplates)
+        public static void UpdateStatsLevelsAutoScript(string entityStatsDataPath, EntitiesDynamicConfiguration.LevelTemplateData[] levelTemplates)
         {
             string entityStatsDataTemplatePath = Directory.GetCurrentDirectory() + "\\" + entityStatsDataPath + "EntityStatsData_AutoscriptTemplate";
             entityStatsDataPath = Directory.GetCurrentDirectory() + "\\" + entityStatsDataPath + "EntityStatsData_Autoscript.cs";
 
-            string entityEnumsTemplatePath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_StatsAutoscriptTemplate";
-            entityEnumsPath = Directory.GetCurrentDirectory() + "\\" + entityEnumsPath + "EntityEnums_StatsAutoscript.cs";
-
             string statsDataAutoscript = File.ReadAllText(entityStatsDataTemplatePath);
-            string entityEnumsAutoscript = File.ReadAllText(entityEnumsTemplatePath);
-
-            #region EnumBuilder
-            StringBuilder strBuilder = new StringBuilder();
-            int powCount = -1;
-            for (int i = 0; i < statsBaseEnumLines.Length; i++)
-            {
-                strBuilder.Append("        ");
-                strBuilder.Append(statsBaseEnumLines[i]);
-                strBuilder.Append(" = ");
-                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
-                strBuilder.Append(",");
-
-                if (i < statsBaseEnumLines.Length - 1)
-                    strBuilder.Append("\n");
-            }
-            entityEnumsAutoscript = entityEnumsAutoscript.Replace("|BASE|", strBuilder.ToString());
-            strBuilder.Length = 0;
-            for (int i = 0; i < levelTemplates.Length; i++)
-            {
-                strBuilder.Append(string.Format("		{0}ReceivedFactor = {1}", levelTemplates[i].ExperienceName, Mathf.Floor(Mathf.Pow(2, powCount++)).ToString()));
-                if (i < levelTemplates.Length - 1)
-                    strBuilder.Append(",\n");
-            }
-            if (powCount >= 32)
-            {
-                throw new System.Exception("Extreme fatal error. Too much enum values !!! Maybe try something with enum long blablabla.");
-            }
-            entityEnumsAutoscript = entityEnumsAutoscript.Replace("|LEVELS|", strBuilder.ToString());
-            strBuilder.Length = 0;
-            powCount = 0;
-            for (int i = 0; i < levelTemplates.Length; i++)
-            {
-                strBuilder.Append("        ");
-                strBuilder.Append(levelTemplates[i].LevelName);
-                strBuilder.Append(" = ");
-                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
-                if (i < levelTemplates.Length - 1)
-                    strBuilder.Append(",\n");
-            }
-            entityEnumsAutoscript = entityEnumsAutoscript.Replace("|TYPES|", strBuilder.ToString());
-            strBuilder.Length = 0;
-            #endregion
 
             #region Fields
             #region Data protected fields
+            StringBuilder strBuilder = new StringBuilder();
             for (int i = 0; i < levelTemplates.Length; i++)
             {
                 strBuilder.Append(string.Format("		[SerializeField] protected bool has{0}Level;\n", levelTemplates[i].LevelName));
@@ -753,7 +638,12 @@ namespace Pinou
             #region Instance ModifyLevelExperience switch
             for (int i = 0; i < levelTemplates.Length; i++)
             {
-                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n{1}	{2}Experience.ModifyExperience(experience);\n{1}	break;\n", levelTemplates[i].LevelName, "					", levelTemplates[i].LevelName.ToLower()));
+                strBuilder.Append(string.Format("{1}case EntityStatsLevelType.{0}:\n", levelTemplates[i].LevelName, "					"));
+                strBuilder.Append(string.Format("{0}if (useStatsInfluence == true)\n", "						"));
+                strBuilder.Append(string.Format("{0}{1}Experience.ModifyExperience(EvaluateStatsStat(EntityStatsStat.ExperienceGainedGlobalFactor, EvaluateStatsLevelStat(EntityStatsLevelType.{1}, EntityStatsLevelStat.ExperienceGainedFactor, experience)));\n", "							", levelTemplates[i].LevelName));
+                strBuilder.Append(string.Format("{0}else\n", "						"));
+                strBuilder.Append(string.Format("{0}{1}Experience.ModifyExperience(experience);\n", "							", levelTemplates[i].LevelName.ToLower()));
+                strBuilder.Append(string.Format("{0}break;", "						"));
                 if (i < levelTemplates.Length - 1)
                     strBuilder.Append("\n");
             }
@@ -812,14 +702,229 @@ namespace Pinou
             {
                 File.WriteAllText(entityStatsDataPath, statsDataAutoscript);
             }
+        }
+        public static void UpdateEquipmentTypes(string entitiesDynamicComponentsPath, string[] equipmentTypes)
+        {
+            string templatePath = Directory.GetCurrentDirectory() + "\\" + entitiesDynamicComponentsPath + "EntityEquipmentData_AutoscriptTemplate";
+            string filePath = Directory.GetCurrentDirectory() + "\\" + entitiesDynamicComponentsPath + "EntityEquipmentData_Autoscript.cs";
 
-            if (File.Exists(entityEnumsPath) == false)
+            string autoscriptContent = File.ReadAllText(templatePath);
+
+            #region StrBuilder
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < equipmentTypes.Length; i++)
             {
-                File.Create(entityEnumsPath);
+                strBuilder.Append(string.Format("		[SerializeField, ValidateInput(\"Validate{0}Builder\", \"Builder must have {0} built type\"), InlineEditor] protected EntityEquipableBuilder default{0}Builder;\n", equipmentTypes[i]));
+                strBuilder.Append(string.Format("		private bool Validate{0}Builder(EntityEquipableBuilder builder) {{ return builder == null || builder.BuiltType == EntityEquipableType.{0}; }}\n", equipmentTypes[i]));
+                strBuilder.Append(string.Format("		public bool HasDefault{0} => default{0}Builder != null;\n", equipmentTypes[i]));
+                strBuilder.Append(string.Format("		public EntityEquipableBuilder Default{0}Builder => default{0}Builder;\n", equipmentTypes[i]));
+
+                if (i < equipmentTypes.Length - 1)
+                    strBuilder.Append("\n");
             }
-            if (entityEnumsAutoscript.Equals(File.ReadAllText(entityEnumsPath)) == false)
+            autoscriptContent = autoscriptContent.Replace("|PRIVATEBUILDERFIELDS|", strBuilder.ToString());
+            strBuilder.Length = 0;
+
+            for (int i = 0; i < equipmentTypes.Length; i++)
             {
-                File.WriteAllText(entityEnumsPath, entityEnumsAutoscript);
+                strBuilder.Append(string.Format("				case EntityEquipableType.{0}:\n", equipmentTypes[i]));
+                strBuilder.Append(string.Format("					return default{0}Builder;", equipmentTypes[i]));
+
+                if (i < equipmentTypes.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            autoscriptContent = autoscriptContent.Replace("|SWITCHDEFAULTEQUIPMENT|", strBuilder.ToString());
+            strBuilder.Length = 0;
+
+            for (int i = 0; i < equipmentTypes.Length; i++)
+            {
+                strBuilder.Append(string.Format("			protected EntityEquipable equipped{0};\n", equipmentTypes[i]));
+                strBuilder.Append(string.Format("			public bool Has{0}Equipped => equipped{0} != null;\n", equipmentTypes[i]));
+                strBuilder.Append(string.Format("			public EntityEquipable Equipped{0} => equipped{0};\n", equipmentTypes[i]));
+
+                if (i < equipmentTypes.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            autoscriptContent = autoscriptContent.Replace("|PRIVATEINSTANCEFIELDS|", strBuilder.ToString());
+            strBuilder.Length = 0;
+
+            for (int i = 0; i < equipmentTypes.Length; i++)
+            {
+                strBuilder.Append(string.Format("					case EntityEquipableType.{0}:\n", equipmentTypes[i]));
+                strBuilder.Append(string.Format("						return Has{0}Equipped;", equipmentTypes[i]));
+
+                if (i < equipmentTypes.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            autoscriptContent = autoscriptContent.Replace("|SWITCHHASEQUIPPED|", strBuilder.ToString());
+            strBuilder.Length = 0;
+
+            for (int i = 0; i < equipmentTypes.Length; i++)
+            {
+                strBuilder.Append(string.Format("					case EntityEquipableType.{0}:\n", equipmentTypes[i]));
+                strBuilder.Append(string.Format("						return equipped{0};", equipmentTypes[i]));
+
+                if (i < equipmentTypes.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            autoscriptContent = autoscriptContent.Replace("|SWITCHEQUIPPED|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+
+            if (File.Exists(filePath) == false)
+            {
+                File.Create(filePath);
+            }
+            if (autoscriptContent.Equals(File.ReadAllText(filePath)) == false)
+            {
+                File.WriteAllText(filePath, autoscriptContent);
+            }
+        }
+		public static void UpdateBodySockets(string entitiesDynamicComponentsPath, string[] bodySockets)
+        {
+            string templatePath = Directory.GetCurrentDirectory() + "\\" + entitiesDynamicComponentsPath + "EntityBody_AutoscriptTemplate";
+            string filePath = Directory.GetCurrentDirectory() + "\\" + entitiesDynamicComponentsPath + "EntityBody_Autoscript.cs";
+
+            string autoscriptContent = File.ReadAllText(templatePath);
+
+            #region StrBuilder
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < bodySockets.Length; i++)
+            {
+                strBuilder.Append(string.Format("		[SerializeField] protected Transform {0}Socket;\n", bodySockets[i].ToLower()));
+                strBuilder.Append(string.Format("		public bool Has{0}Socket => {1}Socket != null;\n", bodySockets[i], bodySockets[i].ToLower()));
+                strBuilder.Append(string.Format("		public Transform {0}Socket;\n", bodySockets[i]));
+
+                if (i < bodySockets.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            autoscriptContent = autoscriptContent.Replace("|PRIVATEFIELDS|", strBuilder.ToString());
+            strBuilder.Length = 0;
+
+            for (int i = 0; i < bodySockets.Length; i++)
+            {
+                strBuilder.Append(string.Format("				case EntityBodySocket.{0}:\n", bodySockets[i]));
+                strBuilder.Append(string.Format("					return {0}Socket;", bodySockets[i].ToLower()));
+
+                if (i < bodySockets.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            autoscriptContent = autoscriptContent.Replace("|SWITCHSOCKET|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            #endregion
+
+            if (File.Exists(filePath) == false)
+            {
+                File.Create(filePath);
+            }
+            if (autoscriptContent.Equals(File.ReadAllText(filePath)) == false)
+            {
+                File.WriteAllText(filePath, autoscriptContent);
+            }
+        }
+        public static void UpdateDynamicEnums(string fodlerPath, string[] resourcesNames, EntitiesDynamicConfiguration.LevelTemplateData[] levelTemplates, string[] equipmentTypes, string[] bodySockets)
+        {
+            string enumTemplatePath = Directory.GetCurrentDirectory() + "\\" + fodlerPath + "EntityEnums_AutoscriptTemplate";
+            string enumPath = Directory.GetCurrentDirectory() + "\\" + fodlerPath + "EntityEnums_Autoscript.cs";
+
+            string enumAutoscript = File.ReadAllText(enumTemplatePath);
+
+            #region EnumBuilder
+            StringBuilder strBuilder = new StringBuilder();
+            int powCount = 0;
+            strBuilder.Length = 0;
+            for (int i = 0; i < resourcesNames.Length; i++)
+            {
+                strBuilder.Append("        ");
+                strBuilder.Append(resourcesNames[i]);
+                strBuilder.Append(" = ");
+                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
+                if (i < resourcesNames.Length - 1)
+                    strBuilder.Append(",\n");
+            }
+            enumAutoscript = enumAutoscript.Replace("|ENUMRESOURCES|", strBuilder.ToString());
+
+            powCount = 0;
+            strBuilder.Length = 0;
+            for (int i = 0; i < levelTemplates.Length; i++)
+            {
+                strBuilder.Append("        ");
+                strBuilder.Append(levelTemplates[i].LevelName);
+                strBuilder.Append(" = ");
+                strBuilder.Append(Mathf.Floor(Mathf.Pow(2, powCount++)));
+                if (i < levelTemplates.Length - 1)
+                    strBuilder.Append(",\n");
+            }
+            enumAutoscript = enumAutoscript.Replace("|ENUMLEVELS|", strBuilder.ToString());
+
+            strBuilder.Length = 0;
+            for (int i = 0; i < equipmentTypes.Length; i++)
+            {
+                strBuilder.Append("        ");
+                strBuilder.Append(equipmentTypes[i]);
+                strBuilder.Append(" = ");
+                strBuilder.Append(i);
+                if (i < equipmentTypes.Length - 1)
+                    strBuilder.Append(",\n");
+            }
+            enumAutoscript = enumAutoscript.Replace("|ENUMEQUIPMENTS|", strBuilder.ToString());
+
+            strBuilder.Length = 0;
+            for (int i = 0; i < bodySockets.Length; i++)
+            {
+                strBuilder.Append("        ");
+                strBuilder.Append(bodySockets[i]);
+                strBuilder.Append(" = ");
+                strBuilder.Append(i);
+                if (i < bodySockets.Length - 1)
+                    strBuilder.Append(",\n");
+            }
+            enumAutoscript = enumAutoscript.Replace("|ENUMSOCKETS|", strBuilder.ToString());
+            #endregion
+
+            if (File.Exists(enumPath) == false)
+            {
+                File.Create(enumPath);
+            }
+            if (enumAutoscript.Equals(File.ReadAllText(enumPath)) == false)
+            {
+                File.WriteAllText(enumPath, enumAutoscript);
+            }
+        }
+
+        public static void UpdateNetworkSyncableVariables(PinouNetworkSyncableVariablesData.VariableData[] variables, string folderPath)
+        {
+            string templatePath = Directory.GetCurrentDirectory() + "\\" + folderPath + "PinouSyncableVariablesTemplate";
+            string scriptPath = Directory.GetCurrentDirectory() + "\\" + folderPath + "PinouSyncableVariables.cs";
+
+            string script = File.ReadAllText(templatePath);
+
+            int pow = 0;
+            StringBuilder strBuilder = new StringBuilder();
+			for (int i = 0; i < variables.Length; i++)
+			{
+                strBuilder.Append(string.Format("		{0} = {1},", variables[i].VariableName, Mathf.Pow(2, pow++).ToString()));
+                if (i < variables.Length - 1)
+                    strBuilder.Append("\n");
+			}
+            script = script.Replace("|ENUM|", strBuilder.ToString());
+            strBuilder.Length = 0;
+            for (int i = 0; i < variables.Length; i++)
+            {
+                strBuilder.Append(string.Format("				case SyncableVariable.{0}:\n", variables[i].VariableName));
+                strBuilder.Append(string.Format("					return {0};", variables[i].Channel));
+                if (i < variables.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            script = script.Replace("|SWITCH|", strBuilder.ToString());
+
+            if (File.Exists(scriptPath) == false)
+            {
+                File.Create(scriptPath);
+            }
+            if (script.Equals(File.ReadAllText(scriptPath)) == false)
+            {
+                File.WriteAllText(scriptPath, script);
             }
         }
 

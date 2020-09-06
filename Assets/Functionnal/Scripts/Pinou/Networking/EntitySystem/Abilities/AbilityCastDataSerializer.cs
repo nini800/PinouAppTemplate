@@ -52,15 +52,21 @@ namespace Pinou.Networking
         #region AbilityCastIdentifier
         public static void WriteAbilityCastIdentifier(this NetworkWriter writer, AbilityCastIdentifier identifier)
         {
-            writer.WriteGameObject(identifier.Caster.gameObject);
+            //In case of the caster's death
+            if (identifier.Caster == null) { writer.WriteGameObject(null); }
+			else { writer.WriteGameObject(identifier.Caster.gameObject); }
             writer.WriteDouble(identifier.CastTime);
             writer.WriteInt32(identifier.AbilityID);
             writer.WriteInt32(identifier.MultiCastID);
         }
         public static AbilityCastIdentifier ReadAbilityCastIdentifier(this NetworkReader reader)
         {
+            Entity ent;
+            GameObject go = reader.ReadGameObject();
+            if (go == null) { ent = null; }
+			else { ent = go.GetComponent<Entity>(); }
             return new AbilityCastIdentifier(
-                reader.ReadGameObject().GetComponent<Entity>(),
+                ent,
                 (float)reader.ReadDouble(),
                 reader.ReadInt32(),
                 reader.ReadInt32());

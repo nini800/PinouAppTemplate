@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PinouEntityData
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _Mode2D: 0
+  _Mode2D: 1
   entityCreationMethod: 1
-  spawnDistanceRange2D: {x: 15, y: 20}
+  spawnDistanceRange2D: {x: 40, y: 40}
   enemyDespawnDistance: 100

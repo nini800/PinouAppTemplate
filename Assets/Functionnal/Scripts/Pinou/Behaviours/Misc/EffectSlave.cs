@@ -14,14 +14,15 @@ namespace Pinou
     public class EffectSlave : PinouBehaviour
     {
         [System.Serializable]
-        public class Effect : CustomDrawedProperty
+        public class Effect
         {
             public enum EffectType
             {
                 PlayAnimation,
                 AnimationLayerWeightChange,
                 EmissionChange,
-                StartFeedback
+                StartFeedback,
+                PlayParticleSystem
             }
             [System.Serializable]
             public class EmissionColor
@@ -40,7 +41,7 @@ namespace Pinou
 
                 public void Build(Effect effect)
                 {
-                    _originalColor = effect.Slave.OriginalEmissionColors[effect._emissionMaterialIndex];
+                    _originalColor = effect.OriginalEmissionColors[effect._emissionMaterialIndex];
                 }
 
                 public Color Color
@@ -99,6 +100,15 @@ namespace Pinou
                 {
                     _transitions[i].Build(this);
                 }
+
+                if (_meshRenderer != null)
+                {
+                    _originalEmissionColors = new Color[_meshRenderer.materials.Length];
+                    for (int i = 0; i < _meshRenderer.materials.Length; i++)
+                    {
+                        _originalEmissionColors[i] = _meshRenderer.materials[i].GetColor("_EmissionColor");
+                    }
+                }
             }
 
             private EffectSlave _slave;
@@ -108,6 +118,7 @@ namespace Pinou
             [SerializeField] private EffectType _type;
 
             //Play Animation
+            [SerializeField, ShowIf("@_type == EffectType.AnimationLayerWeightChange || _type == EffectType.PlayAnimation")] private PinouAnimator _animator;
             [SerializeField, ShowIf("_type", EffectType.PlayAnimation)] private string _animationName;
             [SerializeField, ShowIf("_type", EffectType.PlayAnimation)] private int _animationLayer;
             [SerializeField, ShowIf("_type", EffectType.PlayAnimation)] private bool _instantAnimationTransition;
@@ -118,11 +129,18 @@ namespace Pinou
             [SerializeField, ShowIf("_type", EffectType.AnimationLayerWeightChange)] private AnimationCurve _weightOverTime;
 
             //EmissionChange
+            [SerializeField, ShowIf("_type", EffectType.EmissionChange)] private MeshRenderer _meshRenderer;
             [SerializeField, ShowIf("_type", EffectType.EmissionChange)] private int _emissionMaterialIndex;
             [SerializeField, ShowIf("_type", EffectType.EmissionChange)] private EmissionColorTransition[] _transitions;
 
             //Start Feedback
             [SerializeField, ShowIf("_type", EffectType.StartFeedback)] private UI_FeedbackUtilities[] _feedbacks = new UI_FeedbackUtilities[] { };
+
+            //Play Particle System
+            [SerializeField, ShowIf("_type", EffectType.PlayParticleSystem)] private PinouParticleSystem[] _particleSystems;
+
+            private Color[] _originalEmissionColors;
+            public Color[] OriginalEmissionColors => _originalEmissionColors;
 
             public void Invoke()
             {
@@ -140,6 +158,9 @@ namespace Pinou
                     case EffectType.StartFeedback:
                         _feedbacks.ForEach(f => f.PlayFeedback());
                         break;
+                    case EffectType.PlayParticleSystem:
+                        _particleSystems.ForEach(p => p.PlayFromStart());
+                        break;
                 }
             }
 
@@ -147,11 +168,11 @@ namespace Pinou
             {
                 if (_instantAnimationTransition == true)
 				{
-                    _slave.Animator?.Animator.Play(_animationName, _animationLayer, 0);
+                    _animator?.Animator.Play(_animationName, _animationLayer, 0);
                 }
                 else
 				{
-                    _slave.Animator?.Animator.CrossFadeInFixedTime(_animationName, 0.2f, _animationLayer);
+                    _animator?.Animator.CrossFadeInFixedTime(_animationName, 0.2f, _animationLayer);
                 }
             }
 
@@ -162,11 +183,11 @@ namespace Pinou
                 while (count < _weightChangeTime)
                 {
                     count += Time.deltaTime;
-                    _slave.Animator?.Animator.SetLayerWeight(_animationLayer, _weightOverTime.Evaluate(count / _weightChangeTime));
+                    _animator?.Animator.SetLayerWeight(_animationLayer, _weightOverTime.Evaluate(count / _weightChangeTime));
                     yield return null;
                 }
 
-                _slave.Animator?.Animator.SetLayerWeight(_animationLayer, _weightForcedEndValue);
+                _animator?.Animator.SetLayerWeight(_animationLayer, _weightForcedEndValue);
             }
 
             private IEnumerator EmissionChange()
@@ -193,45 +214,37 @@ namespace Pinou
             }
             private void SetEmissionColor(Color color, int materialIndex)
             {
-                _slave.MeshRenderer.materials[materialIndex].SetColor("_EmissionColor", color);
+                _meshRenderer.materials[materialIndex].SetColor("_EmissionColor", color);
                 //_slave.MeshRenderer.materials.ForEach(m => m.SetColor("_EmissionColor", color));
             }
         }
 
+        [SerializeField] private bool _playOnAwake = false;
+        [SerializeField] private bool _playOnEnable = false;
         [SerializeField] private Effect[] _effects;
 
 
-        private Color[] _originalEmissionColors;
-        public Color[] OriginalEmissionColors { get => _originalEmissionColors; }
-
-        private PinouAnimator _animator;
-        public PinouAnimator Animator { get => _animator; }
-
-        private MeshRenderer _meshRenderer;
-        public MeshRenderer MeshRenderer { get => _meshRenderer; }
-
         protected override void OnAwake()
         {
-            _animator = GetComponentInChildren<PinouAnimator>();
-            _meshRenderer = GetComponentInChildren<MeshRenderer>();
-
-
-            if (_meshRenderer != null)
-			{
-                _originalEmissionColors = new Color[_meshRenderer.materials.Length];
-                for (int i = 0; i < _meshRenderer.materials.Length; i++)
-                {
-                    _originalEmissionColors[i] = _meshRenderer.materials[i].GetColor("_EmissionColor");
-                }
-            }
-
             for (int i = 0; i < _effects.Length; i++)
             {
                 _effects[i].Build(this);
             }
+
+            if (_playOnAwake == true)
+			{
+                Invoke();
+			}
+        }
+		protected override void OnEnabled()
+		{
+            if (_playOnEnable == true)
+			{
+                Invoke();
+            }
         }
 
-        [Button("Play")]
+		[Button("Play")]
         public void Invoke()
         {
 #if UNITY_EDITOR

@@ -37,6 +37,10 @@ namespace Pinou
         {
             return 1 - f;
         }
+        public static float Squared(this float f)
+        {
+            return f * f;
+        }
         #endregion
 
         #region Vector 3

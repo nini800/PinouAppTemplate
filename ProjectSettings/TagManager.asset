@@ -19,8 +19,8 @@ TagManager:
   - Interactable
   - Projectile
   - AbilityHitbox
-  - 
-  - 
+  - EntityDrops
+  - BrokenVisualThings
   - 
   - 
   - 
@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: DashesIndicator
+    uniqueID: 3021531167
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

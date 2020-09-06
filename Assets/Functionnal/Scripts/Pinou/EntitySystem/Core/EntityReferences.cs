@@ -55,6 +55,7 @@ namespace Pinou.EntitySystem
 
         public EntityControllerData.EntityController Controller => master.Controller;
         public EntityStatsData.EntityStats Stats => master.Stats;
+        public EntityEquipmentData.EntityEquipment Equipment => master.Equipment;
         public EntityBeingData.EntityBeing Being => master.Being;
         public EntityAbilitiesData.EntityAbilities Abilities => master.Abilities;
         public EntityInteractionsData.EntityInteractions Interactions => master.Interactions;

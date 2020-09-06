@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 using Pinou.EntitySystem;
+using Mirror;
 
 namespace Pinou.Networking
 {
@@ -33,11 +34,16 @@ namespace Pinou.Networking
             #region INetworkEntityData
             public new EntityNet Master => master as EntityNet;
             public new EntityReferencesNet References => base.References as EntityReferencesNet;
-            public new EntityControllerNetData.EntityControllerNet Controller => base.Controller as EntityControllerNetData.EntityControllerNet;
+            public new IControllerNet Controller => base.Controller as IControllerNet;
+            public new EntityStatsNetData.EntityStatsNet Stats => base.Stats as EntityStatsNetData.EntityStatsNet;
+            public new EntityEquipmentNetData.EntityEquipmentNet Equipment => base.Equipment as EntityEquipmentNetData.EntityEquipmentNet;
             public new EntityBeingNetData.EntityBeingNet Being => base.Being as EntityBeingNetData.EntityBeingNet;
             public new EntityAbilitiesNetData.EntityAbilitiesNet Abilities => base.Abilities as EntityAbilitiesNetData.EntityAbilitiesNet;
+            public new EntityInteractionsNetData.EntityInteractionsNet Interactions => base.Interactions as EntityInteractionsNetData.EntityInteractionsNet;
             public new EntityMovementsNetData.EntityMovementsNet Movements => base.Movements as EntityMovementsNetData.EntityMovementsNet;
+            public new EntityAnimationsNetData.EntityAnimationsNet Animations => base.Animations as EntityAnimationsNetData.EntityAnimationsNet;
             public new EntityVisualNetData.EntityVisualNet Visual => base.Visual as EntityVisualNetData.EntityVisualNet;
+            public new EntityLootNetData.EntityLootNet Loot => base.Loot as EntityLootNetData.EntityLootNet;
             #endregion
 
             #region Vars, Getters
@@ -60,9 +66,42 @@ namespace Pinou.Networking
                 }
             }
 
-			public override void SlaveLateUpdate()
+            /// <summary>
+            /// Need base
+            /// </summary>
+			public override void SlaveStart()
 			{
-                if (References.NetBehaviour.isServer == false) { return; }
+                PinouNetworkManager.MainBehaviour.RegisterGameObjectSyncVar(master.gameObject, SyncableVariable.EntityHealth, SyncFrequency.Short, RegisterHealth, SyncHealth);
+                PinouNetworkManager.MainBehaviour.RegisterGameObjectSyncVar(master.gameObject, SyncableVariable.EntityDeath, SyncFrequency.Instant, RegisterDeath, SyncDeath, GetSizeDeath, true);
+            }
+
+            private void RegisterHealth(SyncableVariable var, NetworkWriter writer)
+            {
+                writer.WriteDouble(currentHealth);
+            }
+            private void SyncHealth(SyncableVariable var, NetworkReader reader)
+            {
+                currentHealth = (float)reader.ReadDouble();
+            }
+
+            private void RegisterDeath(SyncableVariable var, NetworkWriter writer)
+            {
+                writer.WriteAbilityCastResult(deathResult);
+                deathResult = null;
+            }
+            private void SyncDeath(SyncableVariable var, NetworkReader reader)
+            {
+                OnDeath.Invoke(master, reader.ReadAbilityCastResult());
+            }
+            private int GetSizeDeath(NetworkWriter dummyWriter)
+			{
+                dummyWriter.WriteAbilityCastResult(deathResult);
+                return dummyWriter.Length;
+            }
+
+            public override void SlaveLateUpdate()
+			{
+                if (References.NetworkIdentity.isServer == false) { return; }
 
 				base.SlaveLateUpdate();
                 HandleStoreCurrentResources();
@@ -75,7 +114,10 @@ namespace Pinou.Networking
                     if (oldCurrentResources[i] != curResource)
                     {
                         oldCurrentResources[i] = curResource;
-                        References.NetBehaviour.RpcSyncBeingCurrentResource(oldResourcesEnumIndices[i], curResource);
+                        if ((EntityBeingResourceType)oldResourcesEnumIndices[i] == EntityBeingResourceType.Health)
+						{
+                            PinouNetworkManager.MainBehaviour.SetDirty(master.gameObject, SyncableVariable.EntityHealth);
+                        }
                     }
                 }
             }
@@ -84,10 +126,12 @@ namespace Pinou.Networking
             #region Utilities
             protected override void HandleDeath()
 			{
+                if (References.NetworkIdentity.isServer == false) { return; }
+
                 if (deathResult != null)
                 {
-                    References.NetBehaviour.RpcOnDeath(deathResult);
-                    deathResult = null;
+                    OnDeath.Invoke(master, deathResult);
+                    PinouNetworkManager.MainBehaviour.SetDirty(master.gameObject, SyncableVariable.EntityDeath);
                 }
             }
 			#endregion

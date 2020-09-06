@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2becf6ec95e152f438ed8fd85a1dd770, type: 3}
+  m_Name: PinouNetworkSyncableVariablesData
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 0
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _variablesDataTemplatePath: Assets\Functionnal\Scripts\Pinou\Networking\SyncableVariables\
+  _variables:
+  - _variableName: Position
+    _channel: 2
+  - _variableName: Rotation
+    _channel: 2
+  - _variableName: Velocity
+    _channel: 1
+  - _variableName: MovementsParticlesEmission
+    _channel: 2
+  - _variableName: MovementsParticlesAngle
+    _channel: 2
+  - _variableName: EntityAbilityCast
+    _channel: 1
+  - _variableName: EntityAbilityHit
+    _channel: 1
+  - _variableName: EntityAbilityHitboxDestroyed
+    _channel: 1
+  - _variableName: EntityDeath
+    _channel: 1
+  - _variableName: EntityHealth
+    _channel: 1

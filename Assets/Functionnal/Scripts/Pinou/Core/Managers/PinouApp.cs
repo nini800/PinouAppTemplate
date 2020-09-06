@@ -72,6 +72,14 @@ namespace Pinou
 			SafeStarted = true;
 		}
 
+		private void FixedUpdate()
+		{
+			for (int i = 0; i < _managersInstances.Count; i++)
+			{
+				_managersInstances[i].SlaveFixedUpdate();
+			}
+		}
+
 		private void Update()
 		{
 			for (int i = 0; i < _managersInstances.Count; i++)

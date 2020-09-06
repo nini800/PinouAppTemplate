@@ -125,76 +125,76 @@ namespace Pinou.EntitySystem
 			protected float currentHealth;
 
 			public float CurrentHealth => currentHealth;
-			public float HealthReceiveFactor => _data.healthReceiveFactor;
-		public float MaxHealth => _data.maxHealth;
-			public float HealthProgress => currentHealth / _data.maxHealth;
+			public float HealthReceiveFactor => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.Health, EntityBeingResourceStat.ResourceReceivedFactor, _data.healthReceiveFactor) : _data.healthReceiveFactor;
+			public float MaxHealth => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.Health, EntityBeingResourceStat.MaxResource, _data.maxHealth) : _data.maxHealth;
+			public float HealthProgress => currentHealth / MaxHealth;
 
 			public void SetHealth(float value)
 			{
-				currentHealth = Mathf.Clamp(value, 0f, _data.maxHealth);
+				currentHealth = Mathf.Clamp(value, 0f, MaxHealth);
 			}
 
 			public void ModifyHealth(float amount)
 			{
 				currentHealth += amount;
- currentHealth = Mathf.Clamp(currentHealth, 0f, _data.maxHealth);
+				currentHealth = Mathf.Clamp(currentHealth, 0f, MaxHealth);
 			}
 
 			//Power
 			protected float currentPower;
 
 			public float CurrentPower => currentPower;
-			public float PowerReceiveFactor => _data.powerReceiveFactor;
-		public float MaxPower => _data.maxPower;
-			public float PowerProgress => currentPower / _data.maxPower;
+			public float PowerReceiveFactor => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.Power, EntityBeingResourceStat.ResourceReceivedFactor, _data.powerReceiveFactor) : _data.powerReceiveFactor;
+			public float MaxPower => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.Power, EntityBeingResourceStat.MaxResource, _data.maxPower) : _data.maxPower;
+			public float PowerProgress => currentPower / MaxPower;
 
 			public void SetPower(float value)
 			{
-				currentPower = Mathf.Clamp(value, 0f, _data.maxPower);
+				currentPower = Mathf.Clamp(value, 0f, MaxPower);
 			}
 
 			public void ModifyPower(float amount)
 			{
 				currentPower += amount;
- currentPower = Mathf.Clamp(currentPower, 0f, _data.maxPower);
+				currentPower = Mathf.Clamp(currentPower, 0f, MaxPower);
 			}
 
 			//Stamina
 			protected float currentStamina;
 
 			public float CurrentStamina => currentStamina;
-			public float StaminaReceiveFactor => _data.staminaReceiveFactor;
-		public float MaxStamina => _data.maxStamina;
-			public float StaminaProgress => currentStamina / _data.maxStamina;
+			public float StaminaReceiveFactor => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.Stamina, EntityBeingResourceStat.ResourceReceivedFactor, _data.staminaReceiveFactor) : _data.staminaReceiveFactor;
+			public float MaxStamina => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.Stamina, EntityBeingResourceStat.MaxResource, _data.maxStamina) : _data.maxStamina;
+			public float StaminaProgress => currentStamina / MaxStamina;
 
 			public void SetStamina(float value)
 			{
-				currentStamina = Mathf.Clamp(value, 0f, _data.maxStamina);
+				currentStamina = Mathf.Clamp(value, 0f, MaxStamina);
 			}
 
 			public void ModifyStamina(float amount)
 			{
 				currentStamina += amount;
- currentStamina = Mathf.Clamp(currentStamina, 0f, _data.maxStamina);
+				currentStamina = Mathf.Clamp(currentStamina, 0f, MaxStamina);
 			}
 
 			//Mana
 			protected float currentMana;
 
 			public float CurrentMana => currentMana;
-			public float ManaReceiveFactor => _data.manaReceiveFactor;
-		public float MaxMana => _data.maxMana;
-			public float ManaProgress => currentMana / _data.maxMana;
+			public float ManaReceiveFactor => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.Mana, EntityBeingResourceStat.ResourceReceivedFactor, _data.manaReceiveFactor) : _data.manaReceiveFactor;
+			public float MaxMana => HasStats ? Stats.EvaluateBeingResourceStat(EntityBeingResourceType.Mana, EntityBeingResourceStat.MaxResource, _data.maxMana) : _data.maxMana;
+			public float ManaProgress => currentMana / MaxMana;
 
 			public void SetMana(float value)
 			{
-				currentMana = Mathf.Clamp(value, 0f, _data.maxMana);
+				currentMana = Mathf.Clamp(value, 0f, MaxMana);
 			}
 
 			public void ModifyMana(float amount)
 			{
 				currentMana += amount;
- currentMana = Mathf.Clamp(currentMana, 0f, _data.maxMana);
+				currentMana = Mathf.Clamp(currentMana, 0f, MaxMana);
 			}
 			
 			//Generics
@@ -220,19 +220,19 @@ namespace Pinou.EntitySystem
 				{
                     case EntityBeingResourceType.Health:
                     	currentHealth = value;
-                    	currentHealth = Mathf.Clamp(currentHealth, 0f, _data.maxHealth);
+                    	currentHealth = Mathf.Clamp(currentHealth, 0f, MaxHealth);
                     	break;
                     case EntityBeingResourceType.Power:
                     	currentPower = value;
-                    	currentPower = Mathf.Clamp(currentPower, 0f, _data.maxPower);
+                    	currentPower = Mathf.Clamp(currentPower, 0f, MaxPower);
                     	break;
                     case EntityBeingResourceType.Stamina:
                     	currentStamina = value;
-                    	currentStamina = Mathf.Clamp(currentStamina, 0f, _data.maxStamina);
+                    	currentStamina = Mathf.Clamp(currentStamina, 0f, MaxStamina);
                     	break;
                     case EntityBeingResourceType.Mana:
                     	currentMana = value;
-                    	currentMana = Mathf.Clamp(currentMana, 0f, _data.maxMana);
+                    	currentMana = Mathf.Clamp(currentMana, 0f, MaxMana);
                     	break;
 				}
 			}
@@ -242,19 +242,19 @@ namespace Pinou.EntitySystem
 				{
                     case EntityBeingResourceType.Health:
                     	currentHealth += amount;
-                    	currentHealth = Mathf.Clamp(currentHealth, 0f, _data.maxHealth);
+                    	currentHealth = Mathf.Clamp(currentHealth, 0f, MaxHealth);
                     	break;
                     case EntityBeingResourceType.Power:
                     	currentPower += amount;
-                    	currentPower = Mathf.Clamp(currentPower, 0f, _data.maxPower);
+                    	currentPower = Mathf.Clamp(currentPower, 0f, MaxPower);
                     	break;
                     case EntityBeingResourceType.Stamina:
                     	currentStamina += amount;
-                    	currentStamina = Mathf.Clamp(currentStamina, 0f, _data.maxStamina);
+                    	currentStamina = Mathf.Clamp(currentStamina, 0f, MaxStamina);
                     	break;
                     case EntityBeingResourceType.Mana:
                     	currentMana += amount;
-                    	currentMana = Mathf.Clamp(currentMana, 0f, _data.maxMana);
+                    	currentMana = Mathf.Clamp(currentMana, 0f, MaxMana);
                     	break;
 				}
 			}
@@ -263,13 +263,13 @@ namespace Pinou.EntitySystem
 				switch(resourceType)
 				{
 					case EntityBeingResourceType.Health:
-						return _data.maxHealth;
+						return MaxHealth;
 					case EntityBeingResourceType.Power:
-						return _data.maxPower;
+						return MaxPower;
 					case EntityBeingResourceType.Stamina:
-						return _data.maxStamina;
+						return MaxStamina;
 					case EntityBeingResourceType.Mana:
-						return _data.maxMana;
+						return MaxMana;
 				}
 				
 				throw new System.Exception("No " + resourceType + " resource found.");
@@ -294,14 +294,10 @@ namespace Pinou.EntitySystem
 			{
 				switch(resourceType)
 				{
-					case EntityBeingResourceType.Health:
-						return _data.healthRegen;
-					case EntityBeingResourceType.Power:
-						return _data.powerRegen;
-					case EntityBeingResourceType.Stamina:
-						return _data.staminaRegen;
-					case EntityBeingResourceType.Mana:
-						return _data.manaRegen;
+
+
+
+default: return 0f;
 				}
 			
 				throw new System.Exception("No " + resourceType + " resource found.");
@@ -311,13 +307,13 @@ namespace Pinou.EntitySystem
 				switch(resourceType)
 				{
 					case EntityBeingResourceType.Health:
-						return _data.healthReceiveFactor;
+						return HealthReceiveFactor;
 					case EntityBeingResourceType.Power:
-						return _data.powerReceiveFactor;
+						return PowerReceiveFactor;
 					case EntityBeingResourceType.Stamina:
-						return _data.staminaReceiveFactor;
+						return StaminaReceiveFactor;
 					case EntityBeingResourceType.Mana:
-						return _data.manaReceiveFactor;
+						return ManaReceiveFactor;
 				}
 			
 				throw new System.Exception("No " + resourceType + " resource found.");

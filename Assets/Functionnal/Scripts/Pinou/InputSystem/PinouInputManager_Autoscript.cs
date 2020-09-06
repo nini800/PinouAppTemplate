@@ -5,6 +5,10 @@ namespace Pinou.InputSystem
 	{
 		Game_ShowPauseMenu,
 		Game_Shoot,
+		Game_Pause,
+		Game_Dash,
+		Game_Sprint_Toggle,
+		Game_Sprint_Held,
 		Editor_CameraLook,
 		Editor_CameraSprint,
 		Editor_CameraUp,

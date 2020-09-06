@@ -236,6 +236,7 @@ MonoBehaviour:
   _hasAfterFixedUpdate: 0
   _systemScenesToLoad:
   - PinouApp
+  - PinouUI
   _gameSceneToLoad: Game_Pinou
 --- !u!4 &1268046975
 Transform:

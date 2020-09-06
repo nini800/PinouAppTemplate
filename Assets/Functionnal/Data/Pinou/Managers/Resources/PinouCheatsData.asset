@@ -25,10 +25,74 @@ MonoBehaviour:
   - _cheatType: 0
     _cheatKeyModifier: 256
     _cheatKey: 257
-    _entityModel: {fileID: 5350390672496040143, guid: 0ec65ad7805378049a19afb18e46644a,
-      type: 3}
-    _spawnMethod: 2
+    _canBeHeld: 0
+    _holdTriggerPeriod: 0.1
+    _locationMethod: 2
     _forwardOffset: 0
+    _model: {fileID: 5350390672496040143, guid: 0ec65ad7805378049a19afb18e46644a,
+      type: 3}
+    _dropData: {fileID: 0}
+    _healthModifier: 0
+    _entitiesToImmortalize: 0
+    _teleportOffset: {x: 0, y: 0, z: 0}
+  - _cheatType: 0
+    _cheatKeyModifier: 256
+    _cheatKey: 258
+    _canBeHeld: 1
+    _holdTriggerPeriod: 0
+    _locationMethod: 2
+    _forwardOffset: 0
+    _model: {fileID: 5350390672496040143, guid: 0ec65ad7805378049a19afb18e46644a,
+      type: 3}
+    _dropData: {fileID: 0}
+    _healthModifier: 0
+    _entitiesToImmortalize: 0
+    _teleportOffset: {x: 0, y: 0, z: 0}
+  - _cheatType: 3
+    _cheatKeyModifier: 256
+    _cheatKey: 260
+    _canBeHeld: 0
+    _holdTriggerPeriod: 0
+    _locationMethod: 2
+    _forwardOffset: 0
+    _model: {fileID: 0}
+    _dropData: {fileID: 0}
+    _healthModifier: 0
+    _entitiesToImmortalize: 0
+    _teleportOffset: {x: 0, y: 0, z: 0}
+  - _cheatType: 3
+    _cheatKeyModifier: 256
+    _cheatKey: 261
+    _canBeHeld: 1
+    _holdTriggerPeriod: 0
+    _locationMethod: 2
+    _forwardOffset: 0
+    _model: {fileID: 0}
+    _dropData: {fileID: 0}
+    _healthModifier: 0
+    _entitiesToImmortalize: 0
+    _teleportOffset: {x: 0, y: 0, z: 0}
+  - _cheatType: 4
+    _cheatKeyModifier: 256
+    _cheatKey: 259
+    _canBeHeld: 0
+    _holdTriggerPeriod: 0
+    _locationMethod: 2
+    _forwardOffset: 0
+    _model: {fileID: 0}
+    _dropData: {fileID: 11400000, guid: fc1c08f164b80114aa5939552f3bb7af, type: 2}
+    _healthModifier: 0
+    _entitiesToImmortalize: 0
+    _teleportOffset: {x: 0, y: 0, z: 0}
+  - _cheatType: 4
+    _cheatKeyModifier: 256
+    _cheatKey: 262
+    _canBeHeld: 1
+    _holdTriggerPeriod: 0
+    _locationMethod: 2
+    _forwardOffset: 0
+    _model: {fileID: 0}
+    _dropData: {fileID: 11400000, guid: fc1c08f164b80114aa5939552f3bb7af, type: 2}
     _healthModifier: 0
     _entitiesToImmortalize: 0
     _teleportOffset: {x: 0, y: 0, z: 0}

@@ -5,15 +5,20 @@
 		[NoScaleOffset] _MainTex("Fill Texture", 2D) = "white" {}
 		[Toggle] _UseFillTexture("Use Fill Texture", Float) = 0
 		_Color("Color", Color) = (1,1,1,1)
+		_ColorAlphaPow("Color Alpha Pow", Float) = 1
+		_Intensity("Intensity", Float) = 1
+
 		_FillColor("Fill Color", Color) = (1,1,1,1)
 		_FillAlphaIntensity("Fill Alpha Intensity", Float) = 1
 		_FillAlphaPow("Fill Alpha Pow", Float) = 1
 		_FillPan("Fill Pan", Vector) = (0,0,0,0)
-		_Intensity("Intensity", Float) = 1
+
 		_Radius("Circle Radius", Range(0, 0.25)) = 0.5
+		_Thickness("Circle Thickness", Range(0, 0.25)) = 0.05
+
 		_SmoothDistance("Smooth Distance", Range(0, 0.25)) = 0.01
 		_SmoothPower("Smooth Power", Range(0, 10)) = 1
-		_Thickness("Circle Thickness", Range(0, 0.25)) = 0.05
+
 		_Fill("Fill", Range(0, 1)) = 1
 		[Toggle] _ClockwiseFill("Clockwise Fill", Float) = 0
 		_Rotation("Rotation", Range(-10, 10)) = 1
@@ -24,6 +29,7 @@
 		LOD 100
 
 		ZWrite Off
+		Cull Off
 		Blend SrcAlpha OneMinusSrcAlpha
 
 		Pass
@@ -63,6 +69,7 @@
 			fixed _Intensity;
 			fixed _UseFillTexture;
 			fixed4 _Color;
+			fixed _ColorAlphaPow;
 			fixed4 _FillColor;
 			fixed _FillAlphaIntensity;
 			fixed _FillAlphaPow;
@@ -86,6 +93,7 @@
 				fixed2 relPosNormalized = normalize(relPos);
 				half distanceFromCenter = length(relPos);
 				
+				fixed baseAlpha = _Color.a;
 
 				col *= _Intensity * _Intensity * _Color;
 				fixed InnerSmoothDistance = pow(clamp(1 + (distanceFromCenter - (_Radius - _Thickness))/_SmoothDistance, 0, 1), _SmoothPower);
@@ -111,6 +119,7 @@
 				col.a *= angleFactorInner + angleFactorOuter;
 				col.a = min(col.a, OuterSmoothDistance);
 				col.a = min(col.a, max(fillCol.a, InnerSmoothDistance));
+				col.a = clamp(col.a, 0, pow(baseAlpha, _ColorAlphaPow));
 
 				//Disappear at fill = 0
 				col *= clamp(_Fill / 0.0000000001, 0, 1);

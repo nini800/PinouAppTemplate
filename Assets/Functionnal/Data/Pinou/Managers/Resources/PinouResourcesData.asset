@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PinouResourcesData
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -34,12 +34,26 @@ MonoBehaviour:
     _entities:
       serializedVersion: 2
       m_Bits: 512
+    _entityAbilities:
+      serializedVersion: 2
+      m_Bits: 6144
+    _entityHitboxes:
+      serializedVersion: 2
+      m_Bits: 4096
+    _entitysProjectiles:
+      serializedVersion: 2
+      m_Bits: 2048
+    _entityDrops:
+      serializedVersion: 2
+      m_Bits: 8192
     _interactable:
       serializedVersion: 2
       m_Bits: 1024
   _materials:
     _defaultMaterial: {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
   _entities:
+    _playerModel: {fileID: 160594835656283888, guid: 5bd52459c8cfef349ba4a3465f422281,
+      type: 3}
     _spawnPools:
     - _poolName: LowLevel
       _poolGroups:
@@ -56,7 +70,12 @@ MonoBehaviour:
         _frequency: 2.5
         _groupRadius: 3
       _totalFrequency: 12.5
+    _dashFX: {fileID: 5685497317728842041, guid: 18cdb267d3fdbcd438a33a41d289c83b,
+      type: 3}
   _abilityDatabase:
     _abilities:
     - {fileID: 11400000, guid: fe1ac3be63fa84347bff68f1d1dc9f40, type: 2}
     - {fileID: 11400000, guid: 50ba871188a3dab4baca5a715b1cce68, type: 2}
+    - {fileID: 11400000, guid: 99c7b21bf806f1243a6153bdbdd67553, type: 2}
+    - {fileID: 11400000, guid: eb7f89f59f2939e44949e3c2142870ee, type: 2}
+    - {fileID: 11400000, guid: 7e1a23ee1287c564ea186e9d222524e2, type: 2}

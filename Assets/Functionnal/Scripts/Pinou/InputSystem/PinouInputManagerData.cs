@@ -10,7 +10,7 @@ using UnityEditor;
 
 namespace Pinou.InputSystem
 {
-    [CreateAssetMenu(fileName = "InputData", menuName = "Pinou/InputData", order = 1000)]
+    [CreateAssetMenu(fileName = "InputData", menuName = "Pinou/Managers/InputData", order = 1000)]
     public partial class PinouInputManagerData : PinouManagerData
     {
         [System.Serializable]

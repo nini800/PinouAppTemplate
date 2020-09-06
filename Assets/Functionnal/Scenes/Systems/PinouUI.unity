@@ -121,6 +121,424 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &33885422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 33885423}
+  m_Layer: 5
+  m_Name: Fill Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &33885423
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33885422}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2093284927}
+  m_Father: {fileID: 2042497650}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: -5, y: 0}
+  m_SizeDelta: {x: -20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &234674586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 234674587}
+  - component: {fileID: 234674589}
+  - component: {fileID: 234674588}
+  m_Layer: 5
+  m_Name: Fill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &234674587
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234674586}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1645697163}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 5, y: 0}
+  m_SizeDelta: {x: 10, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &234674588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234674586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f73417e8c1f0776488d17304dad27f28, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &234674589
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234674586}
+  m_CullTransparentMesh: 0
+--- !u!1 &344719675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 344719676}
+  - component: {fileID: 344719678}
+  - component: {fileID: 344719677}
+  m_Layer: 5
+  m_Name: CursorSize
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &344719676
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344719675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2042497650}
+  m_Father: {fileID: 1091753072}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 40, y: 145}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &344719677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344719675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: CURSOR SIZE
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 670f69051da91d54280ec71f1d846dc1, type: 2}
+  m_sharedMaterial: {fileID: 4329304330332951690, guid: 670f69051da91d54280ec71f1d846dc1,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_outlineColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontSize: 18
+  m_fontSizeBase: 18
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_textAlignment: 513
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_firstOverflowCharacterIndex: 0
+  m_linkedTextComponent: {fileID: 0}
+  m_isLinkedTextComponent: 0
+  m_isTextTruncated: 0
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_ignoreRectMaskCulling: 0
+  m_ignoreCulling: 1
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_firstVisibleCharacter: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_textInfo:
+    textComponent: {fileID: 344719677}
+    characterCount: 11
+    spriteCount: 0
+    spaceCount: 1
+    wordCount: 2
+    linkCount: 0
+    lineCount: 1
+    pageCount: 1
+    materialCount: 1
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_spriteAnimator: {fileID: 0}
+  m_hasFontAssetChanged: 0
+  m_subTextObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &344719678
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344719675}
+  m_CullTransparentMesh: 0
+--- !u!1 &609023497
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 609023498}
+  - component: {fileID: 609023502}
+  - component: {fileID: 609023501}
+  - component: {fileID: 609023500}
+  - component: {fileID: 609023499}
+  m_Layer: 5
+  m_Name: LevelUpAnnouncer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &609023498
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609023497}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1993585478}
+  - {fileID: 1412147268}
+  m_Father: {fileID: 610698128}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 136.3}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &609023499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609023497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36ec6b6f12c05440a68f8e53e7ed6cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _hasAfterFixedUpdate: 0
+  _effectSlave: {fileID: 609023500}
+  _levelText: {fileID: 1412147269}
+--- !u!114 &609023500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609023497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 360cf09de1c07bd4ba10baf9d93a772a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _hasAfterFixedUpdate: 0
+  _playOnAwake: 0
+  _playOnEnable: 0
+  _effects:
+  - _type: 0
+    _animator: {fileID: 609023501}
+    _animationName: LevelUp
+    _animationLayer: 0
+    _instantAnimationTransition: 1
+    _weightChangeTime: 0
+    _weightForcedEndValue: 0
+    _weightOverTime:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _meshRenderer: {fileID: 0}
+    _emissionMaterialIndex: 0
+    _transitions: []
+    _feedbacks: []
+    _particleSystems: []
+--- !u!114 &609023501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609023497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fc80db8125cda459cb56654fcd468e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _hasAfterFixedUpdate: 0
+  RandomStart: 0
+--- !u!95 &609023502
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609023497}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7145f4742dada164384b9a1ec8684ea4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &610698127
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +568,9 @@ RectTransform:
   m_Children:
   - {fileID: 1910754900}
   - {fileID: 1434256347}
+  - {fileID: 609023498}
+  - {fileID: 1091753072}
+  - {fileID: 1954448742}
   m_Father: {fileID: 1731784528}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -158,6 +579,163 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &859180142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 859180143}
+  - component: {fileID: 859180145}
+  - component: {fileID: 859180144}
+  m_Layer: 5
+  m_Name: OptionsTitle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &859180143
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859180142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1091753072}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 30, y: 200}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &859180144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859180142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: O P T I O N S
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 670f69051da91d54280ec71f1d846dc1, type: 2}
+  m_sharedMaterial: {fileID: 4329304330332951690, guid: 670f69051da91d54280ec71f1d846dc1,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_outlineColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_textAlignment: 513
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_firstOverflowCharacterIndex: 0
+  m_linkedTextComponent: {fileID: 0}
+  m_isLinkedTextComponent: 0
+  m_isTextTruncated: 0
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_ignoreRectMaskCulling: 0
+  m_ignoreCulling: 1
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_firstVisibleCharacter: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_textInfo:
+    textComponent: {fileID: 859180144}
+    characterCount: 13
+    spriteCount: 0
+    spaceCount: 6
+    wordCount: 7
+    linkCount: 0
+    lineCount: 1
+    pageCount: 1
+    materialCount: 1
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_spriteAnimator: {fileID: 0}
+  m_hasFontAssetChanged: 0
+  m_subTextObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &859180145
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859180142}
+  m_CullTransparentMesh: 0
 --- !u!1 &958892656
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,565 +794,826 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: OnFeedbackEnd
-      Entry: 7
-      Data: 0|Pinou.PinouUtils+Delegate+Action, Assembly-CSharp
-    - Name: toInvoke
-      Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[Pinou.PinouUtils+Delegate+Action+PriorityMethod,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ID
-      Entry: 3
-      Data: 14
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   _hasAfterFixedUpdate: 0
   _playOnAwake: 0
+  _playOnEnabled: 0
   _scaledTime: 0
-  _graphicsFeedbacks:
-  - E_OpenList: 01
-    E_ToggleList: 
-    _transitions:
-    - E_OpenList: 
-      E_ToggleList: 
-      Instant: 1
-      RandomDelays: 0
-      WaitTime: 0
-      MinWaitTime: 0
-      MaxWaitTime: 0
-      Duration: 0
-      MinDuration: 0
-      MaxDuration: 0
-      UseCurve: 0
-      SizeUseCurve: 0
-      ScaleUseCurve: 0
-      PositionUseCurve: 0
-      RotationUseCurve: 0
-      ColorUseCurve: 0
-      FontSizeUseCurve: 0
-      Power: 0
-      SizePower: 0
-      ScalePower: 0
-      PositionPower: 0
-      RotationPower: 0
-      ColorPower: 0
-      FontSizePower: 0
-      Curve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      SizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ScaleCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      PositionCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      RotationCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ColorCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      FontSizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      E_SeparateSize: 0
-      E_SeparateScale: 0
-      E_SeparatePosition: 0
-      E_SeparateRotation: 0
-      E_SeparateColor: 0
-      E_SeparateFontSize: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      Instant: 0
-      RandomDelays: 0
-      WaitTime: 0
-      MinWaitTime: 0
-      MaxWaitTime: 0
-      Duration: 0.5
-      MinDuration: 0
-      MaxDuration: 0
-      UseCurve: 1
-      SizeUseCurve: 0
-      ScaleUseCurve: 0
-      PositionUseCurve: 0
-      RotationUseCurve: 0
-      ColorUseCurve: 0
-      FontSizeUseCurve: 0
-      Power: 0
-      SizePower: 0
-      ScalePower: 0
-      PositionPower: 0
-      RotationPower: 0
-      ColorPower: 0
-      FontSizePower: 0
-      Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 2
-          outSlope: 2
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 0
-      SizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ScaleCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      PositionCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      RotationCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ColorCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      FontSizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      E_SeparateSize: 0
-      E_SeparateScale: 0
-      E_SeparatePosition: 0
-      E_SeparateRotation: 0
-      E_SeparateColor: 0
-      E_SeparateFontSize: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      Instant: 0
-      RandomDelays: 0
-      WaitTime: 0
-      MinWaitTime: 0
-      MaxWaitTime: 0
-      Duration: 1.5
-      MinDuration: 0
-      MaxDuration: 0
-      UseCurve: 1
-      SizeUseCurve: 0
-      ScaleUseCurve: 0
-      PositionUseCurve: 0
-      RotationUseCurve: 0
-      ColorUseCurve: 0
-      FontSizeUseCurve: 0
-      Power: 0
-      SizePower: 0
-      ScalePower: 0
-      PositionPower: 0
-      RotationPower: 0
-      ColorPower: 0
-      FontSizePower: 0
-      Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 0
-      SizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ScaleCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      PositionCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      RotationCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ColorCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      FontSizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      E_SeparateSize: 0
-      E_SeparateScale: 0
-      E_SeparatePosition: 0
-      E_SeparateRotation: 0
-      E_SeparateColor: 0
-      E_SeparateFontSize: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      Instant: 0
-      RandomDelays: 0
-      WaitTime: 0
-      MinWaitTime: 0
-      MaxWaitTime: 0
-      Duration: 0.5
-      MinDuration: 0
-      MaxDuration: 0
-      UseCurve: 1
-      SizeUseCurve: 0
-      ScaleUseCurve: 0
-      PositionUseCurve: 0
-      RotationUseCurve: 0
-      ColorUseCurve: 0
-      FontSizeUseCurve: 0
-      Power: 0
-      SizePower: 0
-      ScalePower: 0
-      PositionPower: 0
-      RotationPower: 0
-      ColorPower: 0
-      FontSizePower: 0
-      Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 2
-          outSlope: 2
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 0
-      SizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ScaleCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      PositionCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      RotationCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ColorCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      FontSizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      E_SeparateSize: 0
-      E_SeparateScale: 0
-      E_SeparatePosition: 0
-      E_SeparateRotation: 0
-      E_SeparateColor: 0
-      E_SeparateFontSize: 0
-    _states:
-    - E_OpenList: 
-      E_ToggleList: 
-      ChangeSize: 0
-      AbsoluteSize: 0
-      RandomSize: 0
-      SyncSizeAxises: 0
-      SizeDelta: {x: 0, y: 0}
-      SyncSize: 0
-      MinSizeDelta: {x: 0, y: 0}
-      MaxSizeDelta: {x: 0, y: 0}
-      MinSyncSize: 0
-      MaxSyncSize: 0
-      Size_SeparateTransition: 0
-      ChangeScale: 1
-      AbsoluteScale: 1
-      RandomScale: 0
-      SyncScaleAxises: 1
-      ScaleDelta: {x: 0, y: 0, z: 0}
-      SyncScale: 1.75
-      MinScaleDelta: {x: 0, y: 0, z: 0}
-      MaxScaleDelta: {x: 0, y: 0, z: 0}
-      MinSyncScale: 0
-      MaxSyncScale: 0
-      Scale_SeparateTransition: 0
-      ChangeRotation: 0
-      AbsoluteRotation: 0
-      RandomRotation: 0
-      Rotation: 0
-      MinRotation: 0
-      MaxRotation: 0
-      Rotation_SeparateTransition: 0
-      ChangePosition: 0
-      AbsolutePosition: 0
-      RandomPosition: 0
-      PositionSeparateAxisRandom: 0
-      Position: {x: 0, y: 0, z: 0}
-      MinPosition: {x: 0, y: 0, z: 0}
-      MaxPosition: {x: 0, y: 0, z: 0}
-      Position_SeparateTransition: 0
-      ChangeColor: 1
-      RandomColor: 0
-      Color: {r: 1, g: 1, b: 1, a: 0}
-      MinColor: {r: 0, g: 0, b: 0, a: 0}
-      MaxColor: {r: 0, g: 0, b: 0, a: 0}
-      Color_SeparateTransition: 0
-      E_Instant: 1
-    - E_OpenList: 
-      E_ToggleList: 
-      ChangeSize: 0
-      AbsoluteSize: 0
-      RandomSize: 0
-      SyncSizeAxises: 0
-      SizeDelta: {x: 0, y: 0}
-      SyncSize: 0
-      MinSizeDelta: {x: 0, y: 0}
-      MaxSizeDelta: {x: 0, y: 0}
-      MinSyncSize: 0
-      MaxSyncSize: 0
-      Size_SeparateTransition: 0
-      ChangeScale: 1
-      AbsoluteScale: 1
-      RandomScale: 0
-      SyncScaleAxises: 1
-      ScaleDelta: {x: 0, y: 0, z: 0}
-      SyncScale: 1.05
-      MinScaleDelta: {x: 0, y: 0, z: 0}
-      MaxScaleDelta: {x: 0, y: 0, z: 0}
-      MinSyncScale: 0
-      MaxSyncScale: 0
-      Scale_SeparateTransition: 0
-      ChangeRotation: 0
-      AbsoluteRotation: 0
-      RandomRotation: 0
-      Rotation: 0
-      MinRotation: 0
-      MaxRotation: 0
-      Rotation_SeparateTransition: 0
-      ChangePosition: 0
-      AbsolutePosition: 0
-      RandomPosition: 0
-      PositionSeparateAxisRandom: 0
-      Position: {x: 0, y: 0, z: 0}
-      MinPosition: {x: 0, y: 0, z: 0}
-      MaxPosition: {x: 0, y: 0, z: 0}
-      Position_SeparateTransition: 0
-      ChangeColor: 1
-      RandomColor: 0
-      Color: {r: 1, g: 1, b: 1, a: 1}
-      MinColor: {r: 0, g: 0, b: 0, a: 0}
-      MaxColor: {r: 0, g: 0, b: 0, a: 0}
-      Color_SeparateTransition: 0
-      E_Instant: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      ChangeSize: 0
-      AbsoluteSize: 0
-      RandomSize: 0
-      SyncSizeAxises: 0
-      SizeDelta: {x: 0, y: 0}
-      SyncSize: 0
-      MinSizeDelta: {x: 0, y: 0}
-      MaxSizeDelta: {x: 0, y: 0}
-      MinSyncSize: 0
-      MaxSyncSize: 0
-      Size_SeparateTransition: 0
-      ChangeScale: 1
-      AbsoluteScale: 1
-      RandomScale: 0
-      SyncScaleAxises: 1
-      ScaleDelta: {x: 0, y: 0, z: 0}
-      SyncScale: 0.95
-      MinScaleDelta: {x: 0, y: 0, z: 0}
-      MaxScaleDelta: {x: 0, y: 0, z: 0}
-      MinSyncScale: 0
-      MaxSyncScale: 0
-      Scale_SeparateTransition: 0
-      ChangeRotation: 0
-      AbsoluteRotation: 0
-      RandomRotation: 0
-      Rotation: 0
-      MinRotation: 0
-      MaxRotation: 0
-      Rotation_SeparateTransition: 0
-      ChangePosition: 0
-      AbsolutePosition: 0
-      RandomPosition: 0
-      PositionSeparateAxisRandom: 0
-      Position: {x: 0, y: 0, z: 0}
-      MinPosition: {x: 0, y: 0, z: 0}
-      MaxPosition: {x: 0, y: 0, z: 0}
-      Position_SeparateTransition: 0
-      ChangeColor: 1
-      RandomColor: 0
-      Color: {r: 1, g: 1, b: 1, a: 1}
-      MinColor: {r: 0, g: 0, b: 0, a: 0}
-      MaxColor: {r: 0, g: 0, b: 0, a: 0}
-      Color_SeparateTransition: 0
-      E_Instant: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      ChangeSize: 0
-      AbsoluteSize: 0
-      RandomSize: 0
-      SyncSizeAxises: 0
-      SizeDelta: {x: 0, y: 0}
-      SyncSize: 0
-      MinSizeDelta: {x: 0, y: 0}
-      MaxSizeDelta: {x: 0, y: 0}
-      MinSyncSize: 0
-      MaxSyncSize: 0
-      Size_SeparateTransition: 0
-      ChangeScale: 1
-      AbsoluteScale: 1
-      RandomScale: 0
-      SyncScaleAxises: 1
-      ScaleDelta: {x: 0, y: 0, z: 0}
-      SyncScale: 0.85
-      MinScaleDelta: {x: 0, y: 0, z: 0}
-      MaxScaleDelta: {x: 0, y: 0, z: 0}
-      MinSyncScale: 0
-      MaxSyncScale: 0
-      Scale_SeparateTransition: 0
-      ChangeRotation: 0
-      AbsoluteRotation: 0
-      RandomRotation: 0
-      Rotation: 0
-      MinRotation: 0
-      MaxRotation: 0
-      Rotation_SeparateTransition: 0
-      ChangePosition: 0
-      AbsolutePosition: 0
-      RandomPosition: 0
-      PositionSeparateAxisRandom: 0
-      Position: {x: 0, y: 0, z: 0}
-      MinPosition: {x: 0, y: 0, z: 0}
-      MaxPosition: {x: 0, y: 0, z: 0}
-      Position_SeparateTransition: 0
-      ChangeColor: 1
-      RandomColor: 0
-      Color: {r: 1, g: 1, b: 1, a: 0}
-      MinColor: {r: 0, g: 0, b: 0, a: 0}
-      MaxColor: {r: 0, g: 0, b: 0, a: 0}
-      Color_SeparateTransition: 0
-      E_Instant: 0
+  _graphicsFeedbacks: []
   _imagesFeedbacks: []
-  _textsFeedbacks: []
+  _textsFeedbacks:
+  - _states:
+    - _transitionToState:
+        _instant: 1
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 0
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 0
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 0
+      _randomColor: 0
+      _color: {r: 0, g: 0, b: 0, a: 0}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 1
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 86
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+    - _transitionToState:
+        _instant: 0
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 2.4
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 1
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.30409274
+            value: 0.5608342
+            inSlope: 0.98281807
+            outSlope: 1.3786107
+            tangentMode: 1
+            weightedMode: 3
+            inWeight: 0.33705086
+            outWeight: 0.079719074
+          - serializedVersion: 3
+            time: 0.82230484
+            value: 0.80032325
+            inSlope: 0.6553692
+            outSlope: 0.74869317
+            tangentMode: 1
+            weightedMode: 3
+            inWeight: 0.121024445
+            outWeight: 0.42998734
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 3
+            inWeight: 0.37932754
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 0
+      _randomColor: 0
+      _color: {r: 0, g: 0, b: 0, a: 0}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 1
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 64
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+  - _states:
+    - _transitionToState:
+        _instant: 1
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 0
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 0
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 1
+      _randomColor: 0
+      _color: {r: 1, g: 1, b: 1, a: 0}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 0
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 0
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+    - _transitionToState:
+        _instant: 0
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 0.55
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 1
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 1
+      _randomColor: 0
+      _color: {r: 1, g: 1, b: 1, a: 1}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 0
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 0
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+    - _transitionToState:
+        _instant: 0
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 1.3
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 0
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 1
+      _randomColor: 0
+      _color: {r: 1, g: 1, b: 1, a: 1}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 0
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 0
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+    - _transitionToState:
+        _instant: 0
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 0.55
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 1
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 1
+      _randomColor: 0
+      _color: {r: 1, g: 1, b: 1, a: 0}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 0
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 0
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
   _overrideGraphicsArray: 0
   _overrideImagesArray: 0
   _overrideTextsArray: 0
@@ -902,6 +1741,118 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 958892656}
+  m_CullTransparentMesh: 0
+--- !u!1 &1091753071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091753072}
+  m_Layer: 5
+  m_Name: OptionsMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1091753072
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091753071}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 859180143}
+  - {fileID: 344719676}
+  - {fileID: 1628652126}
+  m_Father: {fileID: 610698128}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1127885629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1127885630}
+  - component: {fileID: 1127885632}
+  - component: {fileID: 1127885631}
+  m_Layer: 5
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1127885630
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127885629}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2042497650}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1127885631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127885629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f73417e8c1f0776488d17304dad27f28, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1127885632
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127885629}
   m_CullTransparentMesh: 0
 --- !u!1 &1347405259
 GameObject:
@@ -1043,6 +1994,287 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1394812600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1394812601}
+  - component: {fileID: 1394812602}
+  - component: {fileID: 1394812603}
+  m_Layer: 5
+  m_Name: Slider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1394812601
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394812600}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2114235356}
+  - {fileID: 1645697163}
+  - {fileID: 1516150284}
+  m_Father: {fileID: 1628652126}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 75, y: -22.349953}
+  m_SizeDelta: {x: 160, y: 10}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1394812602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394812600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2139478441}
+  m_FillRect: {fileID: 234674587}
+  m_HandleRect: {fileID: 2139478440}
+  m_Direction: 0
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 0.5
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1394812603}
+        m_MethodName: UpdateFloatGameOption
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1394812603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394812600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb5b8c282d8d9046b45bdac7f75195d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _hasAfterFixedUpdate: 0
+  _gameOptionName: CameraFollowMouse
+--- !u!1 &1412147267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1412147268}
+  - component: {fileID: 1412147270}
+  - component: {fileID: 1412147269}
+  m_Layer: 5
+  m_Name: LevelText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1412147268
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412147267}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 609023498}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1412147269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412147267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: You are now level 2
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 670f69051da91d54280ec71f1d846dc1, type: 2}
+  m_sharedMaterial: {fileID: 4329304330332951690, guid: 670f69051da91d54280ec71f1d846dc1,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_outlineColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontSize: 64.43
+  m_fontSizeBase: 64.43
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_textAlignment: 514
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_firstOverflowCharacterIndex: 0
+  m_linkedTextComponent: {fileID: 0}
+  m_isLinkedTextComponent: 0
+  m_isTextTruncated: 0
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_ignoreRectMaskCulling: 0
+  m_ignoreCulling: 1
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_firstVisibleCharacter: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_textInfo:
+    textComponent: {fileID: 1412147269}
+    characterCount: 19
+    spriteCount: 0
+    spaceCount: 4
+    wordCount: 5
+    linkCount: 0
+    lineCount: 1
+    pageCount: 1
+    materialCount: 1
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_spriteAnimator: {fileID: 0}
+  m_hasFontAssetChanged: 0
+  m_subTextObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1412147270
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412147267}
+  m_CullTransparentMesh: 0
 --- !u!1 &1434256346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,10 +2340,11 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _hasAfterFixedUpdate: 0
+  _playOnAwake: 0
+  _playOnEnable: 0
   _effects:
-  - E_OpenList: 
-    E_ToggleList: 
-    _type: 0
+  - _type: 0
+    _animator: {fileID: 1434256350}
     _animationName: RegionBars
     _animationLayer: 0
     _instantAnimationTransition: 1
@@ -1123,12 +2356,13 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+    _meshRenderer: {fileID: 0}
     _emissionMaterialIndex: 0
     _transitions: []
     _feedbacks: []
-  - E_OpenList: 
-    E_ToggleList: 
-    _type: 3
+    _particleSystems: []
+  - _type: 3
+    _animator: {fileID: 0}
     _animationName: 
     _animationLayer: 0
     _instantAnimationTransition: 0
@@ -1140,11 +2374,13 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+    _meshRenderer: {fileID: 0}
     _emissionMaterialIndex: 0
     _transitions: []
     _feedbacks:
     - {fileID: 2071711643}
     - {fileID: 958892658}
+    _particleSystems: []
 --- !u!95 &1434256349
 Animator:
   serializedVersion: 3
@@ -1223,6 +2459,152 @@ MonoBehaviour:
   _effectSlave: {fileID: 1434256348}
   _regionName: {fileID: 958892659}
   _regionLevel: {fileID: 2071711644}
+--- !u!1 &1476298272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1476298273}
+  - component: {fileID: 1476298275}
+  - component: {fileID: 1476298274}
+  m_Layer: 5
+  m_Name: Handle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1476298273
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476298272}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1568155157}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.8, y: 0}
+  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: -2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1476298274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476298272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f73417e8c1f0776488d17304dad27f28, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1476298275
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476298272}
+  m_CullTransparentMesh: 0
+--- !u!1 &1516150283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1516150284}
+  m_Layer: 5
+  m_Name: Handle Slide Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1516150284
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516150283}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2139478440}
+  m_Father: {fileID: 1394812601}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1568155156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1568155157}
+  m_Layer: 5
+  m_Name: Handle Slide Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1568155157
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568155156}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1476298273}
+  m_Father: {fileID: 2042497650}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1597716773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,6 +2679,200 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597716773}
   m_CullTransparentMesh: 0
+--- !u!1 &1628652125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1628652126}
+  - component: {fileID: 1628652128}
+  - component: {fileID: 1628652127}
+  m_Layer: 5
+  m_Name: CameraOffsetByMouse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1628652126
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628652125}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1394812601}
+  m_Father: {fileID: 1091753072}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 40, y: 95}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1628652127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628652125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: CAMERA FOLLOW MOUSE
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 670f69051da91d54280ec71f1d846dc1, type: 2}
+  m_sharedMaterial: {fileID: 4329304330332951690, guid: 670f69051da91d54280ec71f1d846dc1,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_outlineColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontSize: 18
+  m_fontSizeBase: 18
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_textAlignment: 513
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_firstOverflowCharacterIndex: 0
+  m_linkedTextComponent: {fileID: 0}
+  m_isLinkedTextComponent: 0
+  m_isTextTruncated: 0
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_ignoreRectMaskCulling: 0
+  m_ignoreCulling: 1
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_firstVisibleCharacter: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_textInfo:
+    textComponent: {fileID: 1628652127}
+    characterCount: 19
+    spriteCount: 0
+    spaceCount: 2
+    wordCount: 3
+    linkCount: 0
+    lineCount: 1
+    pageCount: 1
+    materialCount: 1
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_spriteAnimator: {fileID: 0}
+  m_hasFontAssetChanged: 0
+  m_subTextObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1628652128
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628652125}
+  m_CullTransparentMesh: 0
+--- !u!1 &1645697162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1645697163}
+  m_Layer: 5
+  m_Name: Fill Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1645697163
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645697162}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 234674587}
+  m_Father: {fileID: 1394812601}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: -5, y: 0}
+  m_SizeDelta: {x: -20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1723422143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,6 +2960,7 @@ GameObject:
   - component: {fileID: 1731784526}
   - component: {fileID: 1731784525}
   - component: {fileID: 1731784529}
+  - component: {fileID: 1731784530}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1493,7 +3070,38 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _hasAfterFixedUpdate: 0
+  _ir: {fileID: 1731784530}
   _gameUI: {fileID: 610698127}
+  _pauseUI: {fileID: 1091753071}
+  _customUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1731784530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731784524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdee041e1a552db4a8c64be83188fafa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _hasAfterFixedUpdate: 0
+  _absoluteFocusByDefault: 1
+  _absoluteFocusMode: 1
+  _playerFocusByDefault: -1
+  _playerFocusMode: 0
 --- !u!1 &1828139801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,6 +3262,7 @@ GameObject:
   - component: {fileID: 1910754902}
   - component: {fileID: 1910754901}
   - component: {fileID: 1910754903}
+  - component: {fileID: 1910754904}
   m_Layer: 5
   m_Name: VisorWidget
   m_TagString: Untagged
@@ -1670,7 +3279,7 @@ RectTransform:
   m_GameObject: {fileID: 1910754899}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.79, y: 0.79, z: 0.79}
   m_Children:
   - {fileID: 1347405260}
   - {fileID: 1723422144}
@@ -1726,10 +3335,12 @@ MonoBehaviour:
     SerializationNodes: []
   _hasAfterFixedUpdate: 0
   _visorGap: 16.6
+  _cursorSize: 1
   _visorPartBottom: {fileID: 1347405260}
   _visorPartRight: {fileID: 1723422144}
   _visorPartLeft: {fileID: 1828139802}
   _animator: {fileID: 1910754903}
+  _ir: {fileID: 1910754904}
 --- !u!114 &1910754903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1753,6 +3364,726 @@ MonoBehaviour:
     SerializationNodes: []
   _hasAfterFixedUpdate: 0
   RandomStart: 0
+--- !u!114 &1910754904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910754899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb260907ca4dd54cb0bcd495ace2991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _hasAfterFixedUpdate: 0
+  _absoluteFocusByDefault: 1
+  _absoluteFocusMode: 1
+  _playerFocusByDefault: -1
+  _playerFocusMode: 0
+--- !u!1 &1954448741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1954448742}
+  - component: {fileID: 1954448743}
+  m_Layer: 5
+  m_Name: ResourcesChangesTextsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1954448742
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954448741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 610698128}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1954448743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954448741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ee4412ed173c547943fa69732daad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _hasAfterFixedUpdate: 0
+  _modelParameters:
+  - _entityType: 1
+    _modelPerEntityType:
+    - _entityType: 1
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 1
+        _negativeReceivedTextModel: {fileID: 3959672933592568379, guid: 705139c616a9aab45ac24e2ce23dce60,
+          type: 3}
+        _shouldDisplayPositiveText: 1
+        _positiveReceivedTextModel: {fileID: 3959672933592568379, guid: 705139c616a9aab45ac24e2ce23dce60,
+          type: 3}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 2
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 1
+        _negativeReceivedTextModel: {fileID: 3959672933592568379, guid: 705139c616a9aab45ac24e2ce23dce60,
+          type: 3}
+        _shouldDisplayPositiveText: 1
+        _positiveReceivedTextModel: {fileID: 3959672933592568379, guid: 705139c616a9aab45ac24e2ce23dce60,
+          type: 3}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 3
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 1
+        _negativeReceivedTextModel: {fileID: 3959672933592568379, guid: 705139c616a9aab45ac24e2ce23dce60,
+          type: 3}
+        _shouldDisplayPositiveText: 1
+        _positiveReceivedTextModel: {fileID: 3959672933592568379, guid: 705139c616a9aab45ac24e2ce23dce60,
+          type: 3}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 4
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 1
+        _negativeReceivedTextModel: {fileID: 3959672933592568379, guid: 705139c616a9aab45ac24e2ce23dce60,
+          type: 3}
+        _shouldDisplayPositiveText: 1
+        _positiveReceivedTextModel: {fileID: 3959672933592568379, guid: 705139c616a9aab45ac24e2ce23dce60,
+          type: 3}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+  - _entityType: 2
+    _modelPerEntityType:
+    - _entityType: 1
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 1
+        _negativeReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+        _shouldDisplayPositiveText: 1
+        _positiveReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 2
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 3
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 4
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+  - _entityType: 3
+    _modelPerEntityType:
+    - _entityType: 1
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 1
+        _negativeReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+        _shouldDisplayPositiveText: 1
+        _positiveReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 2
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 3
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 4
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+  - _entityType: 4
+    _modelPerEntityType:
+    - _entityType: 1
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 1
+        _negativeReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+        _shouldDisplayPositiveText: 1
+        _positiveReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 2
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 3
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 3959672933592568379, guid: e11fe4b6636953f44a7755b37414e59c,
+          type: 3}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+    - _entityType: 4
+      _modelPerResource:
+      - _resourceType: 1
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 2
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 4
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+      - _resourceType: 8
+        _shouldDisplayNegativeText: 0
+        _negativeReceivedTextModel: {fileID: 0}
+        _shouldDisplayPositiveText: 0
+        _positiveReceivedTextModel: {fileID: 0}
+--- !u!1 &1993585477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1993585478}
+  - component: {fileID: 1993585480}
+  - component: {fileID: 1993585479}
+  m_Layer: 5
+  m_Name: LevelUpText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1993585478
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993585477}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 609023498}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 40}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1993585479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993585477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: LEVEL UP
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 670f69051da91d54280ec71f1d846dc1, type: 2}
+  m_sharedMaterial: {fileID: 4329304330332951690, guid: 670f69051da91d54280ec71f1d846dc1,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_outlineColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontSize: 94.73
+  m_fontSizeBase: 94.73
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_textAlignment: 514
+  m_characterSpacing: -20
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_firstOverflowCharacterIndex: 0
+  m_linkedTextComponent: {fileID: 0}
+  m_isLinkedTextComponent: 0
+  m_isTextTruncated: 0
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_ignoreRectMaskCulling: 0
+  m_ignoreCulling: 1
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_firstVisibleCharacter: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_textInfo:
+    textComponent: {fileID: 1993585479}
+    characterCount: 8
+    spriteCount: 0
+    spaceCount: 1
+    wordCount: 2
+    linkCount: 0
+    lineCount: 1
+    pageCount: 1
+    materialCount: 1
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_spriteAnimator: {fileID: 0}
+  m_hasFontAssetChanged: 0
+  m_subTextObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1993585480
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993585477}
+  m_CullTransparentMesh: 0
+--- !u!1 &2042497649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2042497650}
+  - component: {fileID: 2042497651}
+  m_Layer: 5
+  m_Name: Slider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2042497650
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042497649}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1127885630}
+  - {fileID: 33885423}
+  - {fileID: 1568155157}
+  m_Father: {fileID: 344719676}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 75, y: -22.349953}
+  m_SizeDelta: {x: 160, y: 10}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2042497651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042497649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1476298274}
+  m_FillRect: {fileID: 2093284927}
+  m_HandleRect: {fileID: 1476298273}
+  m_Direction: 0
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 0.5
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1910754902}
+        m_MethodName: UpdateCursorSize
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2071711641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,565 +4142,826 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: OnFeedbackEnd
-      Entry: 7
-      Data: 0|Pinou.PinouUtils+Delegate+Action, Assembly-CSharp
-    - Name: toInvoke
-      Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[Pinou.PinouUtils+Delegate+Action+PriorityMethod,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ID
-      Entry: 3
-      Data: 14
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   _hasAfterFixedUpdate: 0
   _playOnAwake: 0
+  _playOnEnabled: 0
   _scaledTime: 0
-  _graphicsFeedbacks:
-  - E_OpenList: 01
-    E_ToggleList: 
-    _transitions:
-    - E_OpenList: 
-      E_ToggleList: 
-      Instant: 1
-      RandomDelays: 0
-      WaitTime: 0
-      MinWaitTime: 0
-      MaxWaitTime: 0
-      Duration: 0
-      MinDuration: 0
-      MaxDuration: 0
-      UseCurve: 0
-      SizeUseCurve: 0
-      ScaleUseCurve: 0
-      PositionUseCurve: 0
-      RotationUseCurve: 0
-      ColorUseCurve: 0
-      FontSizeUseCurve: 0
-      Power: 0
-      SizePower: 0
-      ScalePower: 0
-      PositionPower: 0
-      RotationPower: 0
-      ColorPower: 0
-      FontSizePower: 0
-      Curve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      SizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ScaleCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      PositionCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      RotationCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ColorCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      FontSizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      E_SeparateSize: 0
-      E_SeparateScale: 0
-      E_SeparatePosition: 0
-      E_SeparateRotation: 0
-      E_SeparateColor: 0
-      E_SeparateFontSize: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      Instant: 0
-      RandomDelays: 0
-      WaitTime: 0.4
-      MinWaitTime: 0
-      MaxWaitTime: 0
-      Duration: 0.5
-      MinDuration: 0
-      MaxDuration: 0
-      UseCurve: 1
-      SizeUseCurve: 0
-      ScaleUseCurve: 0
-      PositionUseCurve: 0
-      RotationUseCurve: 0
-      ColorUseCurve: 0
-      FontSizeUseCurve: 0
-      Power: 0
-      SizePower: 0
-      ScalePower: 0
-      PositionPower: 0
-      RotationPower: 0
-      ColorPower: 0
-      FontSizePower: 0
-      Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 2
-          outSlope: 2
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 0
-      SizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ScaleCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      PositionCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      RotationCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ColorCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      FontSizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      E_SeparateSize: 0
-      E_SeparateScale: 0
-      E_SeparatePosition: 0
-      E_SeparateRotation: 0
-      E_SeparateColor: 0
-      E_SeparateFontSize: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      Instant: 0
-      RandomDelays: 0
-      WaitTime: 0
-      MinWaitTime: 0
-      MaxWaitTime: 0
-      Duration: 0.5
-      MinDuration: 0
-      MaxDuration: 0
-      UseCurve: 1
-      SizeUseCurve: 0
-      ScaleUseCurve: 0
-      PositionUseCurve: 0
-      RotationUseCurve: 0
-      ColorUseCurve: 0
-      FontSizeUseCurve: 0
-      Power: 0
-      SizePower: 0
-      ScalePower: 0
-      PositionPower: 0
-      RotationPower: 0
-      ColorPower: 0
-      FontSizePower: 0
-      Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 0
-      SizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ScaleCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      PositionCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      RotationCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ColorCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      FontSizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      E_SeparateSize: 0
-      E_SeparateScale: 0
-      E_SeparatePosition: 0
-      E_SeparateRotation: 0
-      E_SeparateColor: 0
-      E_SeparateFontSize: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      Instant: 0
-      RandomDelays: 0
-      WaitTime: 0
-      MinWaitTime: 0
-      MaxWaitTime: 0
-      Duration: 1
-      MinDuration: 0
-      MaxDuration: 0
-      UseCurve: 1
-      SizeUseCurve: 0
-      ScaleUseCurve: 0
-      PositionUseCurve: 0
-      RotationUseCurve: 0
-      ColorUseCurve: 0
-      FontSizeUseCurve: 0
-      Power: 0
-      SizePower: 0
-      ScalePower: 0
-      PositionPower: 0
-      RotationPower: 0
-      ColorPower: 0
-      FontSizePower: 0
-      Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 2
-          outSlope: 2
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 0
-      SizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ScaleCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      PositionCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      RotationCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      ColorCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      FontSizeCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-      E_SeparateSize: 0
-      E_SeparateScale: 0
-      E_SeparatePosition: 0
-      E_SeparateRotation: 0
-      E_SeparateColor: 0
-      E_SeparateFontSize: 0
-    _states:
-    - E_OpenList: 
-      E_ToggleList: 
-      ChangeSize: 0
-      AbsoluteSize: 0
-      RandomSize: 0
-      SyncSizeAxises: 0
-      SizeDelta: {x: 0, y: 0}
-      SyncSize: 0
-      MinSizeDelta: {x: 0, y: 0}
-      MaxSizeDelta: {x: 0, y: 0}
-      MinSyncSize: 0
-      MaxSyncSize: 0
-      Size_SeparateTransition: 0
-      ChangeScale: 1
-      AbsoluteScale: 1
-      RandomScale: 0
-      SyncScaleAxises: 1
-      ScaleDelta: {x: 0, y: 0, z: 0}
-      SyncScale: 0.85
-      MinScaleDelta: {x: 0, y: 0, z: 0}
-      MaxScaleDelta: {x: 0, y: 0, z: 0}
-      MinSyncScale: 0
-      MaxSyncScale: 0
-      Scale_SeparateTransition: 0
-      ChangeRotation: 0
-      AbsoluteRotation: 0
-      RandomRotation: 0
-      Rotation: 0
-      MinRotation: 0
-      MaxRotation: 0
-      Rotation_SeparateTransition: 0
-      ChangePosition: 0
-      AbsolutePosition: 0
-      RandomPosition: 0
-      PositionSeparateAxisRandom: 0
-      Position: {x: 0, y: 0, z: 0}
-      MinPosition: {x: 0, y: 0, z: 0}
-      MaxPosition: {x: 0, y: 0, z: 0}
-      Position_SeparateTransition: 0
-      ChangeColor: 1
-      RandomColor: 0
-      Color: {r: 1, g: 1, b: 1, a: 0}
-      MinColor: {r: 0, g: 0, b: 0, a: 0}
-      MaxColor: {r: 0, g: 0, b: 0, a: 0}
-      Color_SeparateTransition: 0
-      E_Instant: 1
-    - E_OpenList: 
-      E_ToggleList: 
-      ChangeSize: 0
-      AbsoluteSize: 0
-      RandomSize: 0
-      SyncSizeAxises: 0
-      SizeDelta: {x: 0, y: 0}
-      SyncSize: 0
-      MinSizeDelta: {x: 0, y: 0}
-      MaxSizeDelta: {x: 0, y: 0}
-      MinSyncSize: 0
-      MaxSyncSize: 0
-      Size_SeparateTransition: 0
-      ChangeScale: 1
-      AbsoluteScale: 1
-      RandomScale: 0
-      SyncScaleAxises: 1
-      ScaleDelta: {x: 0, y: 0, z: 0}
-      SyncScale: 1
-      MinScaleDelta: {x: 0, y: 0, z: 0}
-      MaxScaleDelta: {x: 0, y: 0, z: 0}
-      MinSyncScale: 0
-      MaxSyncScale: 0
-      Scale_SeparateTransition: 0
-      ChangeRotation: 0
-      AbsoluteRotation: 0
-      RandomRotation: 0
-      Rotation: 0
-      MinRotation: 0
-      MaxRotation: 0
-      Rotation_SeparateTransition: 0
-      ChangePosition: 0
-      AbsolutePosition: 0
-      RandomPosition: 0
-      PositionSeparateAxisRandom: 0
-      Position: {x: 0, y: 0, z: 0}
-      MinPosition: {x: 0, y: 0, z: 0}
-      MaxPosition: {x: 0, y: 0, z: 0}
-      Position_SeparateTransition: 0
-      ChangeColor: 1
-      RandomColor: 0
-      Color: {r: 1, g: 1, b: 1, a: 1}
-      MinColor: {r: 0, g: 0, b: 0, a: 0}
-      MaxColor: {r: 0, g: 0, b: 0, a: 0}
-      Color_SeparateTransition: 0
-      E_Instant: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      ChangeSize: 0
-      AbsoluteSize: 0
-      RandomSize: 0
-      SyncSizeAxises: 0
-      SizeDelta: {x: 0, y: 0}
-      SyncSize: 0
-      MinSizeDelta: {x: 0, y: 0}
-      MaxSizeDelta: {x: 0, y: 0}
-      MinSyncSize: 0
-      MaxSyncSize: 0
-      Size_SeparateTransition: 0
-      ChangeScale: 0
-      AbsoluteScale: 1
-      RandomScale: 0
-      SyncScaleAxises: 1
-      ScaleDelta: {x: 0, y: 0, z: 0}
-      SyncScale: 0.95
-      MinScaleDelta: {x: 0, y: 0, z: 0}
-      MaxScaleDelta: {x: 0, y: 0, z: 0}
-      MinSyncScale: 0
-      MaxSyncScale: 0
-      Scale_SeparateTransition: 0
-      ChangeRotation: 0
-      AbsoluteRotation: 0
-      RandomRotation: 0
-      Rotation: 0
-      MinRotation: 0
-      MaxRotation: 0
-      Rotation_SeparateTransition: 0
-      ChangePosition: 0
-      AbsolutePosition: 0
-      RandomPosition: 0
-      PositionSeparateAxisRandom: 0
-      Position: {x: 0, y: 0, z: 0}
-      MinPosition: {x: 0, y: 0, z: 0}
-      MaxPosition: {x: 0, y: 0, z: 0}
-      Position_SeparateTransition: 0
-      ChangeColor: 1
-      RandomColor: 0
-      Color: {r: 1, g: 1, b: 1, a: 1}
-      MinColor: {r: 0, g: 0, b: 0, a: 0}
-      MaxColor: {r: 0, g: 0, b: 0, a: 0}
-      Color_SeparateTransition: 0
-      E_Instant: 0
-    - E_OpenList: 
-      E_ToggleList: 
-      ChangeSize: 0
-      AbsoluteSize: 0
-      RandomSize: 0
-      SyncSizeAxises: 0
-      SizeDelta: {x: 0, y: 0}
-      SyncSize: 0
-      MinSizeDelta: {x: 0, y: 0}
-      MaxSizeDelta: {x: 0, y: 0}
-      MinSyncSize: 0
-      MaxSyncSize: 0
-      Size_SeparateTransition: 0
-      ChangeScale: 0
-      AbsoluteScale: 1
-      RandomScale: 0
-      SyncScaleAxises: 1
-      ScaleDelta: {x: 0, y: 0, z: 0}
-      SyncScale: 0.65
-      MinScaleDelta: {x: 0, y: 0, z: 0}
-      MaxScaleDelta: {x: 0, y: 0, z: 0}
-      MinSyncScale: 0
-      MaxSyncScale: 0
-      Scale_SeparateTransition: 0
-      ChangeRotation: 0
-      AbsoluteRotation: 0
-      RandomRotation: 0
-      Rotation: 0
-      MinRotation: 0
-      MaxRotation: 0
-      Rotation_SeparateTransition: 0
-      ChangePosition: 0
-      AbsolutePosition: 0
-      RandomPosition: 0
-      PositionSeparateAxisRandom: 0
-      Position: {x: 0, y: 0, z: 0}
-      MinPosition: {x: 0, y: 0, z: 0}
-      MaxPosition: {x: 0, y: 0, z: 0}
-      Position_SeparateTransition: 0
-      ChangeColor: 1
-      RandomColor: 0
-      Color: {r: 1, g: 1, b: 1, a: 0}
-      MinColor: {r: 0, g: 0, b: 0, a: 0}
-      MaxColor: {r: 0, g: 0, b: 0, a: 0}
-      Color_SeparateTransition: 0
-      E_Instant: 0
+  _graphicsFeedbacks: []
   _imagesFeedbacks: []
-  _textsFeedbacks: []
+  _textsFeedbacks:
+  - _states:
+    - _transitionToState:
+        _instant: 1
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 0
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 0
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 1
+      _randomColor: 0
+      _color: {r: 1, g: 1, b: 1, a: 0}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 0
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 58
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+    - _transitionToState:
+        _instant: 0
+        _randomDelays: 0
+        _waitTime: 0.5
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 0.5
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 1
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0.13691525
+            outSlope: 0.13691525
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.06815374
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 1
+      _randomColor: 0
+      _color: {r: 1, g: 1, b: 1, a: 1}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 0
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 64
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+    - _transitionToState:
+        _instant: 0
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 1
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 0
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 1
+      _randomColor: 0
+      _color: {r: 1, g: 1, b: 1, a: 1}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 0
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 68
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+    - _transitionToState:
+        _instant: 0
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 0.5
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 1
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0.8831866
+            outSlope: 0.8831866
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.06691449
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0.37651542
+            outSlope: 0.37651542
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.061957955
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 1
+      _randomColor: 0
+      _color: {r: 1, g: 1, b: 1, a: 0}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 0
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 74
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+  - _states:
+    - _transitionToState:
+        _instant: 1
+        _randomDelays: 0
+        _waitTime: 0
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 0
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 0
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 0
+      _randomColor: 0
+      _color: {r: 0, g: 0, b: 0, a: 0}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 1
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 64
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
+    - _transitionToState:
+        _instant: 0
+        _randomDelays: 0
+        _waitTime: 0.5
+        _minWaitTime: 0
+        _maxWaitTime: 0
+        _duration: 2.1
+        _minDuration: 0
+        _maxDuration: 0
+        _useCurve: 1
+        _power: 1
+        _curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.31153902
+            value: 0.44263965
+            inSlope: 0.98281807
+            outSlope: 1.3786107
+            tangentMode: 1
+            weightedMode: 3
+            inWeight: 0.33705086
+            outWeight: 0.079719074
+          - serializedVersion: 3
+            time: 0.78016007
+            value: 0.62149024
+            inSlope: 0.6553692
+            outSlope: 0.74869317
+            tangentMode: 1
+            weightedMode: 3
+            inWeight: 0.121024445
+            outWeight: 0.42998734
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 3
+            inWeight: 0.37932754
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _sizeUseCurve: 0
+        _sizePower: 1
+        _sizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _scaleUseCurve: 0
+        _scalePower: 1
+        _scaleCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _positionUseCurve: 0
+        _positionPower: 1
+        _positionCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _rotationUseCurve: 0
+        _rotationPower: 1
+        _rotationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _colorUseCurve: 0
+        _colorPower: 1
+        _colorCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _fontSizeUseCurve: 0
+        _fontSizePower: 1
+        _fontSizeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        E_SeparateSize: 0
+        E_SeparateScale: 0
+        E_SeparatePosition: 0
+        E_SeparateRotation: 0
+        E_SeparateColor: 0
+        E_SeparateFontSize: 0
+      _changeSize: 0
+      _absoluteSize: 1
+      _randomSize: 0
+      _syncSizeAxises: 1
+      _sizeDelta: {x: 0, y: 0}
+      _syncSize: 0
+      _minSizeDelta: {x: 0, y: 0}
+      _maxSizeDelta: {x: 0, y: 0}
+      _minSyncSize: 0
+      _maxSyncSize: 0
+      _size_SeparateTransition: 0
+      _changeScale: 0
+      _absoluteScale: 1
+      _randomScale: 0
+      _syncScaleAxises: 1
+      _scaleDelta: {x: 0, y: 0, z: 0}
+      _syncScale: 0
+      _minScaleDelta: {x: 0, y: 0, z: 0}
+      _maxScaleDelta: {x: 0, y: 0, z: 0}
+      _minSyncScale: 0
+      _maxSyncScale: 0
+      _scale_SeparateTransition: 0
+      _changeRotation: 0
+      _absoluteRotation: 1
+      _randomRotation: 0
+      _rotation: 0
+      _minRotation: 0
+      _maxRotation: 0
+      _rotation_SeparateTransition: 0
+      _changePosition: 0
+      _absolutePosition: 1
+      _randomPosition: 0
+      _positionSeparateAxisRandom: 0
+      _position: {x: 0, y: 0, z: 0}
+      _minPosition: {x: 0, y: 0, z: 0}
+      _maxPosition: {x: 0, y: 0, z: 0}
+      _position_SeparateTransition: 0
+      _changeColor: 0
+      _randomColor: 0
+      _color: {r: 0, g: 0, b: 0, a: 0}
+      _minColor: {r: 0, g: 0, b: 0, a: 0}
+      _maxColor: {r: 0, g: 0, b: 0, a: 0}
+      _color_SeparateTransition: 0
+      _changeFontSize: 1
+      _absoluteFontSize: 1
+      _randomFontSize: 0
+      _fontSize: 72
+      _minFontSize: 0
+      _maxFontSize: 0
+      _fontSize_SeparateTransition: 0
+      _changeStyle: 0
+      _style: 0
   _overrideGraphicsArray: 0
   _overrideImagesArray: 0
   _overrideTextsArray: 0
@@ -2498,6 +5090,154 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2071711641}
   m_CullTransparentMesh: 0
+--- !u!1 &2093284926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2093284927}
+  - component: {fileID: 2093284929}
+  - component: {fileID: 2093284928}
+  m_Layer: 5
+  m_Name: Fill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2093284927
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093284926}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 33885423}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchoredPosition: {x: 5, y: 0}
+  m_SizeDelta: {x: 10, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2093284928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093284926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f73417e8c1f0776488d17304dad27f28, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2093284929
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093284926}
+  m_CullTransparentMesh: 0
+--- !u!1 &2114235355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2114235356}
+  - component: {fileID: 2114235358}
+  - component: {fileID: 2114235357}
+  m_Layer: 5
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2114235356
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114235355}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1394812601}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2114235357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114235355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f73417e8c1f0776488d17304dad27f28, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2114235358
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114235355}
+  m_CullTransparentMesh: 0
 --- !u!1 &2139068375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2571,4 +5311,78 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139068375}
+  m_CullTransparentMesh: 0
+--- !u!1 &2139478439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2139478440}
+  - component: {fileID: 2139478442}
+  - component: {fileID: 2139478441}
+  m_Layer: 5
+  m_Name: Handle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2139478440
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139478439}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1516150284}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: -2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2139478441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139478439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f73417e8c1f0776488d17304dad27f28, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2139478442
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139478439}
   m_CullTransparentMesh: 0

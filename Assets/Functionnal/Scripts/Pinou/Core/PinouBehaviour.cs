@@ -13,6 +13,8 @@ namespace Pinou
     public class PinouBehaviour : SerializedMonoBehaviour
     {
         #region Utilities Fields
+        private GameObject _gameObject = null;
+        public new GameObject gameObject => _gameObject == null ? base.gameObject : _gameObject;
         private RectTransform _rectTransform;
         public RectTransform RectTransform { get { if (_rectTransform == null) _rectTransform = GetComponent<RectTransform>(); return _rectTransform; } }
 
@@ -32,6 +34,7 @@ namespace Pinou
         [SerializeField, HideInInspector] private bool _hasAfterFixedUpdate;
         protected void Awake()
         {
+            _gameObject = base.gameObject;
             if(_hasAfterFixedUpdate == true)
             {
                 PinouUtils.MonoBehaviour.AfterFixedUpdate_Subscribe(OnAfterFixedUpdate);
@@ -93,7 +96,7 @@ namespace Pinou
         private void OnDestroy()
         {
 #if UNITY_EDITOR
-            if (EditorApplication.isPlayingOrWillChangePlaymode == true)
+            if (EditorApplication.isPlaying == false)
 			{
                 return;
 			}

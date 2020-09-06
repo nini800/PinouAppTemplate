@@ -1,0 +1,22 @@
+using UnityEngine;
+using Pinou;
+
+namespace Pinou.EntitySystem
+{		
+	public partial class EntityBody : PinouBehaviour
+	{
+		[Header("Sockets References")]
+		[Space]
+|PRIVATEFIELDS|
+
+		public Transform GetSocket(EntityBodySocket socket)
+		{
+			switch(socket)
+			{
+|SWITCHSOCKET|
+			}
+			
+			throw new System.Exception("No Socket " + socket + " found.");
+		}
+	}
+}

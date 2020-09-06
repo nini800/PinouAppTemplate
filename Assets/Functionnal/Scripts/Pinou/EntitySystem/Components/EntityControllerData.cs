@@ -12,7 +12,7 @@ namespace Pinou.EntitySystem
         }
         #endregion
 
-        public class EntityController : EntityComponent
+        public class EntityController : EntityComponent, IController
         {
             #region OnConstruct
             /// <summary>
@@ -28,6 +28,26 @@ namespace Pinou.EntitySystem
             #endregion
 
             public override ControllerState ControllerState => ControllerState.None;
+
+            #region IController
+            protected bool inputingMovement;
+            protected Vector3 moveVector;
+
+            protected Vector3 aimDirection;
+            protected Vector3 aimTarget;
+
+            public bool InputingMovement => inputingMovement;
+            public Vector3 MoveVector => moveVector;
+
+            public Vector3 AimDirection => aimDirection;
+            public Vector3 AimTarget => aimTarget;
+
+            protected bool shoot;
+            public bool Shoot => shoot;
+
+            protected bool interact;
+            public bool Interact => interact;
+            #endregion
         }
     }
 }

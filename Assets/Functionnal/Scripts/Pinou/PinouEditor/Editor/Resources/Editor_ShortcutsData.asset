@@ -27,13 +27,21 @@ MonoBehaviour:
     path: Assets\Functionnal\Data\TAP\Entities\PlayerData
   - name: TAPData
     path: Assets\Functionnal\Data\TAP
+  - name: Abilities Data
+    path: Assets\Functionnal\Data\TAP\Abilities
   - name: Functionnal
     path: 
   - name: Prefabs
     path: Assets\Functionnal\Prefabs
   - name: TAP Entities Prefabs
     path: Assets\Functionnal\Prefabs\TAP\Entities
+  - name: Visual
+    path: 
+  - name: Materials
+    path: Assets\Visual\Materials
+  - name: FXs
+    path: Assets\Visual\Prefabs\TAP\FXs
   - name: Misc.
     path: 
-  - name: Shortcuts Editor
+  - name: Editor Data
     path: Assets\Functionnal\Scripts\Pinou\PinouEditor\Editor\Resources

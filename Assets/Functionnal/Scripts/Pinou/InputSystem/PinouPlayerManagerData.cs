@@ -9,7 +9,7 @@ using UnityEditor;
 
 namespace Pinou.InputSystem
 {
-    [CreateAssetMenu(fileName = "PlayerData", menuName = "Pinou/PlayerData", order = 1000)]
+    [CreateAssetMenu(fileName = "PlayerData", menuName = "Pinou/Managers/PlayerData", order = 1000)]
 	public class PinouPlayerManagerData : PinouManagerData
 	{
 		public override PinouManager BuildManagerInstance()

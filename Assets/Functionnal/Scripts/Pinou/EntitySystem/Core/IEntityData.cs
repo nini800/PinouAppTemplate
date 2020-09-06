@@ -9,6 +9,7 @@ namespace Pinou.EntitySystem
 
 		EntityControllerData.EntityController Controller { get; }
 		EntityStatsData.EntityStats Stats { get; }
+		EntityEquipmentData.EntityEquipment Equipment { get; }
 		EntityBeingData.EntityBeing Being { get; }
 		EntityAbilitiesData.EntityAbilities Abilities { get; }
 		EntityInteractionsData.EntityInteractions Interactions { get; }
@@ -52,5 +53,15 @@ namespace Pinou.EntitySystem
 	public interface IEntityData : IEntityBaseData, IOverridableEntityDataComponents
 	{
 
+	}
+
+	public interface IController
+	{
+		bool InputingMovement { get; }
+		Vector3 MoveVector { get; }
+
+		Vector3 AimDirection { get; }
+		Vector3 AimTarget { get; }
+		bool Shoot { get; }
 	}
 }

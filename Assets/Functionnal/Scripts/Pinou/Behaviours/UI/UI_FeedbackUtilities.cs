@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Sirenix.OdinInspector;
 #if UNITY_EDITOR
 using UnityEditor;
 using Pinou.Editor;
@@ -13,45 +14,83 @@ namespace Pinou.UI
 	public class UI_FeedbackUtilities : PinouBehaviour
 	{
         [System.Serializable]
-        private class TransitionParameters : CustomDrawedProperty
+        private class TransitionParameters
         {
-            public bool Instant = false;
-            public bool RandomDelays = false;
-            public float WaitTime;
-            public float MinWaitTime;
-            public float MaxWaitTime;
-            public float Duration;
-            public float MinDuration;
-            public float MaxDuration;
-            public bool UseCurve = false;
-            public bool SizeUseCurve = false;
-            public bool ScaleUseCurve = false;
-            public bool PositionUseCurve = false;
-            public bool RotationUseCurve = false;
-            public bool ColorUseCurve = false;
-            public bool FontSizeUseCurve = false;
-            public float Power;
-            public float SizePower;
-            public float ScalePower;
-            public float PositionPower;
-            public float RotationPower;
-            public float ColorPower;
-            public float FontSizePower;
-            public AnimationCurve Curve;
-            public AnimationCurve SizeCurve;
-            public AnimationCurve ScaleCurve;
-            public AnimationCurve PositionCurve;
-            public AnimationCurve RotationCurve;
-            public AnimationCurve ColorCurve;
-            public AnimationCurve FontSizeCurve;
+            [SerializeField] private bool _instant = false;
+            [SerializeField, ShowIf("@!_instant")] private bool _randomDelays = false;
+            [Space(3f)]
+            [SerializeField, ShowIf("@!_instant&&!_randomDelays")] private float _waitTime;
+            [SerializeField, ShowIf("@!_instant&&_randomDelays")] private float _minWaitTime;
+            [SerializeField, ShowIf("@!_instant&&_randomDelays")] private float _maxWaitTime;
+            [SerializeField, ShowIf("@!_instant&&!_randomDelays")] private float _duration;
+            [SerializeField, ShowIf("@!_instant&&_randomDelays")] private float _minDuration;
+            [SerializeField, ShowIf("@!_instant&&_randomDelays")] private float _maxDuration;
+            [Space(3f)]
+            [SerializeField, ShowIf("@!_instant")] private bool _useCurve = false;
+            [SerializeField, ShowIf("@!_instant&&!_useCurve")] private float _power = 1;
+            [SerializeField, ShowIf("@!_instant&&_useCurve")] private AnimationCurve _curve;
+            [Space(3f)]
+            [SerializeField, ShowIf("@!_instant&&E_SeparateSize")] private bool _sizeUseCurve = false;
+            [SerializeField, ShowIf(nameof(E_SeparateSize)), ShowIf("@!_instant&&E_SeparateSize&&!_sizeUseCurve")] private float _sizePower = 1;
+            [SerializeField, ShowIf(nameof(E_SeparateSize)), ShowIf("@!_instant&&E_SeparateSize&&_sizeUseCurve")] private AnimationCurve _sizeCurve;
+            [Space(3f)]
+            [SerializeField, ShowIf("@!_instant&&E_SeparateScale")] private bool _scaleUseCurve = false;
+            [SerializeField, ShowIf(nameof(E_SeparateScale)), ShowIf("@!_instant&&!E_SeparateScale&&_scaleUseCurve")] private float _scalePower = 1;
+            [SerializeField, ShowIf(nameof(E_SeparateScale)), ShowIf("@!_instant&&E_SeparateScale&&_scaleUseCurve")] private AnimationCurve _scaleCurve;
+            [Space(3f)]
+            [SerializeField, ShowIf("@!_instant&&E_SeparatePosition")] private bool _positionUseCurve = false;
+            [SerializeField, ShowIf(nameof(E_SeparatePosition)), ShowIf("@!_instant&&!E_SeparatePosition&&_positionUseCurve")] private float _positionPower = 1;
+            [SerializeField, ShowIf(nameof(E_SeparatePosition)), ShowIf("@!_instant&&E_SeparatePosition&&_positionUseCurve")] private AnimationCurve _positionCurve;
+            [Space(3f)]
+            [SerializeField, ShowIf("@!_instant&&E_SeparateRotation")] private bool _rotationUseCurve = false;
+            [SerializeField, ShowIf(nameof(E_SeparateRotation)), ShowIf("@!_instant&&E_SeparateRotation&&!_rotationUseCurve")] private float _rotationPower = 1;
+            [SerializeField, ShowIf(nameof(E_SeparateRotation)), ShowIf("@!_instant&&E_SeparateRotation&&_rotationUseCurve")] private AnimationCurve _rotationCurve;
+            [Space(3f)]
+            [SerializeField, ShowIf("@!_instant&&E_SeparateColor")] private bool _colorUseCurve = false;
+            [SerializeField, ShowIf(nameof(E_SeparateColor)), ShowIf("@!_instant&&E_SeparateColor&&!_colorUseCurve")] private float _colorPower = 1;
+            [SerializeField, ShowIf(nameof(E_SeparateColor)), ShowIf("@!_instant&&E_SeparateColor&&_colorUseCurve")] private AnimationCurve _colorCurve;
+            [Space(3f)]
+            [SerializeField, ShowIf("@!_instant&&E_SeparateFontSize")] private bool _fontSizeUseCurve = false;
+            [SerializeField, ShowIf(nameof(E_SeparateFontSize)), ShowIf("@!_instant&&E_SeparateFontSize&&!_fontSizeUseCurve")] private float _fontSizePower = 1;
+            [SerializeField, ShowIf(nameof(E_SeparateFontSize)), ShowIf("@!_instant&&E_SeparateFontSize&&_fontSizeUseCurve")] private AnimationCurve _fontSizeCurve;
 
 #if UNITY_EDITOR
-            public bool E_SeparateSize;
-            public bool E_SeparateScale;
-            public bool E_SeparatePosition;
-            public bool E_SeparateRotation;
-            public bool E_SeparateColor;
-            public bool E_SeparateFontSize;
+            [HideInInspector] public bool E_SeparateSize;
+            [HideInInspector] public bool E_SeparateScale;
+            [HideInInspector] public bool E_SeparatePosition;
+            [HideInInspector] public bool E_SeparateRotation;
+            [HideInInspector] public bool E_SeparateColor;
+            [HideInInspector] public bool E_SeparateFontSize;
+
+			public bool Instant { get => _instant; }
+            public bool RandomDelays { get => _randomDelays; }
+            public float WaitTime { get => _waitTime; }
+            public float MinWaitTime { get => _minWaitTime; }
+            public float MaxWaitTime { get => _maxWaitTime; }
+            public float Duration { get => _duration; }
+            public float MinDuration { get => _minDuration; }
+            public float MaxDuration { get => _maxDuration; }
+            public bool UseCurve { get => _useCurve; }
+            public bool SizeUseCurve { get => _sizeUseCurve; }
+            public bool ScaleUseCurve { get => _scaleUseCurve; }
+            public bool PositionUseCurve { get => _positionUseCurve; }
+            public bool RotationUseCurve { get => _rotationUseCurve; }
+            public bool ColorUseCurve { get => _colorUseCurve; }
+            public bool FontSizeUseCurve { get => _fontSizeUseCurve; }
+            public float Power { get => _power; }
+            public float SizePower { get => _sizePower; }
+            public float ScalePower { get => _scalePower; }
+            public float PositionPower { get => _positionPower; }
+            public float RotationPower { get => _rotationPower; }
+            public float ColorPower { get => _colorPower; }
+            public float FontSizePower { get => _fontSizePower; }
+            public AnimationCurve Curve { get => _curve; }
+            public AnimationCurve SizeCurve { get => _sizeCurve; }
+            public AnimationCurve ScaleCurve { get => _scaleCurve; }
+            public AnimationCurve PositionCurve { get => _positionCurve; }
+            public AnimationCurve RotationCurve { get => _rotationCurve; }
+            public AnimationCurve ColorCurve { get => _colorCurve; }
+            public AnimationCurve FontSizeCurve { get => _fontSizeCurve; }
 #endif
         }
         private class TransitionSnapshot
@@ -76,60 +115,122 @@ namespace Pinou.UI
             public float Duration;
         }
         [System.Serializable]
-        private class GraphicState : CustomDrawedProperty
+        private class GraphicState
         {
-            public bool ChangeSize = false;
-            public bool AbsoluteSize = true;
-            public bool RandomSize = false;
-            public bool SyncSizeAxises = true;
-            public Vector2 SizeDelta;
-            public float SyncSize;
-            public Vector2 MinSizeDelta;
-            public Vector2 MaxSizeDelta;
-            public float MinSyncSize;
-            public float MaxSyncSize;
-            public bool Size_SeparateTransition = false;
+            [Header("Transition")]
+            [Space]
+            [SerializeField] private TransitionParameters _transitionToState;
 
-            public bool ChangeScale = false;
-            public bool AbsoluteScale = true;
-            public bool RandomScale = false;
-            public bool SyncScaleAxises = true;
-            public Vector3 ScaleDelta;
-            public float SyncScale;
-            public Vector3 MinScaleDelta;
-            public Vector3 MaxScaleDelta;
-            public float MinSyncScale;
-            public float MaxSyncScale;
-            public bool Scale_SeparateTransition = false;
+            [Header("State Parameters")]
+            [Space]
+            [SerializeField] private bool _changeSize = false;
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize))] private bool _absoluteSize = true;
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize))] private bool _randomSize = false;
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize))] private bool _syncSizeAxises = true;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize)), ShowIf("@!_randomSize&&!_syncSizeAxises")] private Vector2 _sizeDelta;
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize)), ShowIf("@!_randomSize&&_syncSizeAxises")] private float _syncSize;
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize)), ShowIf("@_randomSize&&!_syncSizeAxises")] private Vector2 _minSizeDelta;
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize)), ShowIf("@_randomSize&&!_syncSizeAxises")] private Vector2 _maxSizeDelta;
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize)), ShowIf("@_randomSize&&_syncSizeAxises")] private float _minSyncSize;
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize)), ShowIf("@_randomSize&&_syncSizeAxises")] private float _maxSyncSize;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeSize/Size"), ShowIfGroup(nameof(_changeSize))] private bool _size_SeparateTransition = false;
 
-            public bool ChangeRotation = false;
-            public bool AbsoluteRotation = true;
-            public bool RandomRotation = false;
-            public float Rotation;
-            public float MinRotation;
-            public float MaxRotation;
-            public bool Rotation_SeparateTransition = false;
+            [SerializeField] private bool _changeScale = false;
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale))] private bool _absoluteScale = true;
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale))] private bool _randomScale = false;
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale))] private bool _syncScaleAxises = true;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale)), ShowIf("@!_randomScale&&!_syncScaleAxises")] private Vector3 _scaleDelta;
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale)), ShowIf("@!_randomScale&&_syncScaleAxises")] private float _syncScale;
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale)), ShowIf("@_randomScale&&!_syncScaleAxises")] private Vector3 _minScaleDelta;
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale)), ShowIf("@_randomScale&&!_syncScaleAxises")] private Vector3 _maxScaleDelta;
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale)), ShowIf("@_randomScale&&_syncScaleAxises")] private float _minSyncScale;
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale)), ShowIf("@_randomScale&&_syncScaleAxises")] private float _maxSyncScale;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeScale/Scale"), ShowIfGroup(nameof(_changeScale))] private bool _scale_SeparateTransition = false;
 
-            public bool ChangePosition = false;
-            public bool AbsolutePosition = true;
-            public bool RandomPosition = false;
-            public bool PositionSeparateAxisRandom = false;
-            public Vector3 Position;
-            public Vector3 MinPosition;
-            public Vector3 MaxPosition;
-            public bool Position_SeparateTransition = false;
+            [SerializeField] private bool _changeRotation = false;
+            [SerializeField, FoldoutGroup("_changeRotation/Rotation"), ShowIfGroup(nameof(_changeRotation))] private bool _absoluteRotation = true;
+            [SerializeField, FoldoutGroup("_changeRotation/Rotation"), ShowIfGroup(nameof(_changeRotation))] private bool _randomRotation = false;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeRotation/Rotation"), ShowIfGroup(nameof(_changeRotation)), ShowIf("@!_randomRotation")] private float _rotation;
+            [SerializeField, FoldoutGroup("_changeRotation/Rotation"), ShowIfGroup(nameof(_changeRotation)), ShowIf("@_randomRotation")] private float _minRotation;
+            [SerializeField, FoldoutGroup("_changeRotation/Rotation"), ShowIfGroup(nameof(_changeRotation)), ShowIf("@_randomRotation")] private float _maxRotation;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeRotation/Rotation"), ShowIfGroup(nameof(_changeRotation))] private bool _rotation_SeparateTransition = false;
 
-            public bool ChangeColor = false;
-            public bool RandomColor = false;
-            public Color Color;
-            public Color MinColor;
-            public Color MaxColor;
-            public bool Color_SeparateTransition = false;
+            [SerializeField] private bool _changePosition = false;
+            [SerializeField, FoldoutGroup("_changePosition/Position"), ShowIfGroup(nameof(_changePosition))] private bool _absolutePosition = true;
+            [SerializeField, FoldoutGroup("_changePosition/Position"), ShowIfGroup(nameof(_changePosition))] private bool _randomPosition = false;
+            [SerializeField, FoldoutGroup("_changePosition/Position"), ShowIfGroup(nameof(_changePosition))] private bool _positionSeparateAxisRandom = false;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changePosition/Position"), ShowIfGroup(nameof(_changePosition)), ShowIf("@!_randomPosition")] private Vector3 _position;
+            [SerializeField, FoldoutGroup("_changePosition/Position"), ShowIfGroup(nameof(_changePosition)), ShowIf("@_randomPosition")] private Vector3 _minPosition;
+            [SerializeField, FoldoutGroup("_changePosition/Position"), ShowIfGroup(nameof(_changePosition)), ShowIf("@_randomPosition")] private Vector3 _maxPosition;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changePosition/Position"), ShowIfGroup(nameof(_changePosition))] private bool _position_SeparateTransition = false;
 
-#if UNITY_EDITOR
-            public bool E_Instant = false;
-#endif
-        }
+            [SerializeField] private bool _changeColor = false;
+            [SerializeField, FoldoutGroup("_changeColor/Color"), ShowIfGroup(nameof(_changeColor))] private bool _randomColor = false;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeColor/Color"), ShowIfGroup(nameof(_changeColor)), ShowIf("@!_randomColor")] private Color _color;
+            [SerializeField, FoldoutGroup("_changeColor/Color"), ShowIfGroup(nameof(_changeColor)), ShowIf("@_randomColor")] private Color _minColor;
+            [SerializeField, FoldoutGroup("_changeColor/Color"), ShowIfGroup(nameof(_changeColor)), ShowIf("@_randomColor")] private Color _maxColor;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeColor/Color"), ShowIfGroup(nameof(_changeColor))] private bool _color_SeparateTransition = false;
+
+            public TransitionParameters TransitionToState => _transitionToState;
+
+            public bool ChangeSize { get => _changeSize; }
+            public bool AbsoluteSize { get => _absoluteSize; }
+            public bool RandomSize { get => _randomSize; }
+            public bool SyncSizeAxises { get => _syncSizeAxises; }
+            public Vector2 SizeDelta { get => _sizeDelta; }
+            public float SyncSize { get => _syncSize; }
+            public Vector2 MinSizeDelta { get => _minSizeDelta; }
+            public Vector2 MaxSizeDelta { get => _maxSizeDelta; }
+            public float MinSyncSize { get => _minSyncSize; }
+            public float MaxSyncSize { get => _maxSyncSize; }
+            public bool Size_SeparateTransition { get => _size_SeparateTransition; }
+
+            public bool ChangeScale { get => _changeScale; }
+            public bool AbsoluteScale { get => _absoluteScale; }
+            public bool RandomScale { get => _randomScale; }
+            public bool SyncScaleAxises { get => _syncScaleAxises; }
+            public Vector3 ScaleDelta { get => _scaleDelta; }
+            public float SyncScale { get => _syncScale; }
+            public Vector3 MinScaleDelta { get => _minScaleDelta; }
+            public Vector3 MaxScaleDelta { get => _maxScaleDelta; }
+            public float MinSyncScale { get => _minSyncScale; }
+            public float MaxSyncScale { get => _maxSyncScale; }
+            public bool Scale_SeparateTransition { get => _scale_SeparateTransition; }
+
+            public bool ChangeRotation { get => _changeRotation; }
+            public bool AbsoluteRotation { get => _absoluteRotation; }
+            public bool RandomRotation { get => _randomRotation; }
+            public float Rotation { get => _rotation; }
+            public float MinRotation { get => _minRotation; }
+            public float MaxRotation { get => _maxRotation; }
+            public bool Rotation_SeparateTransition { get => _rotation_SeparateTransition; }
+
+            public bool ChangePosition { get => _changePosition; }
+            public bool AbsolutePosition { get => _absolutePosition; }
+            public bool RandomPosition { get => _randomPosition; }
+            public bool PositionSeparateAxisRandom { get => _positionSeparateAxisRandom; }
+            public Vector3 Position { get => _position; }
+            public Vector3 MinPosition { get => _minPosition; }
+            public Vector3 MaxPosition { get => _maxPosition; }
+            public bool Position_SeparateTransition { get => _position_SeparateTransition; }
+
+            public bool ChangeColor { get => _changeColor; }
+            public bool RandomColor { get => _randomColor; }
+            public Color Color { get => _color; }
+            public Color MinColor { get => _minColor; }
+            public Color MaxColor { get => _maxColor; }
+            public bool Color_SeparateTransition { get => _color_SeparateTransition; }
+		}
         private class GraphicSnapshot
         {
             protected GraphicSnapshot() { }
@@ -265,11 +366,11 @@ namespace Pinou.UI
 
                     if (state.SyncSizeAxises == true)
                     {
-                        rect.sizeDelta = Vector2.one * Mathf.Lerp(origin.SyncSize, target.SyncSize, progress);
+                        rect.sizeDelta = Vector2.one * Mathf.LerpUnclamped(origin.SyncSize, target.SyncSize, progress);
                     }
                     else
                     {
-                        rect.sizeDelta = Vector2.Lerp(origin.SizeDelta, target.SizeDelta, progress);
+                        rect.sizeDelta = Vector2.LerpUnclamped(origin.SizeDelta, target.SizeDelta, progress);
                     }
                 }
 
@@ -281,11 +382,11 @@ namespace Pinou.UI
 
                     if (state.SyncScaleAxises == true)
                     {
-                        rect.localScale = Vector3.one * Mathf.Lerp(origin.SyncScale, target.SyncScale, progress);
+                        rect.localScale = Vector3.one * Mathf.LerpUnclamped(origin.SyncScale, target.SyncScale, progress);
                     }
                     else
                     {
-                        rect.localScale = Vector3.Lerp(origin.ScaleDelta, target.ScaleDelta, progress);
+                        rect.localScale = Vector3.LerpUnclamped(origin.ScaleDelta, target.ScaleDelta, progress);
                     }
                 }
 
@@ -295,7 +396,7 @@ namespace Pinou.UI
                         transition.PositionUseCurve, transition.PositionCurve, transition.PositionPower,
                         transition.UseCurve, transition.Curve, transition.Power);
 
-                    rect.anchoredPosition3D = Vector3.Lerp(origin.Position, target.Position, progress);
+                    rect.anchoredPosition3D = Vector3.LerpUnclamped(origin.Position, target.Position, progress);
                 }
 
                 if (state.ChangeRotation == true)
@@ -304,7 +405,7 @@ namespace Pinou.UI
                         transition.RotationUseCurve, transition.RotationCurve, transition.RotationPower,
                         transition.UseCurve, transition.Curve, transition.Power);
 
-                    rect.localEulerAngles = rect.localEulerAngles.SetZ(Mathf.Lerp(origin.Rotation, target.Rotation, progress));
+                    rect.localEulerAngles = rect.localEulerAngles.SetZ(Mathf.LerpUnclamped(origin.Rotation, target.Rotation, progress));
                 }
 
                 if (state.ChangeColor == true)
@@ -313,8 +414,9 @@ namespace Pinou.UI
                          transition.ColorUseCurve, transition.ColorCurve, transition.ColorPower,
                          transition.UseCurve, transition.Curve, transition.Power);
 
-                    graphic.color = Color.Lerp(origin.Color, target.Color, progress);
+                    graphic.color = Color.LerpUnclamped(origin.Color, target.Color, progress);
                 }
+
             }
             protected static void UpdateProgress(ref float progress, float t, bool SeparateTransition, bool useCurve, AnimationCurve curve, float pow, bool defaultUseCurve, AnimationCurve defaultCurve, float defaultPow)
             {
@@ -339,17 +441,31 @@ namespace Pinou.UI
         [System.Serializable]
         private class TextState : GraphicState
         {
-            public bool ChangeFontSize = false;
-            public bool AbsoluteFontSize = true;
-            public bool RandomFontSize = false;
-            public float FontSize;
-            public float MinFontSize;
-            public float MaxFontSize;
-            public bool FontSize_SeparateTransition = false;
+            [SerializeField] private bool _changeFontSize = false;
+            [SerializeField, FoldoutGroup("_changeFontSize/FontSize"), ShowIfGroup(nameof(_changeFontSize))] private bool _absoluteFontSize = true;
+            [SerializeField, FoldoutGroup("_changeFontSize/FontSize"), ShowIfGroup(nameof(_changeFontSize))] private bool _randomFontSize = false;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeFontSize/FontSize"), ShowIfGroup(nameof(_changeFontSize)), ShowIf("@!_randomFontSize")] private float _fontSize;
+            [SerializeField, FoldoutGroup("_changeFontSize/FontSize"), ShowIfGroup(nameof(_changeFontSize)), ShowIf("@_randomFontSize")] private float _minFontSize;
+            [SerializeField, FoldoutGroup("_changeFontSize/FontSize"), ShowIfGroup(nameof(_changeFontSize)), ShowIf("@_randomFontSize")] private float _maxFontSize;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeFontSize/FontSize"), ShowIfGroup(nameof(_changeFontSize))] private bool _fontSize_SeparateTransition = false;
+            [Space(3f)]
+            [SerializeField, FoldoutGroup("_changeFontSize/FontSize"), ShowIfGroup(nameof(_changeFontSize))] private bool _changeStyle = false;
+            [SerializeField, FoldoutGroup("_changeFontSize/FontSize"), ShowIfGroup(nameof(_changeFontSize)), ShowIf(nameof(_changeStyle))] private FontStyles _style;
 
-            public bool ChangeStyle = false;
-            public FontStyles Style;
-        }
+			public bool ChangeFontSize { get => _changeFontSize; set => _changeFontSize = value; }
+
+			public bool AbsoluteFontSize { get => _absoluteFontSize; set => _absoluteFontSize = value; }
+			public bool RandomFontSize { get => _randomFontSize; set => _randomFontSize = value; }
+			public float FontSize { get => _fontSize; set => _fontSize = value; }
+			public float MinFontSize { get => _minFontSize; set => _minFontSize = value; }
+			public float MaxFontSize { get => _maxFontSize; set => _maxFontSize = value; }
+			public bool FontSize_SeparateTransition { get => _fontSize_SeparateTransition; set => _fontSize_SeparateTransition = value; }
+
+			public bool ChangeStyle { get => _changeStyle; set => _changeStyle = value; }
+			public FontStyles Style { get => _style; set => _style = value; }
+		}
         private class TextSnapshot : GraphicSnapshot
         {
             public TextSnapshot(TextState state, TextSnapshot snap)
@@ -406,7 +522,7 @@ namespace Pinou.UI
                         transition.FontSizeUseCurve, transition.FontSizeCurve, transition.FontSizePower,
                         transition.UseCurve, transition.Curve, transition.Power);
 
-                    text.fontSize = Mathf.Lerp(origin.FontSize, target.FontSize, t);
+                    text.fontSize = Mathf.LerpUnclamped(origin.FontSize, target.FontSize, progress);
                 }
 
                 if (state.ChangeStyle == true)
@@ -419,32 +535,73 @@ namespace Pinou.UI
             public FontStyles Style;
         }
         [System.Serializable]
-        private class GraphicFeedback : CustomDrawedProperty
+        private class GraphicFeedback
         {
-            public TransitionParameters[] _transitions;
-            public GraphicState[] _states;
+            [SerializeField, ValidateInput(nameof(ValidateStates))] private GraphicState[] _states;
+
+            public GraphicState[] States => _states;
+
+            private bool ValidateStates(GraphicState[] states)
+			{
+                Validate();
+                return true;
+            }
+            private void Validate()
+			{
+                for (int i = 0; i < _states.Length; i++)
+                {
+                    _states[i].TransitionToState.E_SeparateColor = _states[i].Color_SeparateTransition;
+                    _states[i].TransitionToState.E_SeparatePosition = _states[i].Position_SeparateTransition;
+                    _states[i].TransitionToState.E_SeparateRotation = _states[i].Rotation_SeparateTransition;
+                    _states[i].TransitionToState.E_SeparateScale = _states[i].Scale_SeparateTransition;
+                    _states[i].TransitionToState.E_SeparateSize = _states[i].Size_SeparateTransition;
+                }
+            }
         }
         [System.Serializable]
-        private class TextFeedback : CustomDrawedProperty
+        private class TextFeedback
         {
-            public TransitionParameters[] _transitions;
-            public TextState[] _states;
+            [SerializeField, ValidateInput(nameof(ValidateStates))] private TextState[] _states;
+
+            public TextState[] States => _states;
+
+            private bool ValidateStates(TextState[] states)
+            {
+                Validate();
+                return true;
+            }
+            private void Validate()
+            {
+                for (int i = 0; i < _states.Length; i++)
+                {
+                    _states[i].TransitionToState.E_SeparateColor = _states[i].Color_SeparateTransition;
+                    _states[i].TransitionToState.E_SeparatePosition = _states[i].Position_SeparateTransition;
+                    _states[i].TransitionToState.E_SeparateRotation = _states[i].Rotation_SeparateTransition;
+                    _states[i].TransitionToState.E_SeparateScale = _states[i].Scale_SeparateTransition;
+                    _states[i].TransitionToState.E_SeparateSize = _states[i].Size_SeparateTransition;
+                    _states[i].TransitionToState.E_SeparateFontSize = _states[i].FontSize_SeparateTransition;
+                }
+            }
         }
 
+        [Title("Main")]
         [SerializeField] private bool _playOnAwake = true;
+        [SerializeField] private bool _playOnEnabled = true;
         [SerializeField] private bool _scaledTime = true;
 
+        [Title("Feedbacks")]
         [SerializeField] private GraphicFeedback[] _graphicsFeedbacks;
         [SerializeField] private GraphicFeedback[] _imagesFeedbacks;
         [SerializeField] private TextFeedback[] _textsFeedbacks;
 
+        [Title("Advanced Overrides")]
         [SerializeField] private bool _overrideGraphicsArray;
         [SerializeField] private bool _overrideImagesArray;
         [SerializeField] private bool _overrideTextsArray;
 
-        [SerializeField] private MaskableGraphic[] _graphics;
-        [SerializeField] private Image[] _images;
-        [SerializeField] private TextMeshProUGUI[] _tmps;
+        [SerializeField, ShowIf(nameof(_overrideGraphicsArray))] private MaskableGraphic[] _graphics;
+        [SerializeField, ShowIf(nameof(_overrideImagesArray))] private Image[] _images;
+        [SerializeField, ShowIf(nameof(_overrideTextsArray))] private TextMeshProUGUI[] _tmps;
 
 
         private bool _graphicsFinished = false;
@@ -457,8 +614,7 @@ namespace Pinou.UI
 
         public bool ScaledTime { get => _scaledTime; set => _scaledTime = value; }
         private float _DeltaTime { get { return _scaledTime ? Time.deltaTime : Time.unscaledDeltaTime; } }
-        public PinouUtils.Delegate.Action OnFeedbackEnd = new PinouUtils.Delegate.Action();
-
+        public PinouUtils.Delegate.Action OnFeedbackEnd { get; private set; } = new PinouUtils.Delegate.Action();
 
         protected override void OnAwake()
 		{
@@ -470,7 +626,18 @@ namespace Pinou.UI
                 PlayFeedback();
             }
 		}
+		protected override void OnEnabled()
+		{
+#if UNITY_EDITOR
+            if (EditorApplication.isPlaying == false) { return; }
+#endif
+            if (_playOnEnabled == true)
+            {
+                PlayFeedback();
+            }
+        }
 
+		[ShowIf("@UnityEditor.EditorApplication.isPlaying == true"), Button("Play Feedback")]
         public void PlayFeedback()
         {
             _graphicsFinished = false;
@@ -486,7 +653,7 @@ namespace Pinou.UI
                 _graphicsCoroutines = new Coroutine[_graphicsFeedbacks.Length];
                 for (int i = 0; i < _graphicsFeedbacks.Length; i++)
                 {
-                    if (_graphicsFeedbacks[i]._states.Length > 0)
+                    if (_graphicsFeedbacks[i].States.Length > 0)
                     {
                         _graphicsCoroutines[i] = StartCoroutine(GraphicsCoroutine(_graphicsFeedbacks[i]));
                     }
@@ -501,7 +668,7 @@ namespace Pinou.UI
                 _imagesCoroutines = new Coroutine[_imagesFeedbacks.Length];
                 for (int i = 0; i < _imagesFeedbacks.Length; i++)
                 {
-                    if (_imagesFeedbacks[i]._states.Length > 0)
+                    if (_imagesFeedbacks[i].States.Length > 0)
                     {
                         _imagesCoroutines[i] = StartCoroutine(ImagesCoroutine(_imagesFeedbacks[i]));
                     }
@@ -516,7 +683,7 @@ namespace Pinou.UI
                 _textCoroutines = new Coroutine[_textsFeedbacks.Length];
                 for (int i = 0; i < _textsFeedbacks.Length; i++)
                 {
-                    if (_textsFeedbacks[i]._states.Length > 0)
+                    if (_textsFeedbacks[i].States.Length > 0)
                     {
                         _textCoroutines[i] = StartCoroutine(TextsCoroutine(_textsFeedbacks[i]));
                     }
@@ -529,13 +696,13 @@ namespace Pinou.UI
         }
         private IEnumerator GraphicsCoroutine(GraphicFeedback feedback)
         {
-            yield return GenericGraphicsCoroutine(feedback);
+            yield return GenericGraphicsCoroutine(feedback, _graphics);
             _graphicsFinished = true;
             CheckEnd();
         }
         private IEnumerator ImagesCoroutine(GraphicFeedback feedback)
         {
-            yield return GenericGraphicsCoroutine(feedback);
+            yield return GenericGraphicsCoroutine(feedback, _images);
             _imagesFinished = true;
             CheckEnd();
         }
@@ -545,21 +712,21 @@ namespace Pinou.UI
             _textFinished = true;
             CheckEnd();
         }
-        private IEnumerator GenericGraphicsCoroutine(GraphicFeedback feedback)
+        private IEnumerator GenericGraphicsCoroutine(GraphicFeedback feedback, MaskableGraphic[] graphics)
         {
-            GraphicSnapshot[] _baseSnaps = new GraphicSnapshot[_graphics.Length];
-            GraphicSnapshot[] _targetSnaps = new GraphicSnapshot[_graphics.Length];
+            GraphicSnapshot[] _baseSnaps = new GraphicSnapshot[graphics.Length];
+            GraphicSnapshot[] _targetSnaps = new GraphicSnapshot[graphics.Length];
 
             for (int i = 0; i < _baseSnaps.Length; i++)
             {
-                _baseSnaps[i] = new GraphicSnapshot(_graphics[i]);
-                _targetSnaps[i] = new GraphicSnapshot(feedback._states[0], _baseSnaps[i]);
+                _baseSnaps[i] = new GraphicSnapshot(graphics[i]);
+                _targetSnaps[i] = new GraphicSnapshot(feedback.States[0], _baseSnaps[i]);
             }
 
             TransitionSnapshot transition;
-            for (int t = 0; t < feedback._transitions.Length; t++)
+            for (int t = 0; t < feedback.States.Length; t++)
             {
-                transition = new TransitionSnapshot(feedback._transitions[t]);
+                transition = new TransitionSnapshot(feedback.States[t].TransitionToState);
 
                 if (transition.Parameters.Instant == false)
                 {
@@ -573,9 +740,9 @@ namespace Pinou.UI
                     count += _DeltaTime;
                     progress = count / transition.Duration;
 
-                    for (int i = 0; i < _graphics.Length; i++)
+                    for (int i = 0; i < graphics.Length; i++)
                     {
-                        GraphicSnapshot.ApplySnapshotLerp(_graphics[i], feedback._states[t], feedback._transitions[t], _baseSnaps[i], _targetSnaps[i], progress);
+                        GraphicSnapshot.ApplySnapshotLerp(graphics[i], feedback.States[t], feedback.States[t].TransitionToState, _baseSnaps[i], _targetSnaps[i], progress);
                     }
 
                     if (transition.Parameters.Instant == false)
@@ -584,25 +751,25 @@ namespace Pinou.UI
                     }
                 }
 
-                for (int i = 0; i < _graphics.Length; i++)
+                for (int i = 0; i < graphics.Length; i++)
                 {
-                    GraphicSnapshot.ApplySnapshotLerp(_graphics[i], feedback._states[t], feedback._transitions[t], _baseSnaps[i], _targetSnaps[i], 1f);
+                    GraphicSnapshot.ApplySnapshotLerp(graphics[i], feedback.States[t], feedback.States[t].TransitionToState, _baseSnaps[i], _targetSnaps[i], 1f);
                 }
 
-                if (t >= feedback._transitions.Length - 1)
+                if (t >= feedback.States.Length - 1)
                 {
                     break;
                 }
                 for (int i = 0; i < _baseSnaps.Length; i++)
                 {
-                    _baseSnaps[i].CopyFrom(feedback._states[t], _baseSnaps[i]);
-                    _targetSnaps[i].CopyFrom(feedback._states[t + 1], _baseSnaps[i]);
+                    _baseSnaps[i].CopyFrom(feedback.States[t], _baseSnaps[i]);
+                    _targetSnaps[i].CopyFrom(feedback.States[t + 1], _baseSnaps[i]);
                 }
             }
 
-            for (int i = 0; i < _graphics.Length; i++)
+            for (int i = 0; i < graphics.Length; i++)
             {
-                GraphicSnapshot.ApplySnapshotLerp(_graphics[i], feedback._states[feedback._states.Length - 1], feedback._transitions[feedback._states.Length - 1], _baseSnaps[i], _targetSnaps[i], 1f);
+                GraphicSnapshot.ApplySnapshotLerp(graphics[i], feedback.States[feedback.States.Length - 1], feedback.States[feedback.States.Length - 1].TransitionToState, _baseSnaps[i], _targetSnaps[i], 1f);
             }
         }
         private IEnumerator GenericTextsCoroutine(TextFeedback feedback)
@@ -613,13 +780,13 @@ namespace Pinou.UI
             for (int i = 0; i < _baseSnaps.Length; i++)
             {
                 _baseSnaps[i] = new TextSnapshot(_tmps[i]);
-                _targetSnaps[i] = new TextSnapshot(feedback._states[0], _baseSnaps[i]);
+                _targetSnaps[i] = new TextSnapshot(feedback.States[0], _baseSnaps[i]);
             }
 
             TransitionSnapshot transition;
-            for (int t = 0; t < feedback._transitions.Length; t++)
+            for (int t = 0; t < feedback.States.Length; t++)
             {
-                transition = new TransitionSnapshot(feedback._transitions[t]);
+                transition = new TransitionSnapshot(feedback.States[t].TransitionToState);
 
                 if (transition.Parameters.Instant == false)
                 {
@@ -635,7 +802,7 @@ namespace Pinou.UI
 
                     for (int i = 0; i < _tmps.Length; i++)
                     {
-                        TextSnapshot.ApplySnapshotLerp(_tmps[i], feedback._states[t], feedback._transitions[t], _baseSnaps[i], _targetSnaps[i], progress);
+                        TextSnapshot.ApplySnapshotLerp(_tmps[i], feedback.States[t], feedback.States[t].TransitionToState, _baseSnaps[i], _targetSnaps[i], progress);
                     }
 
                     if (transition.Parameters.Instant == false)
@@ -646,23 +813,23 @@ namespace Pinou.UI
 
                 for (int i = 0; i < _tmps.Length; i++)
                 {
-                    TextSnapshot.ApplySnapshotLerp(_tmps[i], feedback._states[t], feedback._transitions[t], _baseSnaps[i], _targetSnaps[i], 1f);
+                    TextSnapshot.ApplySnapshotLerp(_tmps[i], feedback.States[t], feedback.States[t].TransitionToState, _baseSnaps[i], _targetSnaps[i], 1f);
                 }
 
-                if (t >= feedback._transitions.Length - 1)
+                if (t >= feedback.States.Length - 1)
                 {
                     break;
                 }
                 for (int i = 0; i < _baseSnaps.Length; i++)
                 {
-                    _baseSnaps[i].CopyFrom(feedback._states[t], _baseSnaps[i]);
-                    _targetSnaps[i].CopyFrom(feedback._states[t + 1], _baseSnaps[i]);
+                    _baseSnaps[i].CopyFrom(feedback.States[t], _baseSnaps[i]);
+                    _targetSnaps[i].CopyFrom(feedback.States[t + 1], _baseSnaps[i]);
                 }
             }
 
             for (int i = 0; i < _tmps.Length; i++)
             {
-                TextSnapshot.ApplySnapshotLerp(_tmps[i], feedback._states[feedback._states.Length - 1], feedback._transitions[feedback._states.Length - 1], _baseSnaps[i], _targetSnaps[i], 1f);
+                TextSnapshot.ApplySnapshotLerp(_tmps[i], feedback.States[feedback.States.Length - 1], feedback.States[feedback.States.Length - 1].TransitionToState, _baseSnaps[i], _targetSnaps[i], 1f);
             }
         }
 
@@ -674,420 +841,19 @@ namespace Pinou.UI
             }
         }
 #if UNITY_EDITOR
-        [CustomPropertyDrawer(typeof(TransitionParameters))]
-        private class TransitionParametersDrawer : PropertyDrawerExtended
-        {
-            public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+		protected override void E_OnValidate()
+		{
+            if (_overrideGraphicsArray == false)
+			{
+                _graphics = GetComponentsInChildren<MaskableGraphic>();
+			}
+            if (_overrideImagesArray == false)
             {
-                base.OnGUI(position, property, label);
-
-                PropField("Instant");
-
-                if (Prop("Instant").boolValue == false)
-                {
-                    PropField("RandomDelays");
-                    if (Prop("RandomDelays").boolValue == false)
-                    {
-                        PropField("WaitTime");
-                        PropField("Duration");
-                    }
-                    else
-                    {
-                        PropField("MinWaitTime");
-                        PropField("MaxWaitTime");
-                        Space(2f);
-                        PropField("MinDuration");
-                        PropField("MaxDuration");
-                    }
-
-                    Space(5f);
-
-                    if (EverySeparated() == false)
-                    {
-                        PowerCurveFields("");
-                    }
-
-                    SeparatePowerCurveFields("Size");
-                    SeparatePowerCurveFields("Scale");
-                    SeparatePowerCurveFields("Position");
-                    SeparatePowerCurveFields("Rotation");
-                    SeparatePowerCurveFields("Color");
-                    SeparatePowerCurveFields("FontSize");
-                }
+                _images = GetComponentsInChildren<Image>();
             }
-            private bool EverySeparated()
+            if (_overrideTextsArray == false)
             {
-                return Prop("E_SeparateSize").boolValue &&
-                    Prop("E_SeparateScale").boolValue &&
-                    Prop("E_SeparatePosition").boolValue &&
-                    Prop("E_SeparateRotation").boolValue &&
-                    Prop("E_SeparateColor").boolValue &&
-                    Prop("E_SeparateFontSize").boolValue;
-
-            }
-
-            private void SeparatePowerCurveFields(string prefix)
-            {
-                if (Prop("E_Separate" + prefix).boolValue == true)
-                {
-                    PowerCurveFields(prefix);
-                }
-            }
-
-            private void PowerCurveFields(string prefix)
-            {
-                PropField(prefix + "UseCurve");
-                if (Prop(prefix + "UseCurve").boolValue == true)
-                {
-                    PropField(prefix + "Curve");
-                }
-                else
-                {
-                    PropField(prefix + "Power");
-                }
-            }
-        }
-        [CustomPropertyDrawer(typeof(GraphicState))]
-        private class GraphicStateDrawer : PropertyDrawerExtended
-        {
-            public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-            {
-                base.OnGUI(position, property, label);
-
-                PropField("ChangeSize");
-                if (Prop("ChangeSize").boolValue == true)
-                {
-                    Indent();
-                    PropField("RandomSize");
-                    PropField("AbsoluteSize");
-                    PropField("SyncSizeAxises");
-
-                    if (Prop("RandomSize").boolValue == false)
-                    {
-                        if (Prop("SyncSizeAxises").boolValue == false)
-                        {
-                            PropField("SizeDelta");
-                        }
-                        else
-                        {
-                            PropField("SyncSize");
-                        }
-                    }
-                    else
-                    {
-                        if (Prop("SyncSizeAxises").boolValue == false)
-                        {
-                            PropField("MinSizeDelta");
-                            PropField("MaxSizeDelta");
-                        }
-                        else
-                        {
-                            PropField("MinSyncSize");
-                            PropField("MaxSyncSize");
-                        }
-                       
-                    }
-
-                    if (Prop("E_Instant").boolValue == false)
-                    {
-                        PropField("Size_SeparateTransition");
-                    }
-                    Unindent();
-                }
-
-                Space(5f);
-                PropField("ChangeScale");
-                if (Prop("ChangeScale").boolValue == true)
-                {
-                    Indent();
-                    PropField("RandomScale");
-                    PropField("AbsoluteScale");
-                    PropField("SyncScaleAxises");
-
-                    if (Prop("RandomScale").boolValue == false)
-                    {
-                        if (Prop("SyncScaleAxises").boolValue == false)
-                        {
-                            PropField("ScaleDelta");
-                        }
-                        else
-                        {
-                            PropField("SyncScale");
-                        }
-                    }
-                    else
-                    {
-                        if (Prop("SyncScaleAxises").boolValue == false)
-                        {
-                            PropField("MinScaleDelta");
-                            PropField("MaxScaleDelta");
-                        }
-                        else
-                        {
-                            PropField("MinSyncScale");
-                            PropField("MaxSyncScale");
-                        }
-
-                    }
-
-                    if (Prop("E_Instant").boolValue == false)
-                    {
-                        PropField("Scale_SeparateTransition");
-                    }
-                    Unindent();
-                }
-
-                Space(5f);
-                PropField("ChangeRotation");
-                if (Prop("ChangeRotation").boolValue == true)
-                {
-                    Indent();
-                    PropField("AbsoluteRotation");
-                    PropField("RandomRotation");
-
-                    if (Prop("RandomRotation").boolValue == false)
-                    {
-                        PropField("Rotation");
-                    }
-                    else
-                    {
-                        PropField("MinRotation");
-                        PropField("MaxRotation");
-                    }
-
-                    if (Prop("E_Instant").boolValue == false)
-                    {
-                        PropField("Rotation_SeparateTransition");
-                    }
-                    Unindent();
-                }
-
-                Space(5f);
-                PropField("ChangePosition");
-                if (Prop("ChangePosition").boolValue == true)
-                {
-                    Indent();
-                    PropField("AbsolutePosition");
-                    PropField("RandomPosition");
-
-                    if (Prop("RandomPosition").boolValue == false)
-                    {
-                        PropField("Position");
-                    }
-                    else
-                    {
-                        PropField("PositionSeparateAxisRandom");
-                        PropField("MinPosition");
-                        PropField("MaxPosition");
-                    }
-
-                    if (Prop("E_Instant").boolValue == false)
-                    {
-                        PropField("Position_SeparateTransition");
-                    }
-                    Unindent();
-                }
-
-                Space(5f);
-                PropField("ChangeColor");
-                if (Prop("ChangeColor").boolValue == true)
-                {
-                    Indent();
-                    PropField("RandomColor");
-
-                    if (Prop("RandomColor").boolValue == false)
-                    {
-                        PropField("Color");
-                    }
-                    else
-                    {
-                        PropField("MinColor");
-                        PropField("MaxColor");
-                    }
-
-                    if (Prop("E_Instant").boolValue == false)
-                    {
-                        PropField("Color_SeparateTransition");
-                    }
-                    Unindent();
-                }
-            }
-        }
-        [CustomPropertyDrawer(typeof(TextState))]
-        private class TextStateDrawer : GraphicStateDrawer
-        {
-            public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-            {
-                base.OnGUI(position, property, label);
-
-                Space(5f);
-                PropField("ChangeFontSize");
-                if (Prop("ChangeFontSize").boolValue == true)
-                {
-                    Indent();
-                    PropField("AbsoluteFontSize");
-                    PropField("RandomFontSize");
-
-                    if (Prop("RandomFontSize").boolValue == false)
-                    {
-                        PropField("FontSize");
-                    }
-                    else
-                    {
-                        PropField("MinFontSize");
-                        PropField("MaxFontSize");
-                    }
-
-                    if (Prop("E_Instant").boolValue == false)
-                    {
-                        PropField("FontSize_SeparateTransition");
-                    }
-                    Unindent();
-                }
-
-                PropField("ChangeStyle");
-                if (Prop("ChangeStyle").boolValue == true)
-                {
-                    Indent();
-                    PropField("Style");
-                    Unindent();
-                }
-            }
-        }
-        [CustomPropertyDrawer(typeof(GraphicFeedback))]
-        private class GraphicFeedbackDrawer : PropertyDrawerExtended
-        {
-            public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-            {
-                base.OnGUI(position, property, label);
-
-                if (OpenClosedBehaviour())
-                {
-                    Indent();
-                    Prop("_transitions").arraySize = Prop("_states").arraySize;
-
-                    SyncInstant();
-                    SyncSeparate("Size");
-                    SyncSeparate("Scale");
-                    SyncSeparate("Rotation");
-                    SyncSeparate("Color");
-                    if (this is TextFeedbackDrawer)
-                    {
-                        SyncSeparate("FontSize");
-                    }
-
-                    for (int i = 0; i < Prop("_states").arraySize; i++)
-                    {
-                        if (i > 0)
-                        {
-                            Space(20f);
-                        }
-
-                        if (Button("Delete", 50f, true, Position.Right, 17f))
-                        {
-                            if (EditorUtility.DisplayDialog("Confirm supression", "Are you sure you wanna delete this state ?", "Confirm", "Cancel"))
-                            {
-                                Prop("_states").DeleteArrayElementAtIndex(i);
-                                Prop("_transitions").arraySize = Prop("_states").arraySize;
-                                break;
-                            }
-                        }
-
-                        CenteredLabel("Transition from " + (i == 0 ? "original state" : (i-1).ToString()) + " to " + i);
-                        PropField(Prop("_transitions").GetArrayElementAtIndex(i));
-                        Space(5f);
-                        CenteredLabel("State " + i);
-                        PropField(Prop("_states").GetArrayElementAtIndex(i));
-                    }
-
-                    Space(20f);
-                    if (Button("Add State", Screen.width * 0.75f))
-                    {
-                        Prop("_transitions").arraySize = Prop("_states").arraySize = Prop("_transitions").arraySize + 1;
-                    }
-                    Space(20f);
-                    Unindent();
-                }
-            }
-
-            private void SyncInstant()
-            {
-                for (int i = 0; i < Prop("_states").arraySize; i++)
-                {
-                    Prop("_states").GetArrayElementAtIndex(i).FindPropertyRelative("E_Instant").boolValue =
-                        Prop("_transitions").GetArrayElementAtIndex(i).FindPropertyRelative("Instant").boolValue;
-                }
-
-            }
-            private void SyncSeparate(string prefix)
-            {
-                for (int i = 0; i < Prop("_states").arraySize; i++)
-                {
-                    Prop("_transitions").GetArrayElementAtIndex(i).FindPropertyRelative("E_Separate" + prefix).boolValue =
-                        Prop("_states").GetArrayElementAtIndex(i).FindPropertyRelative(prefix + "_SeparateTransition").boolValue;
-                }
-            }
-        }
-        [CustomPropertyDrawer(typeof(TextFeedback))]
-        private class TextFeedbackDrawer : GraphicFeedbackDrawer
-        {
-            
-        }
-
-
-        [CustomEditor(typeof(UI_FeedbackUtilities))]
-        private class UI_FeedbackUtilitiesEditor : PinouEditor
-        {
-            UI_FeedbackUtilities Instance => ((UI_FeedbackUtilities)target);
-            protected override void InspectorGUI()
-            {
-                CenteredHeader("Main");
-                PropField("_playOnAwake");
-                PropField("_scaledTime");
-                CenteredHeader("Feedbacks");
-                PropField("_graphicsFeedbacks");
-                PropField("_imagesFeedbacks");
-                PropField("_textsFeedbacks");
-
-                GUILayout.Space(10f);
-                CenteredHeader("Advanced Overrides");
-                PropField("_overrideGraphicsArray");
-                if (Instance._overrideGraphicsArray == true)
-                {
-                    PropField("_graphics");
-                }
-                else
-                {
-                    Instance._graphics = Instance.GetComponentsInChildren<MaskableGraphic>();
-                }
-                PropField("_overrideImagesArray");
-                if (Instance._overrideImagesArray == true)
-                {
-                    PropField("_images");
-                }
-                else
-                {
-                    Instance._images = Instance.GetComponentsInChildren<Image>();
-                }
-                PropField("_overrideTextsArray");
-                if (Instance._overrideTextsArray == true)
-                {
-                    PropField("_tmps");
-                }
-                else
-                {
-                    Instance._tmps = Instance.GetComponentsInChildren<TextMeshProUGUI>();
-                }
-
-                if (EditorApplication.isPlaying == true)
-                {
-                    GUILayout.Space(20f);
-
-                    if (GUILayout.Button("Play"))
-                    {
-                        Instance.PlayFeedback();
-                    }
-                }
+                _tmps = GetComponentsInChildren<TextMeshProUGUI>();
             }
         }
 #endif

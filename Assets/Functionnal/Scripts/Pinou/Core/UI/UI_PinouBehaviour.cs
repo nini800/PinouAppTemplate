@@ -2,12 +2,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Pinou.EntitySystem;
+using Pinou.UI;
 
 namespace Pinou
 {
     [RequireComponent(typeof(RectTransform))]
     public class UI_PinouBehaviour : PinouBehaviour
     {
+        private UI_Master _master;
+        public UI_Master Master { get { if (_master == null) { _master = GetComponentInParent<UI_Master>(); } return _master; } }
+
         public Vector2 AnchoredPosition
         {
             get { return RectTransform.anchoredPosition; }

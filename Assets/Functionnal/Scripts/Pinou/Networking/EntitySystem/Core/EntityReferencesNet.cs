@@ -9,10 +9,8 @@ namespace Pinou.Networking
 {
 	public class EntityReferencesNet : EntityReferences
 	{
-		[Header("Network")]
-		[Space]
-		[SerializeField] private EntityNetworkBehaviour _netBehaviour;
+		[SerializeField] private NetworkIdentity _networkIdentity;
 
-		public EntityNetworkBehaviour NetBehaviour => _netBehaviour;
+		public NetworkIdentity NetworkIdentity => _networkIdentity;
 	}
 }
