@@ -12,11 +12,6 @@ namespace Pinou.EntitySystem
 		public LevelData MainLevel => mainLevel;
 		public bool HasMainLevel => hasMainLevel;
 
-		[SerializeField] protected bool hasPowerLevel;
-		[ShowIf("@hasPowerLevel"), SerializeField] protected LevelData powerLevel;
-		public LevelData PowerLevel => powerLevel;
-		public bool HasPowerLevel => hasPowerLevel;
-
 
 		public bool GetHasLevelData(EntityStatsLevelType levelType)
 		{
@@ -24,8 +19,6 @@ namespace Pinou.EntitySystem
 			{
 				case EntityStatsLevelType.Main:
 					return hasMainLevel;
-				case EntityStatsLevelType.Power:
-					return hasPowerLevel;
 			}
 			
 			throw new System.Exception("No " + levelType + " level found.");
@@ -37,9 +30,7 @@ namespace Pinou.EntitySystem
 			switch(levelType)
 			{
 				case EntityStatsLevelType.Main:
-					return mainLevel;
-				case EntityStatsLevelType.Power:
-					return powerLevel;	
+					return mainLevel;	
 			}
 			
 			throw new System.Exception("No " + levelType + " level found.");
@@ -52,12 +43,6 @@ namespace Pinou.EntitySystem
 			public LevelExperienceData MainExperience => mainExperience;
 			public bool HasMainLevel => _data.HasMainLevel;
 
-
-			//Power
-			protected LevelExperienceData powerExperience;
-			public LevelExperienceData PowerExperience => powerExperience;
-			public bool HasPowerLevel => _data.HasPowerLevel;
-
 			
 			//Generics
 			public LevelExperienceData GetLevelExperienceData(EntityStatsLevelType levelType)
@@ -68,8 +53,6 @@ namespace Pinou.EntitySystem
 				{
 					case EntityStatsLevelType.Main:
 						return mainExperience;
-					case EntityStatsLevelType.Power:
-						return powerExperience;
 				}
 				
 				throw new System.Exception("No " + levelType + " level found.");
@@ -83,9 +66,6 @@ namespace Pinou.EntitySystem
 					case EntityStatsLevelType.Main:
 						mainExperience = experienceData;
 						break;
-					case EntityStatsLevelType.Power:
-						powerExperience = experienceData;
-						break;
 				}
 			}
 			public int GetCurrentLevel(EntityStatsLevelType levelType)
@@ -96,8 +76,6 @@ namespace Pinou.EntitySystem
 				{
 					case EntityStatsLevelType.Main:
 						return mainExperience.Level;
-					case EntityStatsLevelType.Power:
-						return powerExperience.Level;
 				}
 				
 				throw new System.Exception("No " + levelType + " level found.");
@@ -111,9 +89,6 @@ namespace Pinou.EntitySystem
 					case EntityStatsLevelType.Main:
 						mainExperience.SetLevel(value);
 						break;
-					case EntityStatsLevelType.Power:
-						powerExperience.SetLevel(value);
-						break;
 				}
 			}
 			public void ModifyCurrentLevel(EntityStatsLevelType levelType, int amount)
@@ -125,9 +100,6 @@ namespace Pinou.EntitySystem
 					case EntityStatsLevelType.Main:
 						mainExperience.ModifyLevel(amount);
 						break;
-					case EntityStatsLevelType.Power:
-						powerExperience.ModifyLevel(amount);
-						break;
 				}
 			}
 			public int GetMaxLevel(EntityStatsLevelType levelType)
@@ -138,8 +110,6 @@ namespace Pinou.EntitySystem
 				{
 					case EntityStatsLevelType.Main:
 						return mainExperience.MaxLevel;
-					case EntityStatsLevelType.Power:
-						return powerExperience.MaxLevel;
 				}
 				
 				throw new System.Exception("No " + levelType + " level found.");
@@ -153,8 +123,6 @@ namespace Pinou.EntitySystem
 				{
 					case EntityStatsLevelType.Main:
 						return mainExperience.ExperienceProgress;
-					case EntityStatsLevelType.Power:
-						return powerExperience.ExperienceProgress;
 				}
 				
 				throw new System.Exception("No " + levelType + " level found.");
@@ -167,9 +135,7 @@ namespace Pinou.EntitySystem
 				switch(levelType)
 				{
 					case EntityStatsLevelType.Main:
-						return mainExperience.Experience;
-					case EntityStatsLevelType.Power:
-						return powerExperience.Experience;	
+						return mainExperience.Experience;	
 				}
 				
 				throw new System.Exception("No " + levelType + " level found.");
@@ -182,10 +148,6 @@ namespace Pinou.EntitySystem
 				{
 					case EntityStatsLevelType.Main:
 						mainExperience.SetExperience(experience);
-						break;
-
-					case EntityStatsLevelType.Power:
-						powerExperience.SetExperience(experience);
 						break;
 	
 				}
@@ -201,12 +163,6 @@ namespace Pinou.EntitySystem
 							MainExperience.ModifyExperience(EvaluateStatsStat(EntityStatsStat.ExperienceGainedGlobalFactor, EvaluateStatsLevelStat(EntityStatsLevelType.Main, EntityStatsLevelStat.ExperienceGainedFactor, experience)));
 						else
 							mainExperience.ModifyExperience(experience);
-						break;
-					case EntityStatsLevelType.Power:
-						if (useStatsInfluence == true)
-							PowerExperience.ModifyExperience(EvaluateStatsStat(EntityStatsStat.ExperienceGainedGlobalFactor, EvaluateStatsLevelStat(EntityStatsLevelType.Power, EntityStatsLevelStat.ExperienceGainedFactor, experience)));
-						else
-							powerExperience.ModifyExperience(experience);
 						break;	
 				}
 			}
@@ -218,10 +174,6 @@ namespace Pinou.EntitySystem
 				{
 					case EntityStatsLevelType.Main:
 						mainExperience.SetExperiencePct(experience);
-						break;
-
-					case EntityStatsLevelType.Power:
-						powerExperience.SetExperiencePct(experience);
 						break;
 	
 				}
@@ -235,10 +187,6 @@ namespace Pinou.EntitySystem
 					case EntityStatsLevelType.Main:
 						mainExperience.ModifyExperiencePct(experience);
 						break;
-
-					case EntityStatsLevelType.Power:
-						powerExperience.ModifyExperiencePct(experience);
-						break;
 	
 				}
 			}
@@ -250,9 +198,6 @@ namespace Pinou.EntitySystem
 				{
 					case EntityStatsLevelType.Main:
 						return mainExperience.TotalExperienceForNextLevel;
-
-					case EntityStatsLevelType.Power:
-						return powerExperience.TotalExperienceForNextLevel;
 	
 				}
 				
@@ -266,9 +211,6 @@ namespace Pinou.EntitySystem
 				{
 					case EntityStatsLevelType.Main:
 						return mainExperience.RemainingExperienceForNextLevel;
-
-					case EntityStatsLevelType.Power:
-						return powerExperience.RemainingExperienceForNextLevel;
 	
 				}
 				

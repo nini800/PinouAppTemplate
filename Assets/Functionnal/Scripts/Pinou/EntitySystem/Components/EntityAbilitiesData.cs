@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Pinou.EntitySystem
 {
@@ -94,13 +95,22 @@ namespace Pinou.EntitySystem
 			#region Instance Data Classes
             public class AbilityCastInfos
 			{
-                public AbilityCastInfos(AbilityData ability)
+                public AbilityCastInfos(IAbilityContainer container)
 				{
-                    _ability = ability;
+                    if (container is EntityEquipable eq)
+					{
+                        _equipable = eq;
+                    }
+
+                    _ability = container.Ability;
                     _lastCastTime = Time.time;
 				}
+
+                private EntityEquipable _equipable;
                 private AbilityData _ability;
                 private float _lastCastTime;
+
+                public EntityEquipable Equipable => _equipable;
                 public AbilityData Ability => _ability;
                 public float LastCastTime => _lastCastTime;
 
@@ -129,12 +139,13 @@ namespace Pinou.EntitySystem
             private Coroutine _abilityCastTimingsCoroutine = null;
             private AbilityCastData _activeCastData = null;
 
-            private Dictionary<AbilityData, AbilityCastInfos> _abilityCastInfos = new Dictionary<AbilityData, AbilityCastInfos>();
-            public float GetAbilityCooldownProgress(AbilityData ability)
+            private Dictionary<IAbilityContainer, AbilityCastInfos> _abilityCastInfos = new Dictionary<IAbilityContainer, AbilityCastInfos>();
+
+            public float GetAbilityCooldownProgress(IAbilityContainer ability)
 			{
                 if (_abilityCastInfos.ContainsKey(ability))
 				{
-                    return Mathf.Clamp(Time.time - _abilityCastInfos[ability].LastCastTime / ability.Timing.Cooldown, 0f, 1f);
+                    return Mathf.Clamp(Time.time - _abilityCastInfos[ability].LastCastTime / ability.AbilityCooldown, 0f, 1f);
 				}
                 else
 				{
@@ -182,36 +193,81 @@ namespace Pinou.EntitySystem
 
 			#region Utilities
 			#region Ability Casting
-            protected void TryCastAbility(AbilityData ability)
+            protected void TryTriggerAbility(IAbilityContainer container)
 			{
-                if (_abilityCastInfos.ContainsKey(ability))
+                if (container.ContainsAbility == false) { return; }
+                if (_abilityCastInfos.ContainsKey(container))
 				{
-                    if (Time.time >= _abilityCastInfos[ability].LastCastTime + ability.Timing.Cooldown)
+                    if (Time.time >= _abilityCastInfos[container].LastCastTime + container.AbilityCooldown)
 					{
-                        _abilityCastInfos[ability].Cast();
-                        CastAbility(ability);
+                        _abilityCastInfos[container].Cast();
+                        TriggerAbility(container);
 					}
 				}
                 else
 				{
-                    _abilityCastInfos.Add(ability, new AbilityCastInfos(ability));
-                    CastAbility(ability);
+                    _abilityCastInfos.Add(container, new AbilityCastInfos(container));
+                    TriggerAbility(container);
 				}
 			}
-			protected void CastAbility(AbilityData ability)
+            protected void TriggerAbility(IAbilityContainer container)
+			{
+                if (container.ContainsAbility == false) { return; }
+				switch (container.AbilityTriggerData.TriggerMethod)
+				{
+					case AbilityTriggerMethod.Single:
+					case AbilityTriggerMethod.Automatic:
+                        TriggerAbility_Single(container);
+                        break;
+                    case AbilityTriggerMethod.Burst:
+                        master.StartCoroutine(TriggerBurstAbilityCoroutine(container));
+						break;
+				}
+
+			}
+            protected void TriggerAbility_Single(IAbilityContainer container)
+			{
+                if (container.ContainsAbility == false) { return; }
+                if (container.AbilityTriggerData.MultiCastCount > 1)
+                {
+                    for (int i = 0; i < container.AbilityTriggerData.MultiCastCount; i++)
+                    {
+                        CastAbility(container, i);
+                    }
+                }
+                else
+				{
+                    CastAbility(container);
+				}
+
+            }
+
+            protected void CastAbility(IAbilityContainer container, int multiCastID) => CastAbility(container, default, multiCastID);
+            protected void CastAbility(IAbilityContainer container, Vector3 castDirection) => CastAbility(container, castDirection, default);
+            protected void CastAbility(IAbilityContainer container) => CastAbility(container, default, default);
+            protected void CastAbility(IAbilityContainer container, Vector3 castDirection, int multiCastID)
             {
-                AbilityCastData castData = new AbilityCastData(master, ability);
+                if (container.ContainsAbility == false) { return; }
+                AbilityData ability = container.Ability;
+                AbilityCastData castData = new AbilityCastData(master, container, -1, multiCastID);
 
                 _activeCastData = castData;
                 castData.FillBase(
-                    ComputeResourcesImpacts(ability),
+                    ComputeResourcesImpacts(container),
                     ability.Main.BaseKnockback * (HasStats ? Stats.EvaluateAbilitiesStat(EntityAbilitiesStat.KnockbackInflictedFactor, 1f) : 1f),
-                    ability.Main.BaseRecoil);
+                    ability.Main.BaseRecoil / container.AbilityTriggerData.MultiCastCount);
 
-                DetermineCastDirection(castData);
+                if (castDirection.sqrMagnitude <= Mathf.Epsilon)
+                {
+                    castData.FillCastDirection(DetermineCastDirection(castData.AbilityCast, container.AbilityTriggerData));
+                }
+                else
+				{
+                    castData.FillCastDirection(castDirection);
+                }
                 if (castData.AbilityCast.Methods.CastOriginTiming == AbilityCastOriginTiming.CastEntrance)
                 {
-                    DetermineCastOrigin(castData);
+                    castData.FillOrigin(DetermineCastOrigin(castData.AbilityCast));
                 }
 
                 if (castData.AbilityCast.Timing.Instant == true)
@@ -225,48 +281,90 @@ namespace Pinou.EntitySystem
                     master.RestartCoroutine(CastAbilityTimingCoroutine(castData), ref _abilityCastTimingsCoroutine);
                 }
             }
-            protected virtual AbilityResourceImpactData[] ComputeResourcesImpacts(AbilityData ability)
-			{
-                if (HasStats == false) { return ability.Main.BaseResourcesImpacts; }
-                AbilityResourceImpactData[] impacts = new AbilityResourceImpactData[ability.Main.BaseResourcesImpacts.Length];
-				for (int i = 0; i < impacts.Length; i++)
-				{
-                    impacts[i] = new AbilityResourceImpactData(
-                        ability.Main.BaseResourcesImpacts[i].ResourceType,
-                        Stats.EvaluateAbilitiesResourcesStat(
-                            ability.Main.BaseResourcesImpacts[i].ResourceType,
-                            ability.Main.BaseResourcesImpacts[i].ResourceChange));
-				}
-                return impacts;
-			}
-            protected virtual void DetermineCastOrigin(AbilityCastData castData)
+
+            protected virtual AbilityResourceImpactData[] ComputeResourcesImpacts(IAbilityContainer container)
             {
-                switch (castData.AbilityCast.Methods.CastOrigin)
+                if (HasStats == false) { return container.Ability.Main.BaseResourcesImpacts; }
+
+                AbilityResourceImpactData[] impacts = new AbilityResourceImpactData[container.Ability.Main.BaseResourcesImpacts.Length];
+
+                for (int i = 0; i < impacts.Length; i++)
+                {
+                    impacts[i] = new AbilityResourceImpactData(
+                        container.Ability.Main.BaseResourcesImpacts[i].ResourceType,
+                        Stats.EvaluateAbilitiesResourcesStat(
+                            container.Ability.Main.BaseResourcesImpacts[i].ResourceType,
+                            container.Ability.Main.BaseResourcesImpacts[i].ResourceChange));
+                }
+
+                if (container is EntityEquipable eq)
+                {
+                    eq.EquippedAbility.ApplyResourcesInfluencesOnImpacts(impacts);
+                }
+
+                return impacts;
+            }
+            protected virtual Vector3 DetermineCastOrigin(AbilityData ability)
+            {
+                switch (ability.Methods.CastOrigin)
                 {
                     case AbilityCastOrigin.Caster:
-                        castData.FillOrigin(Position);
-                        break;
+                        return Position;
                     case AbilityCastOrigin.AimAbsolute:
-                        throw new System.Exception("Aim Absolute depends on the type of game you're making. Override DetermineCastOrigin method first.");
+                        if (HasController == true)
+						{
+                            return Controller.AimTarget;
+                        }
+                        else
+						{
+                            return Position;
+						}
                 }
+
+                throw new System.Exception("Ability Cast Origin" + ability.Methods.CastOrigin + " not found.");
             }
-            protected virtual void DetermineCastDirection(AbilityCastData castData)
+            protected virtual Vector3 DetermineCastDirection(AbilityData ability, AbilityTriggerData triggerData)
             {
-                switch (castData.AbilityCast.Methods.DirectionMethod)
+                Vector3 dir;
+                switch (ability.Methods.DirectionMethod)
                 {
                     case DirectionMethod.AimBased:
-                        throw new System.Exception("AimBased depends on the type of game you're making. Override DetermineCastDirection method first.");
-                    case DirectionMethod.CharacterForward:
-                        castData.FillCastDirection(Forward);
+                        if (HasController == false)
+						{
+                            dir = PinouApp.Entity.Mode2D ? Forward2D.ToV3() : Forward;
+                        }
+                        else
+						{
+                            dir = Controller.AimDirection;
+                        }
                         break;
+                    case DirectionMethod.CharacterForward:
+                        dir = PinouApp.Entity.Mode2D ? Forward2D.ToV3() : Forward;
+                        break;
+                    default:
+                        throw new System.Exception("Direction Method " + ability.Methods.DirectionMethod + " not found.");
                 }
-            }
+
+                float spreadAngle = (1f - triggerData.Precision) * Mathf.PI;
+                if (PinouApp.Entity.Mode2D)
+				{
+                    dir = dir.SetZ(0f).normalized;
+                    float curAngle = dir.y > 0 ? Mathf.Acos(dir.x) : -Mathf.Acos(dir.x);
+                    curAngle += Random.Range(-spreadAngle, spreadAngle);
+
+                    return new Vector3(Mathf.Cos(curAngle), Mathf.Sin(curAngle));
+				}
+                else
+				{
+                    throw new System.Exception("To Implement: Spherical Direction Projection");
+				}
+			}
 
             protected virtual void PerformAbility(AbilityCastData castData)
             {
                 if (castData.AbilityCast.Methods.CastOriginTiming == AbilityCastOriginTiming.PerformEntrance)
                 {
-                    DetermineCastOrigin(castData);
+                    castData.FillOrigin(DetermineCastOrigin(castData.AbilityCast));
                 }
 
                 OnPerformAbility.Invoke(master, castData);
@@ -280,6 +378,24 @@ namespace Pinou.EntitySystem
             #endregion
 
             #region Coroutines
+            protected IEnumerator TriggerBurstAbilityCoroutine(IAbilityContainer container)
+			{
+                int triggerCount = 0;
+                float counter = container.AbilityTriggerData.BurstPeriod;
+                while (triggerCount < container.AbilityTriggerData.BurstCount)
+				{
+                    counter += Time.deltaTime;
+
+                    while (counter > container.AbilityTriggerData.BurstPeriod)
+					{
+                        TriggerAbility_Single(container);
+                        counter -= container.AbilityTriggerData.BurstPeriod;
+                        triggerCount++;
+                    }
+                    yield return null;
+				}
+			}
+
             private readonly AbilityState[] _abilityCastStatesArray = new AbilityState[]{
                     AbilityState.Performing,
                     AbilityState.HardRecovering,

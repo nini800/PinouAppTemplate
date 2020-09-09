@@ -75,6 +75,31 @@ MonoBehaviour:
         InputDirection: 0
   - E_OpenList: 00
     E_ToggleList: 
+    InputName: Game_ShootHeld
+    _computerInputs:
+    - InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 0
+        Key: 0
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 0
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 10
+        Axis: 0
+        InputDirection: 0
+  - E_OpenList: 00
+    E_ToggleList: 
     InputName: Game_Pause
     _computerInputs:
     - InputState: 1

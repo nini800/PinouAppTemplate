@@ -6,6 +6,7 @@ namespace Pinou.InputSystem
 	{
 		public bool Game_ShowPauseMenu => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_ShowPauseMenu) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_ShowPauseMenu)) : false;
 		public bool Game_Shoot => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_Shoot) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_Shoot)) : false;
+		public bool Game_ShootHeld => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_ShootHeld) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_ShootHeld)) : false;
 		public bool Game_Pause => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_Pause) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_Pause)) : false;
 		public bool Game_Dash => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_Dash) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_Dash)) : false;
 		public bool Game_Sprint_Toggle => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.Game_Sprint_Toggle) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.Game_Sprint_Toggle)) : false;

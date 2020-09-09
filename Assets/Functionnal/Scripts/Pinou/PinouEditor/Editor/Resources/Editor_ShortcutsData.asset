@@ -23,6 +23,8 @@ MonoBehaviour:
     path: 
   - name: PinouData
     path: Assets\Functionnal\Data\Pinou\Managers\Resources
+  - name: AutoScripts Configs
+    path: Assets\Functionnal\Data\Pinou\AutoScript Configs\
   - name: PlayerData
     path: Assets\Functionnal\Data\TAP\Entities\PlayerData
   - name: TAPData

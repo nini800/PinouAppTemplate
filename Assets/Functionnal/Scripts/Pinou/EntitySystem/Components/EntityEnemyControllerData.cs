@@ -288,21 +288,6 @@ namespace Pinou.EntitySystem
             {
                 aimTarget = PinouUtils.Maths.PredictAim(Position, target.Position, target.HasMovements ? target.Movements.AverageVelocity : Vector3.zero, _data.hasTarget_ExpectedProjectileSpeedAimFactor);
                 aimDirection = (aimTarget - Position).normalized;
-                if (PinouApp.Entity.Mode2D == true)
-                {
-                    float randSpread = Random.Range(-_data.hasTarget_AimSpread * 0.5f, _data.hasTarget_AimSpread * 0.5f);
-                    Vector3 crossProduct = Vector3.Cross(aimDirection, Vector3.forward) * randSpread;
-                    aimDirection = (aimDirection + crossProduct).normalized;
-                }
-                else
-				{
-                    float randAngle = Random.Range(0f, Mathf.PI * 2f);
-                    float randDst = Mathf.Sqrt(Random.value) * Random.Range(0f, _data.hasTarget_AimSpread);
-                    Vector2 randSpread = new Vector2(Mathf.Cos(randAngle), Mathf.Sin(randAngle)) * randDst;
-                    Vector3 crossProduct = Vector3.Cross(aimDirection, Vector3.up);
-
-                    aimDirection = (aimDirection + crossProduct * randSpread.x + Vector3.up * randSpread.y).normalized;
-                }
                 shoot = true;
             }
             protected void HandleApproachRangeState()

@@ -15,7 +15,8 @@ namespace Pinou
 			ModifyEntityHealth,
 			MakeEntityImmortal,
 			TeleportEntity,
-			SpawnLoot
+			SpawnLoot,
+			EquipSomething
 		}
 
 		public enum LocationMethod
@@ -51,6 +52,7 @@ namespace Pinou
 		[SerializeField, ShowIf("_cheatType", PinouCheatType.ModifyEntityHealth)] private float _healthModifier;
 		[SerializeField, ShowIf("_cheatType", PinouCheatType.MakeEntityImmortal)] private TargetEntity _entitiesToImmortalize;
 		[SerializeField, ShowIf("_cheatType", PinouCheatType.TeleportEntity)] private Vector3 _teleportOffset;
+		[SerializeField, ShowIf("_cheatType", PinouCheatType.EquipSomething)] private EntityEquipableBuilder _equipableBuilder;
 
 		public PinouCheatType CheatType => _cheatType;
 		public KeyCode CheatKey => _cheatKey;
@@ -67,7 +69,7 @@ namespace Pinou
         {
 			if (_canBeHeld == true)
 			{
-				if (Input.GetKey(_cheatKeyModifier) && Input.GetKey(_cheatKey))
+				if ((_cheatKeyModifier == KeyCode.None || Input.GetKey(_cheatKeyModifier)) && Input.GetKey(_cheatKey))
 				{
 					if (Input.GetKeyDown(_cheatKey))
 					{
@@ -82,7 +84,7 @@ namespace Pinou
 			}
 			else
 			{
-				if (Input.GetKey(_cheatKeyModifier) && Input.GetKeyDown(_cheatKey))
+				if ((_cheatKeyModifier == KeyCode.None || Input.GetKey(_cheatKeyModifier)) && Input.GetKeyDown(_cheatKey))
 				{
 					TriggerCheat();
 				}
@@ -106,6 +108,9 @@ namespace Pinou
 					break;
 				case PinouCheatType.SpawnLoot:
 					PinouApp.Loot.HandleSpawnDrops(new EntityDropData[] { _dropData }, GetLocation(_locationMethod));
+					break;
+				case PinouCheatType.EquipSomething:
+					PinouApp.Entity.Player.Equipment.Equip(_equipableBuilder.BuildEquipable(PinouApp.Entity.Player.Stats.MainExperience.Level));
 					break;
 			}
 			_lastTriggerTime = Time.time;

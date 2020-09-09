@@ -14,15 +14,15 @@ namespace Pinou.EntitySystem
 |ENUMLEVELS|
     }
 	
-	[Flags]
     public enum EntityEquipableType
     {
+		None = 0,
 |ENUMEQUIPMENTS|
     }
 	
-	[Flags]
     public enum EntityBodySocket
     {
+		None = 0,
 |ENUMSOCKETS|
     }
 }

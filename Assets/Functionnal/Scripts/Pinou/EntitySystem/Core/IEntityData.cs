@@ -27,6 +27,7 @@ namespace Pinou.EntitySystem
 
 		bool HasController { get; }
 		bool HasStats { get; }
+		bool HasEquipment { get; }
 		bool HasBeing { get; }
 		bool HasAbilities { get; }
 		bool HasInteractions { get; }
@@ -63,5 +64,6 @@ namespace Pinou.EntitySystem
 		Vector3 AimDirection { get; }
 		Vector3 AimTarget { get; }
 		bool Shoot { get; }
+		bool ShootHeld { get; }
 	}
 }

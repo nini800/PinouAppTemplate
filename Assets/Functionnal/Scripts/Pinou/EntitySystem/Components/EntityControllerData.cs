@@ -43,7 +43,9 @@ namespace Pinou.EntitySystem
             public Vector3 AimTarget => aimTarget;
 
             protected bool shoot;
+            protected bool shootHeld;
             public bool Shoot => shoot;
+            public bool ShootHeld => shootHeld;
 
             protected bool interact;
             public bool Interact => interact;

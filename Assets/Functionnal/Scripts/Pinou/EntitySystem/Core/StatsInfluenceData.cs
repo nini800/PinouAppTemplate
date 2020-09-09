@@ -31,11 +31,20 @@ namespace Pinou.EntitySystem
         [Serializable]
         public class AbilitiesResourcesInfluenceData
         {
+            public AbilitiesResourcesInfluenceData(EntityBeingResourceType resources, EntityAbilityResourceStat stats)
+			{
+                resourceInfluenced = resources;
+                statInfluenced = stats;
+            }
             [SerializeField] private EntityBeingResourceType resourceInfluenced;
             [SerializeField] private EntityAbilityResourceStat statInfluenced;
 
             public EntityBeingResourceType ResourceInfluenced => resourceInfluenced;
             public EntityAbilityResourceStat StatInfluenced => statInfluenced;
+
+            public bool InfluencesPositive => (statInfluenced & EntityAbilityResourceStat.PositiveFactor) > 0;
+            public bool InfluencesNegative => (statInfluenced & EntityAbilityResourceStat.NegativeFactor) > 0;
+            public bool InfluencesGlobal => (statInfluenced & EntityAbilityResourceStat.GlobalFactor) > 0;
         }
         [Header("Simple Stats")]
         [Space]
@@ -75,6 +84,12 @@ namespace Pinou.EntitySystem
 
         public class StatsInfluence
 		{
+            public StatsInfluence(StatsInfluenceData data, float flatAmount, float factorAmount)
+			{
+                _data = data;
+                _flatAmount = flatAmount;
+                _factorAmount = factorAmount;
+			}
             public StatsInfluence(StatsInfluenceData data, float evaluateAmount)
 			{
                 _data = data;
@@ -90,6 +105,11 @@ namespace Pinou.EntitySystem
 
 			public void Reevaluate(float amount)
 			{
+                if (_data == null) 
+                {
+                    Debug.LogWarning("This StatsInfluence has no data link.");
+                    return;
+                }
                 _flatAmount = _data.flatFormula.Evaluate(amount);
                 _factorAmount = _data.factorFormula.Evaluate(amount);
             }

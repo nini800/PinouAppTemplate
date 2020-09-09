@@ -144,6 +144,10 @@ namespace Pinou
         {
             component = GetComponentInParent<T>(true);
         }
+        protected void AutoFindReferenceInChildren<T>(ref T component) where T : Component
+        {
+            component = GetComponentInChildren<T>(true);
+        }
         #endregion
         #region Coroutines
         /// <summary>

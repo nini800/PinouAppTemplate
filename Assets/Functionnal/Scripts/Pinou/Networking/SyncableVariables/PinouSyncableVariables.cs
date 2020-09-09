@@ -18,6 +18,7 @@ namespace Pinou.Networking
 		EntityAbilityHitboxDestroyed = 128,
 		EntityDeath = 256,
 		EntityHealth = 512,
+		EntityEquip = 1024,
 	}
 
 	public static class PinouSyncableVariablesExtender
@@ -61,6 +62,8 @@ namespace Pinou.Networking
 					return 1;
 				case SyncableVariable.EntityHealth:
 					return 1;
+				case SyncableVariable.EntityEquip:
+					return 0;
 			}
 
 			return 0;

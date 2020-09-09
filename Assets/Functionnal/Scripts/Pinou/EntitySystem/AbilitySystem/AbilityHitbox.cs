@@ -22,6 +22,15 @@ namespace Pinou.EntitySystem
 			_hitboxData = _abilityData.Hitbox;
 			_hitboxLife = _hitboxData.MaxTargetHit;
 
+			if (_hitboxData.RandomSpeed == false)
+			{
+				_currentMoveSpeed = _hitboxData.MoveSpeed;
+			}
+			else
+			{
+				_currentMoveSpeed = Random.Range(_hitboxData.MoveSpeed, _hitboxData.MaxMoveSpeed);
+			}
+
 			if (_abilityData.Visual.HitboxVisualModel != null)
 			{
 				_visualModel = PinouApp.Pooler.Retrieve(_abilityData.Visual.HitboxVisualModel, transform.position, transform.rotation, transform);
@@ -48,9 +57,11 @@ namespace Pinou.EntitySystem
 		private Dictionary<Entity, float> _hitEntitiesDic = new Dictionary<Entity, float>();
 
 		private int _hitboxLife;
+		private float _currentMoveSpeed;
 		private bool _visualMode = false;
 
 		public AbilityCastData CastData => _castData;
+		public float CurrentMoveSpeed => _currentMoveSpeed;
 
 		public void ActivateVisualMode()
 		{
@@ -61,7 +72,7 @@ namespace Pinou.EntitySystem
 		{
 			if (_visualMode == false)
 			{
-				if (_hitboxData.MoveSpeed <= 0f)
+				if (_currentMoveSpeed <= 0f)
 				{
 					HandleStaticHitEntities();
 				}
@@ -116,7 +127,7 @@ namespace Pinou.EntitySystem
 		{
 			Entity[] hitEntities;
 			AbilityPerformer.AdditionalHitInfos[] hitEntitiesInfos;
-			var everything = AbilityPerformer.ComputeMovingHitboxHitEntities(_castData, transform.position);
+			var everything = AbilityPerformer.ComputeMovingHitboxHitEntities(_castData, transform.position, _currentMoveSpeed);
 			hitEntities = everything.Item1;
 			hitEntitiesInfos = everything.Item2;
 
@@ -183,7 +194,7 @@ namespace Pinou.EntitySystem
 		}
 		private void HandleMovements()
 		{
-			transform.position += transform.forward * _hitboxData.MoveSpeed * Time.fixedDeltaTime;
+			transform.position += transform.forward * _currentMoveSpeed * Time.fixedDeltaTime;
 		}
 
 		protected override void OnDestroyed()

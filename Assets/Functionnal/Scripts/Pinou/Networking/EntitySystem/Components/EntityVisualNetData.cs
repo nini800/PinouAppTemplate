@@ -45,13 +45,27 @@ namespace Pinou.Networking
             public new EntityAnimationsNetData.EntityAnimationsNet Animations => base.Animations as EntityAnimationsNetData.EntityAnimationsNet;
             public new EntityVisualNetData.EntityVisualNet Visual => base.Visual as EntityVisualNetData.EntityVisualNet;
             public new EntityLootNetData.EntityLootNet Loot => base.Loot as EntityLootNetData.EntityLootNet;
-            #endregion
+			#endregion
 
-            #region Utilities
-            #endregion
+			#region Behaviour
+			protected override void HandleRotateBody(RotationMethod method)
+            {
+                if (References.NetworkIdentity.hasAuthority == false)
+				{
+                    return;
+				}
+                else
+				{
+                    base.HandleRotateBody(method);
+				}
+			}
+			#endregion
 
-            #region Events
-            #endregion
-        }
-    }
+			#region Utilities
+			#endregion
+
+			#region Events
+			#endregion
+		}
+	}
 }

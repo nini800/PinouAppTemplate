@@ -16,11 +16,11 @@ namespace Pinou
 		[SerializeField] private PinouResourcesLayers _layers;
 		[SerializeField] private PinouResourcesMaterials _materials;
 		[SerializeField] private PinouResourcesEntities _entities;
-		[SerializeField] private PinouResourcesAbilityDatabse _abilityDatabase;
+		[SerializeField] private PinouResourcesDatabases _databases;
 		public PinouResourcesLayers Layers => _layers;
 		public PinouResourcesMaterials Materials => _materials;
 		public PinouResourcesEntities Entities => _entities;
-		public PinouResourcesAbilityDatabse AbilityDatabase => _abilityDatabase;
+		public PinouResourcesDatabases Databases => _databases;
 
 		public override PinouManager BuildManagerInstance()
 		{

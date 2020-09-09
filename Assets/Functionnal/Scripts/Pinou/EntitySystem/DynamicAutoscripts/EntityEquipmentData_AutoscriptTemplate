@@ -10,7 +10,7 @@ namespace Pinou.EntitySystem
 		[Space]
 |PRIVATEBUILDERFIELDS|
 
-		public EntityEquipableBuilder GetDefaultEquipmentBuilder(EntityEquipableType equipmentType)
+		public EntityEquipableBuilder GetDefaultEquipableBuilder(EntityEquipableType equipmentType)
 		{
 			switch(equipmentType)
 			{
@@ -41,6 +41,15 @@ namespace Pinou.EntitySystem
 				}
 				
 				throw new System.Exception("No Equipable " + equipmentType + " found.");
+			}
+			protected void SetEquipped(EntityEquipableType type, EntityEquipable equipable)
+			{
+				if (equipable != null && equipable.Type != type) { return; }
+				
+				switch(type)
+				{
+|SWITCHEQUIP|
+				}
 			}
         }
     }

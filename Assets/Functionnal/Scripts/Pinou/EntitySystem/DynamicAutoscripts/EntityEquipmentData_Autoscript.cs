@@ -8,39 +8,39 @@ namespace Pinou.EntitySystem
 	{
 		[Header("Default Equipment")]
 		[Space]
-		[SerializeField, ValidateInput("ValidateChestBuilder", "Builder must have Chest built type"), InlineEditor] protected EntityEquipableBuilder defaultChestBuilder;
-		private bool ValidateChestBuilder(EntityEquipableBuilder builder) { return builder == null || builder.BuiltType == EntityEquipableType.Chest; }
-		public bool HasDefaultChest => defaultChestBuilder != null;
-		public EntityEquipableBuilder DefaultChestBuilder => defaultChestBuilder;
+		[SerializeField, ValidateInput("ValidateShellBuilder", "Builder must have Shell built type"), InlineEditor] protected EntityEquipableBuilder defaultShellBuilder;
+		private bool ValidateShellBuilder(EntityEquipableBuilder builder) { return builder == null || builder.BuiltType == EntityEquipableType.Shell; }
+		public bool HasDefaultShell => defaultShellBuilder != null;
+		public EntityEquipableBuilder DefaultShellBuilder => defaultShellBuilder;
 
-		[SerializeField, ValidateInput("ValidatePantsBuilder", "Builder must have Pants built type"), InlineEditor] protected EntityEquipableBuilder defaultPantsBuilder;
-		private bool ValidatePantsBuilder(EntityEquipableBuilder builder) { return builder == null || builder.BuiltType == EntityEquipableType.Pants; }
-		public bool HasDefaultPants => defaultPantsBuilder != null;
-		public EntityEquipableBuilder DefaultPantsBuilder => defaultPantsBuilder;
+		[SerializeField, ValidateInput("ValidateWeaponBuilder", "Builder must have Weapon built type"), InlineEditor] protected EntityEquipableBuilder defaultWeaponBuilder;
+		private bool ValidateWeaponBuilder(EntityEquipableBuilder builder) { return builder == null || builder.BuiltType == EntityEquipableType.Weapon; }
+		public bool HasDefaultWeapon => defaultWeaponBuilder != null;
+		public EntityEquipableBuilder DefaultWeaponBuilder => defaultWeaponBuilder;
 
-		[SerializeField, ValidateInput("ValidateBootsBuilder", "Builder must have Boots built type"), InlineEditor] protected EntityEquipableBuilder defaultBootsBuilder;
-		private bool ValidateBootsBuilder(EntityEquipableBuilder builder) { return builder == null || builder.BuiltType == EntityEquipableType.Boots; }
-		public bool HasDefaultBoots => defaultBootsBuilder != null;
-		public EntityEquipableBuilder DefaultBootsBuilder => defaultBootsBuilder;
+		[SerializeField, ValidateInput("ValidateAuraBuilder", "Builder must have Aura built type"), InlineEditor] protected EntityEquipableBuilder defaultAuraBuilder;
+		private bool ValidateAuraBuilder(EntityEquipableBuilder builder) { return builder == null || builder.BuiltType == EntityEquipableType.Aura; }
+		public bool HasDefaultAura => defaultAuraBuilder != null;
+		public EntityEquipableBuilder DefaultAuraBuilder => defaultAuraBuilder;
 
-		[SerializeField, ValidateInput("ValidateGlovesBuilder", "Builder must have Gloves built type"), InlineEditor] protected EntityEquipableBuilder defaultGlovesBuilder;
-		private bool ValidateGlovesBuilder(EntityEquipableBuilder builder) { return builder == null || builder.BuiltType == EntityEquipableType.Gloves; }
-		public bool HasDefaultGloves => defaultGlovesBuilder != null;
-		public EntityEquipableBuilder DefaultGlovesBuilder => defaultGlovesBuilder;
+		[SerializeField, ValidateInput("ValidateReactorBuilder", "Builder must have Reactor built type"), InlineEditor] protected EntityEquipableBuilder defaultReactorBuilder;
+		private bool ValidateReactorBuilder(EntityEquipableBuilder builder) { return builder == null || builder.BuiltType == EntityEquipableType.Reactor; }
+		public bool HasDefaultReactor => defaultReactorBuilder != null;
+		public EntityEquipableBuilder DefaultReactorBuilder => defaultReactorBuilder;
 
 
-		public EntityEquipableBuilder GetDefaultEquipmentBuilder(EntityEquipableType equipmentType)
+		public EntityEquipableBuilder GetDefaultEquipableBuilder(EntityEquipableType equipmentType)
 		{
 			switch(equipmentType)
 			{
-				case EntityEquipableType.Chest:
-					return defaultChestBuilder;
-				case EntityEquipableType.Pants:
-					return defaultPantsBuilder;
-				case EntityEquipableType.Boots:
-					return defaultBootsBuilder;
-				case EntityEquipableType.Gloves:
-					return defaultGlovesBuilder;
+				case EntityEquipableType.Shell:
+					return defaultShellBuilder;
+				case EntityEquipableType.Weapon:
+					return defaultWeaponBuilder;
+				case EntityEquipableType.Aura:
+					return defaultAuraBuilder;
+				case EntityEquipableType.Reactor:
+					return defaultReactorBuilder;
 			}
 			
 			throw new System.Exception("No Equipable " + equipmentType + " found.");
@@ -48,35 +48,35 @@ namespace Pinou.EntitySystem
 	
         public partial class EntityEquipment : EntityComponent
         {
-			protected EntityEquipable equippedChest;
-			public bool HasChestEquipped => equippedChest != null;
-			public EntityEquipable EquippedChest => equippedChest;
+			protected EntityEquipable equippedShell;
+			public bool HasShellEquipped => equippedShell != null;
+			public EntityEquipable EquippedShell => equippedShell;
 
-			protected EntityEquipable equippedPants;
-			public bool HasPantsEquipped => equippedPants != null;
-			public EntityEquipable EquippedPants => equippedPants;
+			protected EntityEquipable equippedWeapon;
+			public bool HasWeaponEquipped => equippedWeapon != null;
+			public EntityEquipable EquippedWeapon => equippedWeapon;
 
-			protected EntityEquipable equippedBoots;
-			public bool HasBootsEquipped => equippedBoots != null;
-			public EntityEquipable EquippedBoots => equippedBoots;
+			protected EntityEquipable equippedAura;
+			public bool HasAuraEquipped => equippedAura != null;
+			public EntityEquipable EquippedAura => equippedAura;
 
-			protected EntityEquipable equippedGloves;
-			public bool HasGlovesEquipped => equippedGloves != null;
-			public EntityEquipable EquippedGloves => equippedGloves;
+			protected EntityEquipable equippedReactor;
+			public bool HasReactorEquipped => equippedReactor != null;
+			public EntityEquipable EquippedReactor => equippedReactor;
 
 
 			public bool GetHasEquipped(EntityEquipableType equipmentType)
 			{
 				switch(equipmentType)
 				{
-					case EntityEquipableType.Chest:
-						return HasChestEquipped;
-					case EntityEquipableType.Pants:
-						return HasPantsEquipped;
-					case EntityEquipableType.Boots:
-						return HasBootsEquipped;
-					case EntityEquipableType.Gloves:
-						return HasGlovesEquipped;
+					case EntityEquipableType.Shell:
+						return HasShellEquipped;
+					case EntityEquipableType.Weapon:
+						return HasWeaponEquipped;
+					case EntityEquipableType.Aura:
+						return HasAuraEquipped;
+					case EntityEquipableType.Reactor:
+						return HasReactorEquipped;
 				}
 				
 				throw new System.Exception("No Equipable " + equipmentType + " found.");
@@ -85,17 +85,35 @@ namespace Pinou.EntitySystem
 			{
 				switch(equipmentType)
 				{
-					case EntityEquipableType.Chest:
-						return equippedChest;
-					case EntityEquipableType.Pants:
-						return equippedPants;
-					case EntityEquipableType.Boots:
-						return equippedBoots;
-					case EntityEquipableType.Gloves:
-						return equippedGloves;
+					case EntityEquipableType.Shell:
+						return equippedShell;
+					case EntityEquipableType.Weapon:
+						return equippedWeapon;
+					case EntityEquipableType.Aura:
+						return equippedAura;
+					case EntityEquipableType.Reactor:
+						return equippedReactor;
 				}
 				
 				throw new System.Exception("No Equipable " + equipmentType + " found.");
+			}
+			protected void SetEquipped(EntityEquipableType type, EntityEquipable equipable)
+			{
+				switch(type)
+				{
+					case EntityEquipableType.Shell:
+						equippedShell = equipable;
+						break;
+					case EntityEquipableType.Weapon:
+						equippedWeapon = equipable;
+						break;
+					case EntityEquipableType.Aura:
+						equippedAura = equipable;
+						break;
+					case EntityEquipableType.Reactor:
+						equippedReactor = equipable;
+						break;
+				}
 			}
         }
     }

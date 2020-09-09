@@ -3,6 +3,9 @@ using Pinou.EntitySystem;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace Pinou
@@ -122,54 +125,184 @@ namespace Pinou
 		}
 	}
 
-	[Serializable]
-	public class PinouResourcesAbilityDatabse
+	public interface IDatabaseItem
 	{
-		[SerializeField] private List<AbilityData> _abilities;
+		void SetDatabaseID(int id);
+		int DatabaseID { get; }
+		DatabaseType DatabaseType { get; }
+	}
 
-		public AbilityData[] Abilities => _abilities.ToArray();
-
-		public AbilityData GetAbilityByID(int id)
+	[Serializable]
+	public class PinouResourcesDatabases
+	{
+		[Serializable]
+		public class Database
 		{
-			if (id < 0 || id >= _abilities.Count) { return null; }
-			return _abilities[id];
-		}
-
-		#if UNITY_EDITOR
-		[Button("Update Abilities IDs")]
-		private void E_AbilityDatabaseSecurityCheck()
-		{
-			List<AbilityData> abilitiesEncountered = new List<AbilityData>();
-			for (int i = _abilities.Count - 1; i >= 0; i--)
+			public enum DatabaseMethod
 			{
-				if (_abilities[i] == null || abilitiesEncountered.Contains(_abilities[i]))
+				IDatabaseItems,
+				ImportFromFolder
+			}
+			public Database(DatabaseType type)
+			{
+				_type = type;
+			}
+			[Title("@_type.ToString() + \"DataBase\"")]
+			[SerializeField] private DatabaseType _type;
+			[SerializeField] private DatabaseMethod _method;
+			[SerializeField, ShowIf("_method", DatabaseMethod.ImportFromFolder), FolderPath] private string _folder;
+			[SerializeField] private List<UnityEngine.Object> _items = new List<UnityEngine.Object>();
+			public DatabaseType Type => _type;
+			public UnityEngine.Object[] Items => _items.ToArray();
+
+			public int GetIndex(UnityEngine.Object item)
+			{
+				return _items.IndexOf(item);
+			}
+			public UnityEngine.Object GetItem(int id)
+			{
+				if (id < 0 || id >= _items.Count) { return null; }
+
+				return _items[id];
+			}
+
+			[Button("Update IDs")]
+			private void DatabaseSecurityCheck()
+			{
+				List<UnityEngine.Object> itemsEncountered = new List<UnityEngine.Object>();
+				for (int i = _items.Count - 1; i >= 0; i--)
 				{
-					_abilities.RemoveAt(i);
-					continue;
+					if (_items[i] == null || itemsEncountered.Contains(_items[i]))
+					{
+						_items.RemoveAt(i);
+						continue;
+					}
+					else
+					{
+						itemsEncountered.Add(_items[i]);
+					}
+				}
+				for (int i = 0; i < _items.Count; i++)
+				{
+					if (_items[i] is IDatabaseItem dbIt)
+					{
+						dbIt.SetDatabaseID(i);
+					}
+				}
+
+				if (_method == DatabaseMethod.ImportFromFolder)
+				{
+#if UNITY_EDITOR
+					PinouUtils.Editor.OnReloadScripts -= OnShouldCheckFolder_sc;
+					PinouUtils.Editor.OnReloadScripts += OnShouldCheckFolder_sc;
+					EditorApplication.playModeStateChanged -= OnShouldCheckFolder;
+					EditorApplication.playModeStateChanged += OnShouldCheckFolder;
+					OnShouldCheckFolder_sc();
+#endif
+				}
+			}
+
+#if UNITY_EDITOR
+			private void OnShouldCheckFolder(PlayModeStateChange obj)
+			{
+				OnShouldCheckFolder_sc();
+			}
+			private void OnShouldCheckFolder_sc()
+			{
+				string path = _folder + "/";
+
+				string[] objectsAtPath = Directory.GetFiles(path);
+				_items = new List<UnityEngine.Object>();
+
+				for (int i = 0; i < objectsAtPath.Length; i++)
+				{
+					UnityEngine.Object o = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(objectsAtPath[i]);
+					if (o != null)
+					{
+						_items.Add(o);
+					}
+				}
+			}
+#endif
+
+
+			public void AddItem(UnityEngine.Object item)
+			{
+				DatabaseSecurityCheck();
+				if (_items.Contains(item) == false)
+				{
+					_items.Add(item);
+					if (item is IDatabaseItem dbIt)
+					{
+						dbIt.SetDatabaseID(_items.Count - 1);
+					}
 				}
 				else
 				{
-					abilitiesEncountered.Add(_abilities[i]);
+					if (item is IDatabaseItem dbIt)
+					{
+						dbIt.SetDatabaseID(_items.IndexOf(item));
+					}
 				}
 			}
-			for (int i = 0; i < _abilities.Count; i++)
-			{
-				_abilities[i].E_SetAbilityID(i);
-			}
 		}
-		public int E_AddAbility(AbilityData ability)
+
+		[SerializeField] private string _databaseAutoscriptFolderPath;
+		[SerializeField, ValidateInput("ValidateDatabasesTypes")] private string[] _databasesTypes;
+		[SerializeField, ValidateInput("ValidateDatabases")] private List<Database> _databases = new List<Database>();
+		private bool ValidateDatabasesTypes(string[] databases)
 		{
-			E_AbilityDatabaseSecurityCheck();
-			if (_abilities.Contains(ability) == false)
-			{
-				_abilities.Add(ability);
-				return _abilities.Count - 1;
-			}
-			else
-			{
-				return _abilities.IndexOf(ability);
-			}
+			PinouAutoscript.UpdatePinouResourcesDatabasesAutoScript(_databaseAutoscriptFolderPath, databases);
+			return true;
 		}
-		#endif
+		private bool ValidateDatabases(List<Database> databases)
+		{
+			if (_databases.Count < _databasesTypes.Length)
+			{
+				for (int i = _databases.Count; i < _databasesTypes.Length; i++)
+				{
+					_databases.Add(new Database((DatabaseType)i));
+				}
+			}
+
+			for (int i = 0; i < _databases.Count; i++)
+			{
+				DatabaseType t = ((DatabaseType)i);
+				if (_databases[i].Type != t)
+				{
+					_databases[i].GetType().GetField("_type", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(_databases[i], t);
+				}
+			}
+
+			if (_databases.Count > _databasesTypes.Length)
+			{
+				for (int i = _databasesTypes.Length; i > _databases.Count; i--)
+				{
+					_databases.RemoveAt(i);
+				}
+			}
+			return true;
+		}
+
+		public Database GetDatabase(DatabaseType type)
+		{
+			int index = (int)type;
+			if (index < 0 || index > _databases.Count) { return null; }
+
+			return _databases[index];
+		}
+
+		public UnityEngine.Object GetItem(DatabaseType type, int index)
+		{
+			return GetDatabase(type).GetItem(index);
+		}
+		public void AddItem(DatabaseType type, UnityEngine.Object dbItem)
+		{
+			GetDatabase(type).AddItem(dbItem);
+		}
+		public int GetIndex(DatabaseType type, UnityEngine.Object dbItem)
+		{
+			return GetDatabase(type).GetIndex(dbItem);
+		}
 	}
 }

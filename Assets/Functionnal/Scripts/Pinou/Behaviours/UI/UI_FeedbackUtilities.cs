@@ -31,28 +31,28 @@ namespace Pinou.UI
             [SerializeField, ShowIf("@!_instant&&_useCurve")] private AnimationCurve _curve;
             [Space(3f)]
             [SerializeField, ShowIf("@!_instant&&E_SeparateSize")] private bool _sizeUseCurve = false;
-            [SerializeField, ShowIf(nameof(E_SeparateSize)), ShowIf("@!_instant&&E_SeparateSize&&!_sizeUseCurve")] private float _sizePower = 1;
-            [SerializeField, ShowIf(nameof(E_SeparateSize)), ShowIf("@!_instant&&E_SeparateSize&&_sizeUseCurve")] private AnimationCurve _sizeCurve;
+            [SerializeField, ShowIf("E_SeparateSize"), ShowIf("@!_instant&&E_SeparateSize&&!_sizeUseCurve")] private float _sizePower = 1;
+            [SerializeField, ShowIf("E_SeparateSize"), ShowIf("@!_instant&&E_SeparateSize&&_sizeUseCurve")] private AnimationCurve _sizeCurve;
             [Space(3f)]
             [SerializeField, ShowIf("@!_instant&&E_SeparateScale")] private bool _scaleUseCurve = false;
-            [SerializeField, ShowIf(nameof(E_SeparateScale)), ShowIf("@!_instant&&!E_SeparateScale&&_scaleUseCurve")] private float _scalePower = 1;
-            [SerializeField, ShowIf(nameof(E_SeparateScale)), ShowIf("@!_instant&&E_SeparateScale&&_scaleUseCurve")] private AnimationCurve _scaleCurve;
+            [SerializeField, ShowIf("E_SeparateScale"), ShowIf("@!_instant&&!E_SeparateScale&&_scaleUseCurve")] private float _scalePower = 1;
+            [SerializeField, ShowIf("E_SeparateScale"), ShowIf("@!_instant&&E_SeparateScale&&_scaleUseCurve")] private AnimationCurve _scaleCurve;
             [Space(3f)]
             [SerializeField, ShowIf("@!_instant&&E_SeparatePosition")] private bool _positionUseCurve = false;
-            [SerializeField, ShowIf(nameof(E_SeparatePosition)), ShowIf("@!_instant&&!E_SeparatePosition&&_positionUseCurve")] private float _positionPower = 1;
-            [SerializeField, ShowIf(nameof(E_SeparatePosition)), ShowIf("@!_instant&&E_SeparatePosition&&_positionUseCurve")] private AnimationCurve _positionCurve;
+            [SerializeField, ShowIf("E_SeparatePosition"), ShowIf("@!_instant&&!E_SeparatePosition&&_positionUseCurve")] private float _positionPower = 1;
+            [SerializeField, ShowIf("E_SeparatePosition"), ShowIf("@!_instant&&E_SeparatePosition&&_positionUseCurve")] private AnimationCurve _positionCurve;
             [Space(3f)]
             [SerializeField, ShowIf("@!_instant&&E_SeparateRotation")] private bool _rotationUseCurve = false;
-            [SerializeField, ShowIf(nameof(E_SeparateRotation)), ShowIf("@!_instant&&E_SeparateRotation&&!_rotationUseCurve")] private float _rotationPower = 1;
-            [SerializeField, ShowIf(nameof(E_SeparateRotation)), ShowIf("@!_instant&&E_SeparateRotation&&_rotationUseCurve")] private AnimationCurve _rotationCurve;
+            [SerializeField, ShowIf("E_SeparateRotation"), ShowIf("@!_instant&&E_SeparateRotation&&!_rotationUseCurve")] private float _rotationPower = 1;
+            [SerializeField, ShowIf("E_SeparateRotation"), ShowIf("@!_instant&&E_SeparateRotation&&_rotationUseCurve")] private AnimationCurve _rotationCurve;
             [Space(3f)]
             [SerializeField, ShowIf("@!_instant&&E_SeparateColor")] private bool _colorUseCurve = false;
-            [SerializeField, ShowIf(nameof(E_SeparateColor)), ShowIf("@!_instant&&E_SeparateColor&&!_colorUseCurve")] private float _colorPower = 1;
-            [SerializeField, ShowIf(nameof(E_SeparateColor)), ShowIf("@!_instant&&E_SeparateColor&&_colorUseCurve")] private AnimationCurve _colorCurve;
+            [SerializeField, ShowIf("E_SeparateColor"), ShowIf("@!_instant&&E_SeparateColor&&!_colorUseCurve")] private float _colorPower = 1;
+            [SerializeField, ShowIf("E_SeparateColor"), ShowIf("@!_instant&&E_SeparateColor&&_colorUseCurve")] private AnimationCurve _colorCurve;
             [Space(3f)]
             [SerializeField, ShowIf("@!_instant&&E_SeparateFontSize")] private bool _fontSizeUseCurve = false;
-            [SerializeField, ShowIf(nameof(E_SeparateFontSize)), ShowIf("@!_instant&&E_SeparateFontSize&&!_fontSizeUseCurve")] private float _fontSizePower = 1;
-            [SerializeField, ShowIf(nameof(E_SeparateFontSize)), ShowIf("@!_instant&&E_SeparateFontSize&&_fontSizeUseCurve")] private AnimationCurve _fontSizeCurve;
+            [SerializeField, ShowIf("E_SeparateFontSize"), ShowIf("@!_instant&&E_SeparateFontSize&&!_fontSizeUseCurve")] private float _fontSizePower = 1;
+            [SerializeField, ShowIf("E_SeparateFontSize"), ShowIf("@!_instant&&E_SeparateFontSize&&_fontSizeUseCurve")] private AnimationCurve _fontSizeCurve;
 
 #if UNITY_EDITOR
             [HideInInspector] public bool E_SeparateSize;
@@ -61,8 +61,9 @@ namespace Pinou.UI
             [HideInInspector] public bool E_SeparateRotation;
             [HideInInspector] public bool E_SeparateColor;
             [HideInInspector] public bool E_SeparateFontSize;
+#endif
 
-			public bool Instant { get => _instant; }
+            public bool Instant { get => _instant; }
             public bool RandomDelays { get => _randomDelays; }
             public float WaitTime { get => _waitTime; }
             public float MinWaitTime { get => _minWaitTime; }
@@ -91,7 +92,6 @@ namespace Pinou.UI
             public AnimationCurve RotationCurve { get => _rotationCurve; }
             public AnimationCurve ColorCurve { get => _colorCurve; }
             public AnimationCurve FontSizeCurve { get => _fontSizeCurve; }
-#endif
         }
         private class TransitionSnapshot
         {
@@ -548,6 +548,7 @@ namespace Pinou.UI
             }
             private void Validate()
 			{
+#if UNITY_EDITOR
                 for (int i = 0; i < _states.Length; i++)
                 {
                     _states[i].TransitionToState.E_SeparateColor = _states[i].Color_SeparateTransition;
@@ -556,6 +557,7 @@ namespace Pinou.UI
                     _states[i].TransitionToState.E_SeparateScale = _states[i].Scale_SeparateTransition;
                     _states[i].TransitionToState.E_SeparateSize = _states[i].Size_SeparateTransition;
                 }
+#endif
             }
         }
         [System.Serializable]
@@ -574,12 +576,14 @@ namespace Pinou.UI
             {
                 for (int i = 0; i < _states.Length; i++)
                 {
+#if UNITY_EDITOR
                     _states[i].TransitionToState.E_SeparateColor = _states[i].Color_SeparateTransition;
                     _states[i].TransitionToState.E_SeparatePosition = _states[i].Position_SeparateTransition;
                     _states[i].TransitionToState.E_SeparateRotation = _states[i].Rotation_SeparateTransition;
                     _states[i].TransitionToState.E_SeparateScale = _states[i].Scale_SeparateTransition;
                     _states[i].TransitionToState.E_SeparateSize = _states[i].Size_SeparateTransition;
                     _states[i].TransitionToState.E_SeparateFontSize = _states[i].FontSize_SeparateTransition;
+#endif
                 }
             }
         }

@@ -72,10 +72,33 @@ MonoBehaviour:
       _totalFrequency: 12.5
     _dashFX: {fileID: 5685497317728842041, guid: 18cdb267d3fdbcd438a33a41d289c83b,
       type: 3}
-  _abilityDatabase:
-    _abilities:
-    - {fileID: 11400000, guid: fe1ac3be63fa84347bff68f1d1dc9f40, type: 2}
-    - {fileID: 11400000, guid: 50ba871188a3dab4baca5a715b1cce68, type: 2}
-    - {fileID: 11400000, guid: 99c7b21bf806f1243a6153bdbdd67553, type: 2}
-    - {fileID: 11400000, guid: eb7f89f59f2939e44949e3c2142870ee, type: 2}
-    - {fileID: 11400000, guid: 7e1a23ee1287c564ea186e9d222524e2, type: 2}
+  _databases:
+    _databaseAutoscriptFolderPath: Assets\Functionnal\Scripts\Pinou\Core\Managers\
+    _databasesTypes:
+    - Ability
+    - WeaponSkins
+    - Icons
+    _databases:
+    - _type: 0
+      _method: 0
+      _folder: 
+      _items:
+      - {fileID: 11400000, guid: 78a7efd13f5203545a37ee8f8a503877, type: 2}
+      - {fileID: 11400000, guid: 69278f7331e4e76499a140aee2b0413b, type: 2}
+      - {fileID: 11400000, guid: 7e1a23ee1287c564ea186e9d222524e2, type: 2}
+      - {fileID: 11400000, guid: 50ba871188a3dab4baca5a715b1cce68, type: 2}
+      - {fileID: 11400000, guid: eb7f89f59f2939e44949e3c2142870ee, type: 2}
+      - {fileID: 11400000, guid: fe1ac3be63fa84347bff68f1d1dc9f40, type: 2}
+    - _type: 1
+      _method: 1
+      _folder: Assets/Visual/Prefabs/TAP/Weapons
+      _items:
+      - {fileID: 2697574632265198280, guid: e3a496e1d5c920846bd3a3d4390f75d7, type: 3}
+      - {fileID: 417636869670405568, guid: 20644ab5e38389542b894b5fa8114410, type: 3}
+      - {fileID: 6706360850568541691, guid: 27ed9dbb982f08c46a98075f19cfcf8a, type: 3}
+      - {fileID: 7596695476496489415, guid: 991a4f3df7ce66344bdb68e8dca920b8, type: 3}
+      - {fileID: 9178232691595574558, guid: af4453be8738e3447b2c032c961cae5e, type: 3}
+    - _type: 2
+      _method: 1
+      _folder: Assets/Visual/Sprites/TAP/ItemIcons
+      _items: []

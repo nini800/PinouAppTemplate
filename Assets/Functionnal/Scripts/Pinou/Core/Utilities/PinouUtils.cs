@@ -8,6 +8,7 @@ using System;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 using Pinou.EntitySystem;
+using Steamworks;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -1097,6 +1098,9 @@ namespace Pinou
                     }
                 }
                 private static int currentId = 0;
+                private bool _enabled = true;
+                public void Disable() { _enabled = false; }
+                public void Enable() { _enabled = true; }
 
                 public List<PriorityMethod> toInvoke;
 
@@ -1212,6 +1216,7 @@ namespace Pinou
                 }
                 public void Invoke()
                 {
+                    if (_enabled == false) { return; }
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {
@@ -1267,6 +1272,9 @@ namespace Pinou
                     }
                 }
                 private static int currentId = 0;
+                private bool _enabled = true;
+                public void Disable() { _enabled = false; }
+                public void Enable() { _enabled = true; }
 
                 public List<PriorityMethod> toInvoke;
 
@@ -1382,6 +1390,7 @@ namespace Pinou
                 }
                 public void Invoke(T param)
                 {
+                    if (_enabled == false) { return; }
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {
@@ -1437,6 +1446,9 @@ namespace Pinou
                     }
                 }
                 private static int currentId = 0;
+                private bool _enabled = true;
+                public void Disable() { _enabled = false; }
+                public void Enable() { _enabled = true; }
 
                 public List<PriorityMethod> toInvoke;
 
@@ -1552,6 +1564,7 @@ namespace Pinou
                 }
                 public void Invoke(T param, T2 param2)
                 {
+                    if (_enabled == false) { return; }
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {
@@ -1565,6 +1578,8 @@ namespace Pinou
                         }
                     }
                 }
+
+
 			}
             public class SelfAction<T, T2> : Action<T, T2>
             {
@@ -1607,6 +1622,9 @@ namespace Pinou
                     }
                 }
                 private static int currentId = 0;
+                private bool _enabled = true;
+                public void Disable() { _enabled = false; }
+                public void Enable() { _enabled = true; }
 
                 public List<PriorityMethod> toInvoke;
 
@@ -1722,6 +1740,7 @@ namespace Pinou
                 }
                 public void Invoke(T param, T2 param2, T3 param3)
                 {
+                    if (_enabled == false) { return; }
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {
@@ -1777,6 +1796,9 @@ namespace Pinou
                     }
                 }
                 private static int currentId = 0;
+                private bool _enabled = true;
+                public void Disable() { _enabled = false; }
+                public void Enable() { _enabled = true; }
 
                 public List<PriorityMethod> toInvoke;
 
@@ -1892,6 +1914,7 @@ namespace Pinou
                 }
                 public void Invoke(T param, T2 param2, T3 param3, T4 param4)
                 {
+                    if (_enabled == false) { return; }
                     PriorityMethod[] array = toInvoke.ToArray();
                     for (int i = array.Length - 1; i >= 0; i--)
                     {

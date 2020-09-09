@@ -136,7 +136,7 @@ namespace Pinou.Networking
             {
                 AbilityCastData castData = new AbilityCastData(
                     identifier.Caster,
-                    PinouApp.Resources.Data.AbilityDatabase.GetAbilityByID(identifier.AbilityID),
+                    (AbilityData)PinouApp.Resources.Data.Databases.GetItem(DatabaseType.Ability, identifier.AbilityID),
                     identifier.CastTime,
                     identifier.MultiCastID);
 
@@ -181,7 +181,7 @@ namespace Pinou.Networking
             {
                 castData = new AbilityCastData(
                     identifier.Caster,
-                    PinouApp.Resources.Data.AbilityDatabase.GetAbilityByID(identifier.AbilityID),
+                    (AbilityData)PinouApp.Resources.Data.Databases.GetItem(DatabaseType.Ability, identifier.AbilityID),
                     identifier.CastTime,
                     identifier.MultiCastID);
                 _storedAbilityCastData.Add(identifier, castData);

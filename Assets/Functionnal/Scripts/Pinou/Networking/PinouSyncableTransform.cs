@@ -50,6 +50,22 @@ namespace Pinou.Networking
 				PinouNetworkManager.MainBehaviour.RegisterGameObjectSyncVar(gameObject, SyncableVariable.Velocity, _rigidbodySyncFrequency, RegisterVelocity, SyncVelocity);
 			}
 		}
+		private void OnEnable()
+		{
+			if (_positionTarget != null)
+			{
+				_positionTarget.position = _positionTarget.position;
+			}
+			if (_rotationTarget != null)
+			{
+				_rotationTarget.rotation = _rotationTarget.rotation;
+			}
+			if (_rigidbodyTarget != null)
+			{
+				_rigidbodyTarget.velocity = _rigidbodyTarget.velocity;
+			}
+			Start();
+		}
 
 		private void Update()
 		{
@@ -62,16 +78,24 @@ namespace Pinou.Networking
 				HandleCheckDirty();
 			}
 		}
+
 		private void HandleMoveTowardTargets()
 		{
-			float posFinalSpeed = 1 / _positionSyncFrequency.GetFrequencyPeriod() * _posSpeed;
-			_positionTarget.position = Vector3.MoveTowards(_positionTarget.position, _targetPos, Time.deltaTime * posFinalSpeed);
-
-			float rotFinalSpeed = 1 / _rotationSyncFrequency.GetFrequencyPeriod() * _rotSpeed;
-			_rotationTarget.rotation = Quaternion.RotateTowards(_rotationTarget.rotation, _targetRot, Time.deltaTime * rotFinalSpeed);
-
-			float velFinalSpeed = 1 / _rigidbodySyncFrequency.GetFrequencyPeriod() * _velSpeed;
-			_rigidbodyTarget.velocity = Vector3.MoveTowards(_rigidbodyTarget.velocity, _targetVel, Time.deltaTime * velFinalSpeed);
+			if (_positionTarget != null)
+			{
+				float posFinalSpeed = 1 / _positionSyncFrequency.GetFrequencyPeriod() * _posSpeed;
+				_positionTarget.position = Vector3.MoveTowards(_positionTarget.position, _targetPos, Time.deltaTime * posFinalSpeed);
+			}
+			if (_rotationTarget != null)
+			{
+				float rotFinalSpeed = 1 / _rotationSyncFrequency.GetFrequencyPeriod() * _rotSpeed;
+				_rotationTarget.rotation = Quaternion.RotateTowards(_rotationTarget.rotation, _targetRot, Time.deltaTime * rotFinalSpeed);
+			}
+			if (_rigidbodyTarget != null)
+			{
+				float velFinalSpeed = 1 / _rigidbodySyncFrequency.GetFrequencyPeriod() * _velSpeed;
+				_rigidbodyTarget.velocity = Vector3.MoveTowards(_rigidbodyTarget.velocity, _targetVel, Time.deltaTime * velFinalSpeed);
+			}
 		}
 
 		private void HandleCheckDirty()

@@ -61,7 +61,7 @@ namespace Pinou.Networking
 					ent.GetComponent<NetworkIdentity>().AssignClientAuthority(NetworkServer.localConnection);
 				}
 
-				PinouNetworkManager.EntityBehaviour.RpcCreateEntity(ent.gameObject);
+				PinouNetworkManager.EntityBehaviour.RpcCreateEntity(ent.gameObject, pos, startRotation);
 
 				return ent;
 			}

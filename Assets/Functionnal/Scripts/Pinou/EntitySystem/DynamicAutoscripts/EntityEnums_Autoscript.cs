@@ -14,24 +14,24 @@ namespace Pinou.EntitySystem
 	[Flags]
     public enum EntityStatsLevelType
     {
-        Main = 1,
-        Power = 2
+        Main = 1
     }
 	
-	[Flags]
     public enum EntityEquipableType
     {
-        Chest = 0,
-        Pants = 1,
-        Boots = 2,
-        Gloves = 3
+		None = 0,
+        Shell = 1,
+        Weapon = 2,
+        Aura = 3,
+        Reactor = 4
     }
 	
-	[Flags]
     public enum EntityBodySocket
     {
-        Body = 0,
-        Weapon = 1,
-        Aura = 2
+		None = 0,
+        Shell = 1,
+        Weapon = 2,
+        Aura = 3,
+        Reactor = 4
     }
 }

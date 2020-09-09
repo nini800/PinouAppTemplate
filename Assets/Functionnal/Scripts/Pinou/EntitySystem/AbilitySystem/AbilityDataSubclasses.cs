@@ -13,8 +13,18 @@ namespace Pinou.EntitySystem
 			_resourceChange = change;
 		}
 
-		[SerializeField] private EntityBeingResourceType _resourceType;
+		[SerializeField, EnumPaging, ValidateInput("ValidateResourceType")] private EntityBeingResourceType _resourceType;
 		[SerializeField] private float _resourceChange = 0f;
+
+		private bool ValidateResourceType(EntityBeingResourceType resourceType)
+		{
+			if (PinouUtils.Maths.Pow2toIndex((int)resourceType) == -1)
+			{
+				_resourceType = 0;
+			}
+
+			return true;
+		}
 
 		public EntityBeingResourceType ResourceType => _resourceType;
 		public float ResourceChange => _resourceChange;
@@ -52,6 +62,40 @@ namespace Pinou.EntitySystem
 		public bool CanRotateDuringCast => _canRotateDuringCast;
 	}
 
+	[System.Serializable]
+	public class AbilityTriggerData
+	{
+		public AbilityTriggerData(AbilityTriggerMethod method, float editorPrecision, int burstCount, float burstPeriod, int multiCastCount)
+		{
+			_triggerMethod = method;
+			_precision = editorPrecision;
+			_burstCount = burstCount;
+			_burstPeriod = burstPeriod;
+			_multiCastCount = multiCastCount;
+			ValidatePrecision(_precision);
+		}
+		[SerializeField] private AbilityTriggerMethod _triggerMethod = AbilityTriggerMethod.Single;
+		[SerializeField, Range(0f, 1f), ValidateInput("ValidatePrecision")] private float _precision = 1f;
+		[SerializeField, HideInInspector] private float _tweakedPrecision = 1f;
+		[SerializeField, ReadOnly] private float _precisionAngle = 1f;
+		[SerializeField, ShowIf("_triggerMethod", AbilityTriggerMethod.Burst), Min(1)] private int _burstCount;
+		[SerializeField, ShowIf("_triggerMethod", AbilityTriggerMethod.Burst), Min(0.001f)] private float _burstPeriod = 0.05f;
+		[SerializeField, Min(1)] private int _multiCastCount = 1;
+
+		public AbilityTriggerMethod TriggerMethod => _triggerMethod;
+		public float EditorPrecision => _precision;
+		public float Precision => _tweakedPrecision;
+		public int BurstCount => _burstCount;
+		public float BurstPeriod => _burstPeriod;
+		public int MultiCastCount => _multiCastCount;
+
+		private bool ValidatePrecision(float p)
+		{
+			_tweakedPrecision = Mathf.Pow(_precision, 0.15f);
+			_precisionAngle = (1 - _tweakedPrecision) * 360f;
+			return true;
+		}
+	}
 
 	[System.Serializable]
 	public class AbilityTimingData
@@ -81,7 +125,9 @@ namespace Pinou.EntitySystem
 		[SerializeField, ShowIf("_type", HitboxType.Box)] private Vector3 _size;
 		[SerializeField, ShowIf("_type", HitboxType.Box)] private Vector3 _orientation;
 		[SerializeField] private Vector3 _offset;
+		[SerializeField] private bool _randomSpeed = false;
 		[SerializeField, Min(0f)] private float _moveSpeed;
+		[SerializeField, MinValue("@_moveSpeed"), ShowIf("_randomSpeed")] private float _maxMoveSpeed;
 		[Space]
 		[SerializeField] private bool _unlimitedLifeSpan = false;
 		[SerializeField, ShowIf("@_unlimitedLifeSpan == false"), Min(0f)] private float _lifeSpan = 0f;
@@ -95,7 +141,10 @@ namespace Pinou.EntitySystem
 		public Vector3 Size => _size;
 		public Vector3 Orientation => _orientation;
 		public Vector3 Offset => _offset;
+
+		public bool RandomSpeed => _randomSpeed;
 		public float MoveSpeed => _moveSpeed;
+		public float MaxMoveSpeed => _maxMoveSpeed;
 
 		public bool UnlimitedLifeSpan => _unlimitedLifeSpan;
 		public float LifeSpan => _lifeSpan;

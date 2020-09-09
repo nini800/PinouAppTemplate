@@ -11,9 +11,22 @@ namespace Pinou.Networking
 	public class PinouNetworkEntityBehaviour : NetworkBehaviour
 	{
 		[ClientRpc]
-		public void RpcCreateEntity(GameObject entity)
+		public void RpcCreateEntity(GameObject entity, Vector3 position, float rotation)
 		{
 			if (PinouNetworkManager.IsServer == true) { return; }
+
+
+			Entity ent = entity.GetComponent<Entity>(); 
+
+			ent.Position = position;
+			if (PinouApp.Entity.Mode2D)
+			{
+				ent.Rotation2D = rotation;
+			}
+			else
+			{
+				ent.Rotation = Quaternion.Euler(0f, rotation, 0f);
+			}
 
 			entity.SetActive(true);
 

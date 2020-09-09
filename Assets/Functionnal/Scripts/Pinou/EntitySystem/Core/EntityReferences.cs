@@ -15,6 +15,7 @@ namespace Pinou.EntitySystem
         [Header("Visual")]
         [Space]
         [SerializeField] protected Transform visualBody;
+        [SerializeField] protected EntityBody entityBody;
 
         [Header("References")]
         [Space]
@@ -26,6 +27,7 @@ namespace Pinou.EntitySystem
         public Rigidbody RigidBody => rigidBody;
         public Collider[] Colliders => colliders;
         public Transform VisualBody => visualBody;
+        public EntityBody EntityBody => entityBody;
 
         #region IEntityData
         public string EntityName => master.EntityName;
@@ -45,6 +47,7 @@ namespace Pinou.EntitySystem
 
         public bool HasController => master.HasController;
 		public bool HasStats => master.HasStats;
+		public bool HasEquipment => master.HasEquipment;
         public bool HasBeing => master.HasBeing;
         public bool HasAbilities => master.HasAbilities;
 		public bool HasInteractions => master.HasInteractions;
@@ -78,6 +81,7 @@ namespace Pinou.EntitySystem
         {
             AutoFindReference(ref master);
             AutoFindReference(ref inputReceiver);
+            AutoFindReference(ref entityBody);
         }
 #endif
 #endregion

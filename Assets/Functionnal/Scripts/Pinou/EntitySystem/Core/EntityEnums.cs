@@ -139,6 +139,14 @@ namespace Pinou.EntitySystem
         Visual_RotationSpeed = 1,
     }
 
+    public enum AbilityTriggerMethod
+	{
+        None = 0,
+        Single = 1,
+        Burst = 2,
+        Automatic = 3
+	}
+
     public enum EntityLinkedInfoType
 	{
         CurrentResource,

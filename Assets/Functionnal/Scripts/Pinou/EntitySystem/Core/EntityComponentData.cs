@@ -52,6 +52,7 @@ namespace Pinou.EntitySystem
 
             public bool HasController => master.HasController;
             public bool HasStats => master.HasStats;
+            public bool HasEquipment => master.HasEquipment;
             public bool HasBeing => master.HasBeing;
             public bool HasAbilities => master.HasAbilities;
             public bool HasInteractions => master.HasInteractions;

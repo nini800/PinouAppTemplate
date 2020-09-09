@@ -59,7 +59,15 @@ namespace Pinou
 			RectTransform.rotation = Quaternion.Euler(0, 0, angle);
 			_textTransform.rotation = Quaternion.Euler(0, 0, 0);
 
-			_text.text = Mathf.FloorToInt(Mathf.Clamp(Mathf.Abs(impactData.ResourceChange), 1f, Mathf.Infinity)).ToString();
+			float dmgValue = Mathf.Abs(impactData.ResourceChange);
+			if (dmgValue < 1f)
+			{
+				_text.text = dmgValue.ToString("0.0");
+			}
+			else
+			{
+				_text.text = Mathf.FloorToInt(dmgValue).ToString();
+			}
 		}
 
 		public bool UpdatePosition(ref float screenRatioFactor)

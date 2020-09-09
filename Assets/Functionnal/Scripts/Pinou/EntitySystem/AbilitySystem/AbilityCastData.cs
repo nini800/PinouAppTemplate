@@ -6,12 +6,17 @@ namespace Pinou.EntitySystem
 	public class AbilityCastData
 	{
 		#region Constructors
-        public AbilityCastData(Entity caster, AbilityData ability, float castTime = -1f, int multiCastID = 0)
+		public AbilityCastData(Entity caster, IAbilityContainer container, float castTime = -1f, int multiCastID = 0)
         {
+			_abilityCast = container.Ability;
 			_caster = caster;
-			_abilityCast = ability;
 			_castTime = castTime < 0f ? Time.time : castTime;
 			_multiCastID = multiCastID;
+
+			if (container is EntityEquipable eq)
+			{
+				_castingEquipable = eq;
+			}
         }
 		#endregion
 
@@ -22,6 +27,7 @@ namespace Pinou.EntitySystem
 		private List<AbilityCastResult> _results = new List<AbilityCastResult>();
 
 		private AbilityData _abilityCast;
+		private EntityEquipable _castingEquipable;
 
 		private AbilityResourceImpactData[] _baseResourcesImpacts = new AbilityResourceImpactData[] { };
 		private Vector3 _baseKnockback;
@@ -36,6 +42,7 @@ namespace Pinou.EntitySystem
 		public AbilityCastResult[] Results => _results.ToArray();
 
 		public AbilityData AbilityCast => _abilityCast;
+		public EntityEquipable CastingEquipable => _castingEquipable;
 
 		public AbilityResourceImpactData[] BaseResourcesImpacts => _baseResourcesImpacts;
 		public float GetResourceImpact(EntityBeingResourceType type)

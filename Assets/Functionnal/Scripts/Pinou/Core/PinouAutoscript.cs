@@ -5,6 +5,8 @@ using UnityEngine;
 using Pinou.EntitySystem;
 using Pinou.Networking;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;
 using Pinou.Editor;
@@ -102,8 +104,6 @@ namespace Pinou
             }
             File.WriteAllText(autoScriptPath, autoScript);
         }
-
-
 
 		public static void UpdateInputReceiverAutoScript(string autoScriptPath, PinouInputParameters[] gameInputs, PinouAxisParameters[] gameAxes)
         {
@@ -266,6 +266,37 @@ namespace Pinou
 
             File.WriteAllText(autoScriptPath, autoScript);
         }
+        public static void UpdatePinouResourcesDatabasesAutoScript(string fodlerPath, ICollection<string> databasesNames)
+        {
+            string enumTemplatePath = Directory.GetCurrentDirectory() + "\\" + fodlerPath + "PinouResourcesDatabasesTypes_AutoscriptTemplate";
+            string enumPath = Directory.GetCurrentDirectory() + "\\" + fodlerPath + "PinouResourcesDatabasesTypes_Autoscript.cs";
+
+            string enumAutoscript = File.ReadAllText(enumTemplatePath);
+
+            #region EnumBuilder
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < databasesNames.Count; i++)
+            {
+                strBuilder.Append("        ");
+                strBuilder.Append(databasesNames.ElementAt(i));
+                strBuilder.Append(" = ");
+                strBuilder.Append(i);
+                if (i < databasesNames.Count - 1)
+                    strBuilder.Append(",\n");
+            }
+            enumAutoscript = enumAutoscript.Replace("|ENUM|", strBuilder.ToString());
+            #endregion
+
+            if (File.Exists(enumPath) == false)
+            {
+                File.Create(enumPath);
+            }
+            if (enumAutoscript.Equals(File.ReadAllText(enumPath)) == false)
+            {
+                File.WriteAllText(enumPath, enumAutoscript);
+            }
+        }
+
 
         public static void UpdateBeingResourcesAutoScript(string entityBeingDataPath, string[] resourcesNames)
         {
@@ -769,6 +800,18 @@ namespace Pinou
             }
             autoscriptContent = autoscriptContent.Replace("|SWITCHEQUIPPED|", strBuilder.ToString());
             strBuilder.Length = 0;
+
+            for (int i = 0; i < equipmentTypes.Length; i++)
+            {
+                strBuilder.Append(string.Format("					case EntityEquipableType.{0}:\n", equipmentTypes[i]));
+                strBuilder.Append(string.Format("						equipped{0} = equipable;\n", equipmentTypes[i]));
+                strBuilder.Append("						break;");
+
+                if (i < equipmentTypes.Length - 1)
+                    strBuilder.Append("\n");
+            }
+            autoscriptContent = autoscriptContent.Replace("|SWITCHEQUIP|", strBuilder.ToString());
+            strBuilder.Length = 0;
             #endregion
 
             if (File.Exists(filePath) == false)
@@ -793,7 +836,7 @@ namespace Pinou
             {
                 strBuilder.Append(string.Format("		[SerializeField] protected Transform {0}Socket;\n", bodySockets[i].ToLower()));
                 strBuilder.Append(string.Format("		public bool Has{0}Socket => {1}Socket != null;\n", bodySockets[i], bodySockets[i].ToLower()));
-                strBuilder.Append(string.Format("		public Transform {0}Socket;\n", bodySockets[i]));
+                strBuilder.Append(string.Format("		public Transform {0}Socket => {1}Socket;\n", bodySockets[i], bodySockets[i].ToLower() ));
 
                 if (i < bodySockets.Length - 1)
                     strBuilder.Append("\n");
@@ -863,7 +906,7 @@ namespace Pinou
                 strBuilder.Append("        ");
                 strBuilder.Append(equipmentTypes[i]);
                 strBuilder.Append(" = ");
-                strBuilder.Append(i);
+                strBuilder.Append(i + 1);
                 if (i < equipmentTypes.Length - 1)
                     strBuilder.Append(",\n");
             }
@@ -875,7 +918,7 @@ namespace Pinou
                 strBuilder.Append("        ");
                 strBuilder.Append(bodySockets[i]);
                 strBuilder.Append(" = ");
-                strBuilder.Append(i);
+                strBuilder.Append(i + 1);
                 if (i < bodySockets.Length - 1)
                     strBuilder.Append(",\n");
             }

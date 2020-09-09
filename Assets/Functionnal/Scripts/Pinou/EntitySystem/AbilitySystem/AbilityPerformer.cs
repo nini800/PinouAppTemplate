@@ -124,17 +124,21 @@ namespace Pinou.EntitySystem
 
             return hitEntities.ToArray();
         }
-        public static (Entity[], AdditionalHitInfos[]) ComputeMovingHitboxHitEntities(AbilityCastData castData, Vector3 hitBoxOrigin, ICollection<Entity> toIgnore = null)
+        public static (Entity[], AdditionalHitInfos[]) ComputeMovingHitboxHitEntities(AbilityCastData castData, Vector3 hitBoxOrigin, float speed = -1f,  ICollection<Entity> toIgnore = null)
         {
             AbilityHitboxData hParams = castData.AbilityCast.Hitbox;
             List<Entity> hitEntities = new List<Entity>();
             List<float> hitEntitiesDst = new List<float>();
             List<AdditionalHitInfos> hitEntitiesInfos = new List<AdditionalHitInfos>();
             Dictionary<Collider, AdditionalHitInfos> colliderHitInfos = new Dictionary<Collider, AdditionalHitInfos>();
+            if (speed <= 0f)
+			{
+                speed = hParams.MoveSpeed;
+            }
 
             #region Detect all entities hit
             Collider[] entitiesHit = null;
-            AdditionalHitInfos baseHitInfos = new AdditionalHitInfos(hitBoxOrigin, castData.CastDirection, hParams.MoveSpeed * Time.fixedDeltaTime, default);
+            AdditionalHitInfos baseHitInfos = new AdditionalHitInfos(hitBoxOrigin, castData.CastDirection, speed * Time.fixedDeltaTime, default);
             #region Static Hitboxes
             #endregion
             #region Moving Hitboxes

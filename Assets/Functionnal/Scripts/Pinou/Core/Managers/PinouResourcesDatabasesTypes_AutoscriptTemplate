@@ -1,0 +1,7 @@
+﻿namespace Pinou
+{
+	public enum DatabaseType
+	{
+|ENUM|
+	}
+}
