@@ -3,8 +3,9 @@ using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Pinou.EntitySystem;
 
-namespace Pinou.EntitySystem
+namespace Pinou.ItemSystem
 {
 	[Serializable]
 	public class EntityEquipableAbilityResourcesInfluencesBase

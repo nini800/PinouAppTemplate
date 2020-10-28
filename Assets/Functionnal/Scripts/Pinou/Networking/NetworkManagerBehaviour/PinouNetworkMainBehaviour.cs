@@ -77,7 +77,14 @@ namespace Pinou.Networking
 				SyncableVariable curVar = (SyncableVariable)_syncableVariablesEnumValues.GetValue(i);
 				if ((curVar & varFlags) > 0)
 				{
-					_gameObjectSyncInfos[go].InvokeSyncMethod(curVar, reader);
+					try
+					{
+						_gameObjectSyncInfos[go].InvokeSyncMethod(curVar, reader);
+					}
+					catch
+					{
+						Debug.LogWarning(go + " | " + curVar + " | not present.");
+					}
 				}
 			}
 		}

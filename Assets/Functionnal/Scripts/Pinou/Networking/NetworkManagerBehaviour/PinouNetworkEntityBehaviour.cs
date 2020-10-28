@@ -16,15 +16,17 @@ namespace Pinou.Networking
 			if (PinouNetworkManager.IsServer == true) { return; }
 
 
-			Entity ent = entity.GetComponent<Entity>(); 
-
+			Entity ent = entity.GetComponent<Entity>();
+			ent.transform.position = position;
 			ent.Position = position;
 			if (PinouApp.Entity.Mode2D)
 			{
+				ent.transform.rotation = Quaternion.Euler(0f, rotation, 0f);
 				ent.Rotation2D = rotation;
 			}
 			else
 			{
+				ent.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
 				ent.Rotation = Quaternion.Euler(0f, rotation, 0f);
 			}
 

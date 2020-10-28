@@ -4,5 +4,36 @@ namespace Pinou.InputSystem
 {
 	public partial class PinouInputReceiver : PinouBehaviour
 	{
-|FUNCTIONS|	}
+|FUNCTIONS|	
+		
+		public bool GetPinouInput(PinouInput input)
+		{
+			switch(input)
+			{
+|SWITCHPINOUINPUT|
+			}
+			
+			throw new System.Exception("No Input " + input + " found.");
+		}
+		
+		public float GetPinouAxis(PinouAxis axis)
+		{
+			switch(axis)
+			{
+|SWITCHPINOUAXIS|
+			}
+			
+			throw new System.Exception("No Axis " + axis + " found.");
+		}
+		
+		public Vector2 GetPinouAxis2D(Pinou2DAxis axis)
+		{
+			switch(axis)
+			{
+|SWITCHPINOUAXIS2D|
+			}
+			
+			throw new System.Exception("No Axis " + axis + " found.");
+		}
+	}
 }

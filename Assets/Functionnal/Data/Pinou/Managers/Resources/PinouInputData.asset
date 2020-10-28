@@ -23,31 +23,6 @@ MonoBehaviour:
     SerializationNodes: []
   _autoScriptPath: Assets\Functionnal\Scripts\Pinou\InputSystem\
   _gameInputs:
-  - E_OpenList: 01
-    E_ToggleList: 
-    InputName: Game_ShowPauseMenu
-    _computerInputs:
-    - InputState: 1
-      HasModifiers: 0
-      BlockingModifiers: []
-      AllowingModifiers: []
-      Inputs:
-        ComputerInputType: 1
-        Key: 27
-        MouseButtonId: 0
-        WheelDirection: 0
-    _controllerInputs:
-    - E_OpenList: 
-      E_ToggleList: 
-      InputState: 1
-      HasModifiers: 0
-      BlockingModifiers: []
-      AllowingModifiers: []
-      Inputs:
-        ControllerInputType: 0
-        Button: 11
-        Axis: 1
-        InputDirection: 2
   - E_OpenList: 00
     E_ToggleList: 
     InputName: Game_Shoot
@@ -123,7 +98,7 @@ MonoBehaviour:
         Button: 11
         Axis: 0
         InputDirection: 0
-  - E_OpenList: 01
+  - E_OpenList: 00
     E_ToggleList: 
     InputName: Game_Dash
     _computerInputs:
@@ -196,6 +171,56 @@ MonoBehaviour:
       Inputs:
         ControllerInputType: 0
         Button: 1
+        Axis: 0
+        InputDirection: 0
+  - E_OpenList: 00
+    E_ToggleList: 
+    InputName: Game_ShowPauseMenu
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 27
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 11
+        Axis: 1
+        InputDirection: 2
+  - E_OpenList: 01
+    E_ToggleList: 
+    InputName: Game_OpenInventory
+    _computerInputs:
+    - InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ComputerInputType: 1
+        Key: 9
+        MouseButtonId: 0
+        WheelDirection: 0
+    _controllerInputs:
+    - E_OpenList: 
+      E_ToggleList: 
+      InputState: 1
+      HasModifiers: 0
+      BlockingModifiers: []
+      AllowingModifiers: []
+      Inputs:
+        ControllerInputType: 0
+        Button: 14
         Axis: 0
         InputDirection: 0
   - E_OpenList: 00

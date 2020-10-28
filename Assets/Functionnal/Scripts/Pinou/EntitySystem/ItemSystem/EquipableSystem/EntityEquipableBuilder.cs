@@ -3,8 +3,9 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pinou.EntitySystem;
 
-namespace Pinou.EntitySystem
+namespace Pinou.ItemSystem
 {
     [CreateAssetMenu(fileName = "EquipableBuilder", menuName = "Pinou/Entity/EquipableBuilder", order = 1000)]
 	public class EntityEquipableBuilder : SerializedScriptableObject

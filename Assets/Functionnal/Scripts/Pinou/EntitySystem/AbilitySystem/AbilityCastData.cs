@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Pinou.ItemSystem;
 
 namespace Pinou.EntitySystem
 {

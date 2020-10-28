@@ -1,10 +1,8 @@
 ﻿#pragma warning disable 0649, 0414
 using Mirror;
 using Pinou.EntitySystem;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Pinou.ItemSystem;
 
 namespace Pinou.Networking
 {

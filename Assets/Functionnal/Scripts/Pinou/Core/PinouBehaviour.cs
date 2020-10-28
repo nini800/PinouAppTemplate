@@ -453,6 +453,12 @@ namespace Pinou
         {
 
         }
+
+        [Button("Awake"), ShowIf("@!_awaken")]
+        private void AwakeButton()
+		{
+            Awake();
+		}
 #endif
         #endregion
 

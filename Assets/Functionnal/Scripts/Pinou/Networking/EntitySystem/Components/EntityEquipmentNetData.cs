@@ -1,7 +1,6 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Pinou.EntitySystem;
+using Pinou.ItemSystem;
 using Mirror;
 
 namespace Pinou.Networking

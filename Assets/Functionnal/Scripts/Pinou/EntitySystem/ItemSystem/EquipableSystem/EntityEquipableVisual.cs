@@ -1,8 +1,9 @@
 ﻿#pragma warning disable 0649
 using System;
 using UnityEngine;
+using Pinou.EntitySystem;
 
-namespace Pinou.EntitySystem
+namespace Pinou.ItemSystem
 {
 	[Serializable]
 	public class EntityEquipableVisual

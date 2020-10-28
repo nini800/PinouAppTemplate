@@ -3,13 +3,14 @@ namespace Pinou.InputSystem
 {
 	public enum PinouInput
 	{
-		Game_ShowPauseMenu,
 		Game_Shoot,
 		Game_ShootHeld,
 		Game_Pause,
 		Game_Dash,
 		Game_Sprint_Toggle,
 		Game_Sprint_Held,
+		Game_ShowPauseMenu,
+		Game_OpenInventory,
 		Editor_CameraLook,
 		Editor_CameraSprint,
 		Editor_CameraUp,

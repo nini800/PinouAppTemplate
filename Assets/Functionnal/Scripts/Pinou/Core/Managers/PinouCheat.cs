@@ -1,8 +1,8 @@
 ﻿#pragma warning disable 0649
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using UnityEngine;
 using Pinou.EntitySystem;
+using Pinou.ItemSystem;
 
 namespace Pinou
 {

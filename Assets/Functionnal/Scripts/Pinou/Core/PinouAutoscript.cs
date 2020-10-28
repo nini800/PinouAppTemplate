@@ -112,44 +112,55 @@ namespace Pinou
 
             string autoScript = File.ReadAllText(templatePath);
 
-            #region Inputs
-            StringBuilder functionsBuilder = new StringBuilder();
+            #region Inputs & Axes
+            StringBuilder strBuilder = new StringBuilder();
+            StringBuilder switchInputBuilder = new StringBuilder();
+            StringBuilder switchAxesBuilder = new StringBuilder();
+            StringBuilder switchAxes2DBuilder = new StringBuilder();
             for (int i = 0; i < gameInputs.Length; i++)
             {
-                functionsBuilder.Append("		public bool ");
-                functionsBuilder.Append(gameInputs[i].InputName);
-                functionsBuilder.Append(" => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.");
-                functionsBuilder.Append(gameInputs[i].InputName);
-                functionsBuilder.Append(") : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.");
-                functionsBuilder.Append(gameInputs[i].InputName);
-                functionsBuilder.Append(")) : false;\r\n");
+                strBuilder.Append(string.Format("		public bool {0} => IsFocused ? (AbsoluteFocus ? PinouApp.Input.GameInputPressed(PinouInput.{0}) : PinouApp.Input.GameInputPressed(_focusingPlayer.ControllerId, PinouInput.{0})) : false;\n", gameInputs[i].InputName));
+                switchInputBuilder.Append(string.Format("				case PinouInput.{0}:\n", gameInputs[i].InputName));
+                switchInputBuilder.Append(string.Format("					return {0};", gameInputs[i].InputName));
+
+                if (i < gameInputs.Length - 1)
+				{
+                    switchInputBuilder.Append("\n");
+                }
             }
-            #endregion
-            #region Axes
-            StringBuilder functionsBuilder2 = new StringBuilder();
             for (int i = 0; i < gameAxes.Length; i++)
             {
                 if (gameAxes[i].Is2D)
                 {
-                    functionsBuilder2.Append("		public Vector2 ");
-                    functionsBuilder2.Append(gameAxes[i].AxisName);
-                    functionsBuilder2.Append(" => IsFocused ? (AbsoluteFocus ? Vector2.zero : PinouApp.Input.GameAxis2DValue(_focusingPlayer.ControllerId, Pinou2DAxis.");
-                    functionsBuilder2.Append(gameAxes[i].AxisName);
-                    functionsBuilder2.Append(")) : Vector2.zero;\r\n");
+                    strBuilder.Append(string.Format("		public Vector2 {0} => IsFocused ? (AbsoluteFocus ? Vector2.zero : PinouApp.Input.GameAxis2DValue(_focusingPlayer.ControllerId, Pinou2DAxis.{0})) : Vector2.zero;\n", gameAxes[i].AxisName));
+                    switchAxes2DBuilder.Append(string.Format("				case Pinou2DAxis.{0}:\n", gameAxes[i].AxisName));
+                    switchAxes2DBuilder.Append(string.Format("					return {0};", gameAxes[i].AxisName));
                 }
                 else
                 {
-                    functionsBuilder.Append("		public float ");
-                    functionsBuilder.Append(gameAxes[i].AxisName);
-                    functionsBuilder.Append(" => IsFocused ? (AbsoluteFocus ? 0f : PinouApp.Input.GameAxisValue(_focusingPlayer.ControllerId, PinouAxis.");
-                    functionsBuilder.Append(gameAxes[i].AxisName);
-                    functionsBuilder.Append(")) : 0f;\r\n");
+                    strBuilder.Append(string.Format("		public float {0} => IsFocused ? (AbsoluteFocus ? 0f : PinouApp.Input.GameAxisValue(_focusingPlayer.ControllerId, PinouAxis.{0})) : 0f;\n", gameAxes[i].AxisName));
+                    switchAxesBuilder.Append(string.Format("				case PinouAxis.{0}:\n", gameAxes[i].AxisName));
+                    switchAxesBuilder.Append(string.Format("					return {0};", gameAxes[i].AxisName));
+                }
+                if (i < gameAxes.Length - 1)
+                {
+                    if (gameAxes[i].Is2D == false)
+					{
+                        switchAxesBuilder.Append("\n");
+                    }
+                    else
+					{
+                        switchAxes2DBuilder.Append("\n");
+                    }
                 }
             }
-            functionsBuilder.Append(functionsBuilder2);
+            autoScript = autoScript.Replace("|FUNCTIONS|", strBuilder.ToString());
+            autoScript = autoScript.Replace("|SWITCHPINOUINPUT|", switchInputBuilder.ToString());
+            autoScript = autoScript.Replace("|SWITCHPINOUAXIS|", switchAxesBuilder.ToString());
+            autoScript = autoScript.Replace("|SWITCHPINOUAXIS2D|", switchAxes2DBuilder.ToString());
             #endregion
-
-            autoScript = autoScript.Replace("|FUNCTIONS|", functionsBuilder.ToString());
+            #region Switches
+            #endregion
 
 
 

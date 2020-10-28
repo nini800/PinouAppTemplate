@@ -43,6 +43,8 @@ MonoBehaviour:
     path: Assets\Visual\Materials
   - name: FXs
     path: Assets\Visual\Prefabs\TAP\FXs
+  - name: Sprites
+    path: Assets\Visual\Sprites
   - name: Misc.
     path: 
   - name: Editor Data

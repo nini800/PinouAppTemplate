@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pinou.EntitySystem;
 
-namespace Pinou.EntitySystem
+namespace Pinou.ItemSystem
 {
 	public class EntityEquipable : IAbilityContainer
 	{
