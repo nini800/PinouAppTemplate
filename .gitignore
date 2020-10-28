@@ -3,7 +3,6 @@
 steam_appid.txt
 *.sln
 .vs/
-*.meta
 Assets/Functionnal/Data/TAP/
 Assets/Functionnal/Prefabs/TAP/Entities/HexaPlayer.prefab
 Assets/Functionnal/Scenes/Debug/Debug_Math.unity
