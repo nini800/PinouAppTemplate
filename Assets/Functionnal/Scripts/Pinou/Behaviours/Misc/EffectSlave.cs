@@ -93,6 +93,7 @@ namespace Pinou
                 }
             }
 
+
             public void Build(EffectSlave slave)
             {
                 _slave = slave;
