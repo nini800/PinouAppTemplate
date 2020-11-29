@@ -1,4 +1,3 @@
-#pragma warning disable 0649
 namespace Pinou
 {
 	public partial class PinouApp : PinouSingleton<PinouApp>
@@ -13,8 +12,8 @@ namespace Pinou
 		public static Pinou.PinouSceneManagerData.PinouSceneManager Scene=> _scene;
 		private static Pinou.PinouTimeManagerData.PinouTimeManager _time;
 		public static Pinou.PinouTimeManagerData.PinouTimeManager Time=> _time;
-		private static Pinou.Networking.PinouEntityManagerNetData.PinouEntityManagerNet _entity;
-		public static Pinou.Networking.PinouEntityManagerNetData.PinouEntityManagerNet Entity=> _entity;
+		private static Pinou.EntitySystem.PinouEntityManagerData.PinouEntityManager _entity;
+		public static Pinou.EntitySystem.PinouEntityManagerData.PinouEntityManager Entity=> _entity;
 		private static Pinou.EntitySystem.PinouCheatsManagerData.PinouCheatsManager _cheats;
 		public static Pinou.EntitySystem.PinouCheatsManagerData.PinouCheatsManager Cheats=> _cheats;
 		private static Pinou.PinouLootManagerData.PinouLootManager _loot;

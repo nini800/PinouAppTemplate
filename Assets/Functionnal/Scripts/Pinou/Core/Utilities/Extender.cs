@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Pinou
 {
@@ -59,6 +63,24 @@ namespace Pinou
             v.z = z;
             return v;
         }
+        public static Vector3 SetXY(this Vector3 v, float x, float y)
+		{
+            v.x = x;
+            v.y = y;
+            return v;
+		}
+        public static Vector3 SetXZ(this Vector3 v, float x, float z)
+        {
+            v.x = x;
+            v.z = z;
+            return v;
+        }
+        public static Vector3 SetYZ(this Vector3 v, float y, float z)
+        {
+            v.y = y;
+            v.z = z;
+            return v;
+        }
         public static Vector3 AddX(this Vector3 v, float x)
         {
             v.x += x;
@@ -71,6 +93,90 @@ namespace Pinou
         }
         public static Vector3 AddZ(this Vector3 v, float z)
         {
+            v.z += z;
+            return v;
+        }
+        public static Vector3 AddXY(this Vector3 v, float x, float y)
+        {
+            v.x += x;
+            v.y += y;
+            return v;
+        }
+        public static Vector3 AddXZ(this Vector3 v, float x, float z)
+        {
+            v.x += x;
+            v.z += z;
+            return v;
+        }
+        public static Vector3 AddYZ(this Vector3 v, float y, float z)
+        {
+            v.y += y;
+            v.z += z;
+            return v;
+        }
+        public static Vector3Int SetX(this Vector3Int v, int x)
+        {
+            v.x = x;
+            return v;
+        }
+        public static Vector3Int SetY(this Vector3Int v, int y)
+        {
+            v.y = y;
+            return v;
+        }
+        public static Vector3Int SetZ(this Vector3Int v, int z)
+        {
+            v.z = z;
+            return v;
+        }
+        public static Vector3Int SetXY(this Vector3Int v, int x, int y)
+        {
+            v.x = x;
+            v.y = y;
+            return v;
+        }
+        public static Vector3Int SetXZ(this Vector3Int v, int x, int z)
+        {
+            v.x = x;
+            v.z = z;
+            return v;
+        }
+        public static Vector3Int SetYZ(this Vector3Int v, int y, int z)
+        {
+            v.y = y;
+            v.z = z;
+            return v;
+        }
+        public static Vector3Int AddX(this Vector3Int v, int x)
+        {
+            v.x += x;
+            return v;
+        }
+        public static Vector3Int AddY(this Vector3Int v, int y)
+        {
+            v.y += y;
+            return v;
+        }
+        public static Vector3Int AddZ(this Vector3Int v, int z)
+        {
+            v.z += z;
+            return v;
+        }
+        public static Vector3Int AddXY(this Vector3Int v, int x, int y)
+        {
+            v.x += x;
+            v.y += y;
+            return v;
+        }
+        public static Vector3Int AddXZ(this Vector3Int v, int x, int z)
+        {
+            v.x += x;
+            v.z += z;
+            return v;
+        }
+        public static Vector3Int AddYZ(this Vector3Int v, int y, int z)
+        {
+            v.y += y;
             v.z += z;
             return v;
         }
@@ -219,6 +325,12 @@ namespace Pinou
             v.y = y;
             return v;
         }
+        public static Vector2 SetXY(this Vector2 v, float x, float y)
+        {
+            v.x = x;
+            v.y = y;
+            return v;
+        }
         public static Vector2 AddX(this Vector2 v, float x)
         {
             v.x += x;
@@ -229,6 +341,45 @@ namespace Pinou
             v.y += y;
             return v;
         }
+        public static Vector2 AddXY(this Vector2 v, float x, float y)
+        {
+            v.x += x;
+            v.y += y;
+            return v;
+        }
+        public static Vector2Int SetX(this Vector2Int v, int x)
+        {
+            v.x = x;
+            return v;
+        }
+        public static Vector2Int SetY(this Vector2Int v, int y)
+        {
+            v.y = y;
+            return v;
+        }
+        public static Vector2Int SetXY(this Vector2Int v, int x, int y)
+        {
+            v.x = x;
+            v.y = y;
+            return v;
+        }
+        public static Vector2Int AddX(this Vector2Int v, int x)
+        {
+            v.x += x;
+            return v;
+        }
+        public static Vector2Int AddY(this Vector2Int v, int y)
+        {
+            v.y += y;
+            return v;
+        }
+        public static Vector2Int AddXY(this Vector2Int v, int x, int y)
+        {
+            v.x += x;
+            v.y += y;
+            return v;
+        }
+
         public static Vector2 Add(this Vector2 v, Vector2 v2)
         {
             v.x += v2.x;
@@ -344,6 +495,8 @@ namespace Pinou
         #endregion
 
         #region Array
+        public static T GetLoop<T>(this T[] array, int index) => array.Length > 0 ? array[index % array.Length] : default;
+
         public static void ForEach<T>(this T[] array, System.Action<T> action)
         {
             for (int i = 0; i < array.Length; i++)
@@ -474,5 +627,8 @@ namespace Pinou
         }
         #endregion
 
+        #region Misc.
+        
+        #endregion
     }
 }

@@ -9,12 +9,15 @@ Assets/Functionnal/Scenes/Debug/Debug_Math.unity
 Assets/Functionnal/Prefabs/TAP/Entities/TriEnemy.prefab
 Assets/Functionnal/Scripts/TAP/
 Assets/Functionnal/Sounds/
+Assets/Functionnal/Prefabs/TAP
 Assets/Others/
+Assets/Visual/Animations/TAP/
 Assets/Visual/Animations/UI/TAP/
 Assets/Visual/Materials/TAP/
 Assets/Visual/Prefabs/TAP/
 Assets/Visual/PostProcessingVolumes/TAP/
 Assets/Visual/Sprites/TAP/
+Assets/Plugins/
 Build/
 Library/
 obj/

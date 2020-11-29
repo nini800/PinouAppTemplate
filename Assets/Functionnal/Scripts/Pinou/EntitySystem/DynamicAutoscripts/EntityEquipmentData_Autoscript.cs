@@ -100,6 +100,8 @@ namespace Pinou.EntitySystem
 			}
 			protected void SetEquipped(EntityEquipableType type, EntityEquipable equipable)
 			{
+				if (equipable != null && equipable.Type != type) { return; }
+				
 				switch(type)
 				{
 					case EntityEquipableType.Shell:

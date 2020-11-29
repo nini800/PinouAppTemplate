@@ -14,7 +14,6 @@ namespace Pinou.Editor
 {
 	public static class Editor_Shortcuts
 	{
-
         #region Constants
         private const float WINDOW_WIDTH = 210f;
         public const float BUTTON_HEIGHT = 21f;
@@ -40,7 +39,7 @@ namespace Pinou.Editor
             foreach (string a in AssetDatabase.FindAssets("t:scene"))
             {
                 string path = AssetDatabase.GUIDToAssetPath(a);
-                if (path.Contains("Assets/Others") || path.Contains("Packages/com"))
+                if (path.Contains("Assets/Others") || path.Contains("Packages/com") || path.Contains("Plugins/"))
                 {
                     continue;
                 }

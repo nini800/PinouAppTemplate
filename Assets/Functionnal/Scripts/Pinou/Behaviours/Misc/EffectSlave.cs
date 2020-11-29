@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Pinou.UI;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
-using Pinou.Editor;
 #endif
 
 namespace Pinou
@@ -93,6 +93,17 @@ namespace Pinou
                 }
             }
 
+            public Effect(EffectSlave slave) => Build(slave);
+
+            public Effect(EffectSlave slave, PinouAnimator pAnim, string animationName, int layer, bool instantTransition)
+            {
+                _animator = pAnim;
+                _animationName = animationName;
+                _animationLayer = layer;
+                _instantAnimationTransition = instantTransition;
+
+                Build(slave);
+            }
 
             public void Build(EffectSlave slave)
             {
@@ -141,7 +152,10 @@ namespace Pinou
             [SerializeField, ShowIf("_type", EffectType.PlayParticleSystem)] private PinouParticleSystem[] _particleSystems;
 
             private Color[] _originalEmissionColors;
-            public Color[] OriginalEmissionColors => _originalEmissionColors;
+
+
+
+			public Color[] OriginalEmissionColors => _originalEmissionColors;
 
             public void Invoke()
             {
@@ -220,9 +234,11 @@ namespace Pinou
             }
         }
 
-        [SerializeField] private bool _playOnAwake = false;
+		[SerializeField] private bool _playOnAwake = false;
         [SerializeField] private bool _playOnEnable = false;
         [SerializeField] private Effect[] _effects;
+
+        public Effect[] Effects => _effects;
 
 
         protected override void OnAwake()
@@ -245,7 +261,14 @@ namespace Pinou
             }
         }
 
-		[Button("Play")]
+        public void CreateAnimatorEffect(PinouAnimator pAnim, string animationName, int layer, bool instantTransition)
+        {
+            Effect newEffect = new Effect(this, pAnim, animationName, layer, instantTransition);
+            Array.Resize(ref _effects, _effects.Length + 1);
+            _effects[_effects.Length - 1] = newEffect;
+        }
+
+        [Button("Play")]
         public void Invoke()
         {
 #if UNITY_EDITOR
